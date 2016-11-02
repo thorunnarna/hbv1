@@ -1,7 +1,18 @@
 package project.service;
 
+import project.persistence.repositories.Repository;
+import project.persistence.entities.*;
+
+
 /**
  * Created by halld on 02-Nov-16.
  */
 public class SearchService {
+    Repository repository;
+
+    public User[] findAll(){}
+
+    public User[] findByName(String username){}
+
+    public int createFriendship(int userId1, int userId2){}
 }
