@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/demo") // Notice here that the Request Mapping is set at the Class level
-public class DemoController {
+public class ScheduleController {
 
 
     // Notice here that since the class has "/demo", this path is "/demo/page"

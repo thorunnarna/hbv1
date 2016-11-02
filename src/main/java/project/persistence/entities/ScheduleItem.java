@@ -7,8 +7,8 @@ public class ScheduleItem {
     private String title;
     private int id;
     private int userId;
-    //private datetime  Starttime;
-    //private user[] taggedUsers;
+    //private DateTime  Starttime;
+    private User[] taggedUsers;
     //private datetime endTime;
     private int weekNo;
     private int year;

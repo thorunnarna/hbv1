@@ -6,7 +6,7 @@ package project.persistence.entities;
 public class Group {
 
     private String grpId;
-    //private members: User[]; - þarf að tengja við user klasa
+    private User[] members;
     private String grpName;
 
     public String getGrpId(){return grpId;};
