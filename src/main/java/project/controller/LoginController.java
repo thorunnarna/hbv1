@@ -3,7 +3,6 @@ package project.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import project.persistence.entities.User;
-import project.service.LoginService;
 
 /**
  * Created by halld on 02-Nov-16.
