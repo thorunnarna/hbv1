@@ -4,6 +4,11 @@
 SQL DATABASE SCRIPT
 ===================
 
+
+|---------|
+| FILTERS |
+|---------|
+
 -- Table: public."Filters"
 
 -- DROP TABLE public."Filters";
@@ -54,6 +59,11 @@ CREATE INDEX fki_userfilter_fkey
     (userId)
     TABLESPACE pg_default;
 
+
+|------------|
+| FRIENDSHIP |
+|------------|
+
 -- Table: public."Friendship"
 
 -- DROP TABLE public."Friendship";
@@ -99,6 +109,11 @@ CREATE INDEX fki_user2_fkey
     (userId2)
     TABLESPACE pg_default;
 
+
+|-------|
+| GROUP |
+|-------|
+
 -- Table: public."Group"
 
 -- DROP TABLE public."Group";
@@ -116,6 +131,11 @@ TABLESPACE pg_default;
 
 ALTER TABLE public."Group"
     OWNER to postgres;
+
+
+|---------|
+| MEMBERS |
+|---------|
 
 -- Table: public."Members"
 
@@ -162,6 +182,11 @@ CREATE INDEX fki_member_fkey
     (userId)
     TABLESPACE pg_default;
 
+
+|--------------|
+| SCHEDULEITEM |
+|--------------|
+
 -- Table: public."ScheduleItem"
 
 -- DROP TABLE public."ScheduleItem";
@@ -201,6 +226,10 @@ CREATE INDEX fki_userid
     (userid)
     TABLESPACE pg_default;
 
+|------|
+| USER |
+|------|
+
 -- Table: public."User"
 
 -- DROP TABLE public."User";
@@ -220,6 +249,10 @@ TABLESPACE pg_default;
 
 ALTER TABLE public."User"
     OWNER to postgres;
+
+|------|
+| TAGS |
+|------|
 
 -- Table: public."Tags"
 
