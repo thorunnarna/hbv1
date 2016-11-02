@@ -3,7 +3,7 @@ package project.service.Implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.persistence.entities.PostitNote;
-import project.persistence.repositories.PostitNoteRepository;
+import project.persistence.repositories.Repository;
 import project.service.PostitNoteService;
 
 import java.util.Collections;
@@ -13,11 +13,11 @@ import java.util.List;
 public class PostitNoteServiceImplementation implements PostitNoteService {
 
     // Instance Variables
-    PostitNoteRepository repository;
+    Repository repository;
 
     // Dependency Injection
     @Autowired
-    public PostitNoteServiceImplementation(PostitNoteRepository repository) {
+    public PostitNoteServiceImplementation(Repository repository) {
         this.repository = repository;
     }
 

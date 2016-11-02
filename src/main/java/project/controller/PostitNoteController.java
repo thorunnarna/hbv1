@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import project.persistence.entities.PostitNote;
-import project.persistence.repositories.PostitNoteRepository;
 import project.service.PostitNoteService;
 
 @Controller
