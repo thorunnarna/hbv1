@@ -18,7 +18,7 @@ public class LoginController {
         this.loginService = loginService;
     }
 
-    public String signUpPost(Model model, User){
+    public String signUpPost(Model model, User user){
         return "";
     }
 

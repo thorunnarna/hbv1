@@ -14,6 +14,10 @@ public class ScheduleController {
 
     ScheduleService scheduleService;
 
+    public ScheduleController(ScheduleService scheduleService){
+        this.scheduleService = scheduleService;
+    }
+
     public String viewGetScheduleForUser(int userId, Model model){
         return "";
     }
@@ -26,7 +30,7 @@ public class ScheduleController {
         return "";
     }
 
-    public String insertItemPost(Model model, ScheduleItem){
+    public String insertItemPost(Model model, ScheduleItem scheduleItem){
         return "";
     }
 }

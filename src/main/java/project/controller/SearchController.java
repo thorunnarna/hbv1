@@ -14,8 +14,8 @@ public class SearchController {
 
     SearchService searchService;
 
-    public SearchController(SearchController searchController){
-        this.searchService = searchController;
+    public SearchController(SearchService searchService){
+        this.searchService = searchService;
     }
 
     public String viewGetListOfUsers(Model model){
