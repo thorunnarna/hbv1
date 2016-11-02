@@ -54,6 +54,6 @@ public class PostitNoteServiceImplementation implements PostitNoteService {
 
     @Override
     public List<PostitNote> findByName(String name) {
-        return repository.findByName(name);
+        return findByName(name);
     }
 }
