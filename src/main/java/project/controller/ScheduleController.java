@@ -1,22 +1,32 @@
 package project.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import project.persistence.entities.*;
+import project.service.ScheduleService;
 
 /**
- * Small controller just to show that you can have multiple controllers
- * in your project
+ * Created by halld on 02-Nov-16.
  */
+
 @Controller
-@RequestMapping("/demo") // Notice here that the Request Mapping is set at the Class level
 public class ScheduleController {
 
+    ScheduleService scheduleService;
 
-    // Notice here that since the class has "/demo", this path is "/demo/page"
-    @RequestMapping("/page")
-    public String demoPage(){
-        return "demo/demo"; // this returns a .jsp file with the path /webapp/WEB-INF/jsp/demo/demo.jsp
+    public String viewGetScheduleForUser(int userId, Model model){
+        return "";
     }
 
+    public String viewGetScheduleByFilters(Model model, String[] filters, int userId){
+        return "";
+    }
 
+    public String saveSchedulePost(Model model){
+        return "";
+    }
+
+    public String insertItemPost(Model model, ScheduleItem){
+        return "";
+    }
 }
