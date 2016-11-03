@@ -15,8 +15,7 @@ import java.util.List;
  * http://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/html/repositories.html
  *
  */
-public interface Repository extends JpaRepository<PostitNote, Long> {
-    
+public interface Repository extends JpaRepository<User, Long> {
 
     @Query(value = "SELECT u FROM User u")
     List<User> findAllUsers();
