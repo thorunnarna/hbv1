@@ -12,7 +12,11 @@ public interface RepositoryInterface {
 
     User findUsersByName(String username);
 
-    List<ScheduleItem> findItemsByNameWeek(String name, int weekNo);
+    User findUserById(int userId);
+
+    List<ScheduleItem> findItemsByUserWeek(int userId, int weekNo);
+
+    List<ScheduleItem> findItemsByUserWeekFilter(int userId, int weekNo, String filter);
 
     int createUser(String username, String password, String photo, String school);
 
@@ -34,15 +38,15 @@ public interface RepositoryInterface {
 
     void editGroupName(int grpId, String grpName);
 
-    void addGroupMember(User user);
+    void addGroupMember(int groupId, int userId);
 
-    void removeGroupMember(int userId);
+    void removeGroupMember(int groupId, int userId);
 
-    int createFriendship(int userId1, int userId2);
+    void createFriendship(int userId1, int userId2);
 
     void deleteFriendship(int friendshipId);
 
-    int createFilter(String filterName, String username);
+    int createFilter(String filterName, int userId, int itemId);
 
     void deleteFilter(int filterId);
 

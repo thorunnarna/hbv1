@@ -52,9 +52,22 @@ public class Repository implements RepositoryInterface {
         return user;
     }
 
-    public List<ScheduleItem> findItemsByNameWeek(String name, int weekNo){
-        String SQL = "select * from ScheduleItem where username = ? and weekNo = ?;";
-        List<ScheduleItem> items = jdbcTemplate.query(SQL, new Object[]{name, weekNo}, new ItemMapper());
+    public User findUserById(int userId) {
+        String SQL = "select * from User where id=?";
+        User user = (User)jdbcTemplate.queryForObject(SQL, new Object[]{userId}, new UserMapper());
+        return user;
+    }
+
+    public List<ScheduleItem> findItemsByUserWeek(int userId, int weekNo){
+        String SQL = "select * from ScheduleItem where userid = ? and weekNo = ?;";
+        List<ScheduleItem> items = jdbcTemplate.query(SQL, new Object[]{userId, weekNo}, new ItemMapper());
+        return items;
+    }
+
+    public List<ScheduleItem> findItemsByUserWeekFilter(int userId, int weekNo, String filter) {
+        String SQL = "select * from ScheduleItem where userid = ? and weekNo = ? inner join " +
+                "Filters on Filters.itemId=ScheduleItem.id where Filters.name=?";
+        List<ScheduleItem> items = jdbcTemplate.query(SQL, new Object[]{userId, weekNo, filter}, new ItemMapper());
         return items;
     }
 
@@ -126,45 +139,41 @@ public class Repository implements RepositoryInterface {
     }
 
     public void editGroupName(int grpId, String grpName){
-        String SQL = "";
-        jdbcTemplate.update(SQL, new Object[]{grpId, grpName});
+        String SQL = "update Group set name=? where id = ?";
+        jdbcTemplate.update(SQL, new Object[]{grpName, grpId});
     }
 
-    public void addGroupMember(User user){
-        String SQL="";
-        jdbcTemplate.update(SQL, user.getUserId());
+    public void addGroupMember(int groupId, int userId){
+        String SQL="insert into Members (grpId, userId) values (?,?)";
+        jdbcTemplate.update(SQL, groupId, userId);
     }
 
-    public void removeGroupMember(int userId){
-        String SQL="";
+    public void removeGroupMember(int groupId, int userId){
+        String SQL="delete from Members where groupId=? and userId=? ";
         jdbcTemplate.update(SQL, userId);
     }
 
-    public int createFriendship(int userId1, int userId2){
-        String SQL="";
+    public void createFriendship(int userId1, int userId2){
+        String SQL="insert into Friendship output values (?,?)";
         jdbcTemplate.update(SQL, userId1, userId2);
-
-        SQL="";
-        int friendshipId = jdbcTemplate.queryForObject(SQL, new Object[]{userId1, userId2}, Integer.class);
-        return friendshipId;
     }
 
     public void deleteFriendship(int friendshipId){
-        String SQL="";
+        String SQL="delete from Friendship where id=?";
         jdbcTemplate.update(SQL,friendshipId);
     }
 
-    public int createFilter(String filterName, String username){
-        String SQL="";
-        jdbcTemplate.update(SQL, filterName, username);
+    public int createFilter(String filterName, int userId, int itemId){
+        String SQL="insert into Filters (name, userId, itemId) output Inserted.id values (?,?,?)";
+        int filterId = jdbcTemplate.update(SQL, filterName, userId, itemId);
 
-        SQL="";
-        int filterId = jdbcTemplate.queryForObject(SQL, new Object[]{filterName, username}, Integer.class);
+        //SQL="";
+        //int filterId = jdbcTemplate.queryForObject(SQL, new Object[]{filterName, userId}, Integer.class);
         return filterId;
     }
 
     public void deleteFilter(int filterId){
-        String SQL="";
+        String SQL="delete from Filters where id=?";
         jdbcTemplate.update(SQL, filterId);
     }
 }

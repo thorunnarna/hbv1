@@ -17,8 +17,8 @@ public class Group {
     public void setGrpName(String grpName){this.grpName = grpName;}
 
     public List<User> getMembers(){return members;}
-    public void addMembers(User user){members.add(user);}
-    public void removeMembers(User user){members.remove(user);}
+    public void addMember(User user){members.add(user);}
+    public void removeMember(User user){members.remove(user);}
 
     public void changeName(String newname){
         grpName = newname;
