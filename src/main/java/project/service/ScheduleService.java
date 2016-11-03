@@ -10,8 +10,8 @@ public class ScheduleService {
 
     Repository  repository;
 
-    public ScheduleService(Repository repository){
-        this.repository=repository;
+    public ScheduleService(){
+        repository = new Repository();
     }
 
     public void addItem(int itemId){

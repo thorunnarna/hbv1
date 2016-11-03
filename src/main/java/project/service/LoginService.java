@@ -11,6 +11,10 @@ public class LoginService {
 
     Repository repository;
 
+    public LoginService() {
+        repository = new Repository();
+    }
+
     public void createUser(User user) {}
     public void loginUser(int userId){}
 }

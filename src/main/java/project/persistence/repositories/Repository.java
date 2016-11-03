@@ -28,9 +28,9 @@ public class Repository implements RepositoryInterface {
     public Repository() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/contactdb");
-        dataSource.setUsername("root");
-        dataSource.setPassword("P@ssw0rd");
+        dataSource.setUrl("jdbc:mysql://localhost:5432/planguin");
+        dataSource.setUsername("arnorv");
+        dataSource.setPassword("lalli");
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 

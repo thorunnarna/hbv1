@@ -12,8 +12,8 @@ public class CompareService {
 
     Repository repository;
 
-    public CompareService(Repository repository){
-        this.repository = repository;
+    public CompareService(){
+        repository = new Repository();
     }
 
     public void compareScheduleGroup(int grpId, int weekNo, int year){

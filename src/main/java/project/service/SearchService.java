@@ -10,6 +10,10 @@ import project.persistence.entities.*;
 public class SearchService {
     Repository repository;
 
+    public SearchService() {
+        repository = new Repository();
+    }
+
     public User[] findAll(){repository.findAll();}
 
     public User[] findByName(String username){repository.findUsersByName(username);}
