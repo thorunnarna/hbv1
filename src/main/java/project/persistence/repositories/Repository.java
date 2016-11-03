@@ -33,7 +33,7 @@ public class Repository implements RepositoryInterface {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:5432/planguin");
-        dataSource.setUsername("arnorv");
+        dataSource.setUsername("postgres");
         dataSource.setPassword("lalli");
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
@@ -164,13 +164,9 @@ public class Repository implements RepositoryInterface {
         jdbcTemplate.update(SQL,friendshipId);
     }
 
-    public int createFilter(String filterName, int userId, int itemId){
+    public void createFilter(String filterName, int userId, int itemId){
         String SQL="insert into Filters (name, userId, itemId) output Inserted.id values (?,?,?)";
-        int filterId = jdbcTemplate.update(SQL, filterName, userId, itemId);
-
-        //SQL="";
-        //int filterId = jdbcTemplate.queryForObject(SQL, new Object[]{filterName, userId}, Integer.class);
-        return filterId;
+        jdbcTemplate.update(SQL, filterName, userId, itemId);
     }
 
     public void deleteFilter(int filterId){
