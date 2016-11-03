@@ -1,5 +1,6 @@
 package project.persistence.repositories;
 
+import project.persistence.entities.Group;
 import project.persistence.entities.ScheduleItem;
 import project.persistence.entities.User;
 
@@ -61,29 +62,46 @@ public class Repository implements RepositoryInterface {
         jdbcTemplate.update(SQL, new Object[]{username, password, photo, school});
 
         SQL = "";
-        int userid = jdbcTemplate.queryForObject(SQL, new Object[]{username, password, photo, school}, Integer.class);
+        int userid = jdbcTemplate.queryForObject(SQL, new Object[]{username}, Integer.class);
         return userid;
     }
 
     public int createItem(String title, String username, LocalDate startTime, LocalDate endTime,
-                   int weekNo, int year, String location, String color, String description){return 0;}
+                   int weekNo, int year, String location, String color, String description){
+        String SQL="";
+        jdbcTemplate.update(SQL, new Object[]{title, username, startTime, endTime, weekNo, year, location, color, description});
 
-    public void deleteItem(int itemId){};
+        SQL="";
+        int itemid = jdbcTemplate.queryForObject(SQL, new Object[]{username}, Integer.class);
+        return itemid;
+    }
+
+    public void deleteItem(int itemId){
+        String SQL="";
+        jdbcTemplate.update(SQL, itemId);
+    }
 
     public void editItem(String title, String username, LocalDate startTime, LocalDate endTime, int weekNo, int year,
-                  String location, String color, String description){};
+                  String location, String color, String description){
+        String SQL="";
+        jdbcTemplate.update(SQL, new Object[]{title, username, startTime, endTime, weekNo, year, location, color, description});
+    }
 
-    public int createGroup(String grpName, List<User> members){return 0;};
+    public Group findGroup(int grpId) {
+        String SQL="";
+        Group group = jdbcTemplate.queryForObject();
+    }
+    public int createGroup(String grpName, List<User> members){return 0;}
 
-    public void deleteGroup(int grpId){};
+    public void deleteGroup(int grpId){}
 
-    public void editGroup(int grpId, String grpName, List<User> members){};
+    public void editGroup(int grpId, String grpName, List<User> members){}
 
-    public int createFriendship(int userId1, int userId2){return 0;};
+    public int createFriendship(int userId1, int userId2){return 0;}
 
-    public void deleteFriendship(int friendshipId){};
+    public void deleteFriendship(int friendshipId){}
 
-    public int createFilter(String filterName, String username){return 0;};
+    public int createFilter(String filterName, String username){return 0;
 
-    public void deleteFilter(int filterId){};
+    public void deleteFilter(int filterId){}
 }

@@ -1,6 +1,7 @@
 package project.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import project.persistence.entities.User;
 import project.service.LoginService;
@@ -14,6 +15,7 @@ public class LoginController {
 
     LoginService loginService;
 
+    @Autowired
     public LoginController(LoginService loginService){
         this.loginService = loginService;
     }

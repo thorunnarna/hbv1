@@ -1,5 +1,6 @@
 package project.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import project.service.CompareService;
@@ -13,6 +14,7 @@ public class CompareController {
 
     CompareService compareService;
 
+    @Autowired
     public CompareController(CompareService compareService){
         this.compareService=compareService;
     }

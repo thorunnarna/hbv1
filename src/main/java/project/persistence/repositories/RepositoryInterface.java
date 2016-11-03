@@ -24,6 +24,8 @@ public interface RepositoryInterface {
     void editItem(String title, String username, LocalDate startTime, LocalDate endTime, int weekNo, int year,
                   String location, String color, String description);
 
+    Group findGroup(int grpId);
+
     int createGroup(String grpName, List<User> members);
 
     void deleteGroup(int grpId);
