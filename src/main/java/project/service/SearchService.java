@@ -18,12 +18,25 @@ public class SearchService {
 
     @Autowired
     public SearchService() {
+
         repository = new Repository();
     }
 
-    public List<User> findAll(){return null;}
+    public List<User> findAll(){
+        List<User> users = repository.findAllUsers();
+        return users;
+    }
 
-    public List<User> findByName(String username){return null;}
+    public User findByName(String username){
+        User user = repository.findUsersByName(username);
+        return user;
+    }
 
-    public int createFriendship(int userId1, int userId2){return 0;}
+    public int createFriendship(int userId1, int userId2){
+        int friendshipId = repository.createFriendship(userId1,userId2);
+
+        int user1 =
+
+        return friendshipId;
+    }
 }
