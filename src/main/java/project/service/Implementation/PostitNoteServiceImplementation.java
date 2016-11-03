@@ -2,7 +2,6 @@ package project.service.Implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import project.persistence.entities.PostitNote;
 import project.persistence.repositories.Repository;
 import project.service.PostitNoteService;
 

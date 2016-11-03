@@ -1,7 +1,5 @@
 package project.service;
 
-import project.persistence.entities.PostitNote;
-
 import java.util.List;
 
 public interface PostitNoteService {
