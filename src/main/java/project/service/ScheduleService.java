@@ -44,9 +44,6 @@ public class ScheduleService {
                                    String description, List<String> filters){
         int id = repository.createItem(title, userId, startTime, endTime, weekNo, year, location, color, description);
         ScheduleItem item = new ScheduleItem();
-
-        //item.set(nfjnfdk)
-        //        ...
         item.setId(id);
         item.setTitle(title);
         item.setUserId(userId);
@@ -59,8 +56,6 @@ public class ScheduleService {
         item.setColor(color);
         item.setDescription(description);
         item.setFilters(filters);
-
-
         return item;
 
 
