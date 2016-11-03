@@ -10,7 +10,7 @@ public interface RepositoryInterface {
 
     List<User> findAllUsers();
 
-    List<User> findUsersByName(String username);
+    User findUsersByName(String username);
 
     List<ScheduleItem> findItemsByNameWeek(String name, int weekNo);
 

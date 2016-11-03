@@ -17,6 +17,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+import project.persistence.repositories.Mappers.ItemMapper;
+import project.persistence.repositories.Mappers.UserMapper;
 
 /**
  * Created by Svava on 03.11.16.
@@ -37,14 +39,31 @@ public class Repository implements RepositoryInterface {
 
     @Override
     public List<User> findAllUsers(){
-        return null;
+        String SQL = "SELECT * FROM User";
+        List<User> users = jdbcTemplate.query(SQL, new UserMapper());
+        return users;
     }
 
-    public List<User> findUsersByName(String username){return null;}
+    public User findUsersByName(String username){
+        String SQL = "username = ?";
+        User user = (User)jdbcTemplate.queryForObject(SQL, new Object[]{username}, new UserMapper());
+        return user;
+    }
 
-    public List<ScheduleItem> findItemsByNameWeek(String name, int weekNo){return null;}
+    public List<ScheduleItem> findItemsByNameWeek(String name, int weekNo){
+        String SQL = "";
+        List<ScheduleItem> items = jdbcTemplate.query(SQL, new ItemMapper());
+        return items;
+    }
 
-    public int createUser(String username, String password, String photo, String school){return 0;}
+    public int createUser(String username, String password, String photo, String school){
+        String SQL = "";
+        jdbcTemplate.update(SQL, new Object[]{username, password, photo, school});
+
+        SQL = "";
+        int userid = jdbcTemplate.queryForObject(SQL, new Object[]{username, password, photo, school}, Integer.class);
+        return userid;
+    }
 
     public int createItem(String title, String username, LocalDate startTime, LocalDate endTime,
                    int weekNo, int year, String location, String color, String description){return 0;}
