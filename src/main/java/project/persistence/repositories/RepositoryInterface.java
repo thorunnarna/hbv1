@@ -14,9 +14,9 @@ public interface RepositoryInterface {
 
     User findUserById(int userId);
 
-    List<ScheduleItem> findItemsByUserWeek(int userId, int weekNo);
+    List<ScheduleItem> findItemsByUserWeek(int userId, int weekNo, int year);
 
-    List<ScheduleItem> findItemsByUserWeekFilter(int userId, int weekNo, String filter);
+    List<ScheduleItem> findItemsByUserWeekFilter(int userId, int weekNo, int year, String filter);
 
     int createUser(String username, String password, String photo, String school);
 
@@ -29,6 +29,10 @@ public interface RepositoryInterface {
 
     void editItem(int itemId, String title, String userId, LocalDate startTime, LocalDate endTime, int weekNo, int year,
                   String location, String color, String description);
+
+    void addFilterToItem(int userId, int itemId, String filterName);
+
+    void removeFilterFromItem(int userId, int itemId, String filterName);
 
     Group findGroup(int grpId);
 
@@ -46,7 +50,7 @@ public interface RepositoryInterface {
 
     void deleteFriendship(int friendshipId);
 
-    int createFilter(String filterName, int userId, int itemId);
+    void createFilter(String filterName, int userId, int itemId);
 
     void deleteFilter(int filterId);
 

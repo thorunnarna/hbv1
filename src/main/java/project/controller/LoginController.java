@@ -21,6 +21,8 @@ public class LoginController {
     }
 
     public String signUpPost(Model model, User user){
+        loginService.createUser();
+        model.addAttribute("blaaaa", loginService.???);
         return "";
     }
 
