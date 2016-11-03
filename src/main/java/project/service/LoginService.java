@@ -20,6 +20,15 @@ public class LoginService {
         repository = new Repository();
     }
 
-    public void createUser(User user) {}
-    public void loginUser(int userId){}
+    public User createUser(String username, String password, String photo, String school) {
+        User user = new User();
+        int i = repository.createUser(user.getUsername(), password);
+        user.setUserId(i);
+        user.setPhoto(i);
+        user.setSchool(i);
+        return user;
+    }¡¡
+    public void loginUser(int userId){
+        ///???
+    }
 }
