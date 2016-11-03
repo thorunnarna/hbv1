@@ -35,6 +35,7 @@ public class ScheduleItem {
     public LocalDate getEndTime(){return endTime;}
     public void setEndTime(LocalDate endTime){this.endTime = endTime;}
 
+    public void setTaggedUsers(List<User> taggedUsers){this.taggedUsers = taggedUsers;}
     public List<User> getTaggedUsers(){return taggedUsers;}
     public void addTaggeduser(User user){taggedUsers.add(user);}
     public void removeTaggedUser(User user){taggedUsers.remove(user);}
@@ -54,7 +55,8 @@ public class ScheduleItem {
     public String getDexcription(){return description;}
     public void setDescription(String description ){this.description = description;}
 
-    public List<String> getfilters(){return filters;}
+    public void setFilters(List<String> filters){this.filters = filters;}
+    public List<String> getFilters(){return filters;}
     public void addFilter(String filter){filters.add(filter);}
     public void removeFilter(String filter){filters.remove(filter);}
 

@@ -42,9 +42,26 @@ public class ScheduleService {
     public ScheduleItem createItem(String title, int userId, LocalDate startTime, LocalDate endTime,
                                    List<User> taggedUsers, int weekNo, int year, String location,String color,
                                    String description, List<String> filters){
-        repository.createItem()
+        int id = repository.createItem(title, userId, startTime, endTime, weekNo, year, location, color, description);
+        ScheduleItem item = new ScheduleItem();
+
+        //item.set(nfjnfdk)
+        //        ...
+        item.setId(id);
+        item.setTitle(title);
+        item.setUserId(userId);
+        item.setStartTime(startTime);
+        item.setEndTime(endTime);
+        item.setTaggedUsers(taggedUsers);
+        item.setWeekNo(weekNo);
+        item.setYear(year);
+        item.setLocation(location);
+        item.setColor(color);
+        item.setDescription(description);
+        item.setFilters(filters);
 
 
+        return item;
 
 
     }

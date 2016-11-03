@@ -72,7 +72,7 @@ public class Repository implements RepositoryInterface {
         jdbcTemplate.update(SQL, username, password, photo, school, userId);
     }
 
-    public int createItem(String title, String userId, LocalDate startTime, LocalDate endTime,
+    public int createItem(String title, int userId, LocalDate startTime, LocalDate endTime,
                    int weekNo, int year, String location, String color, String description){
         String SQL="insert into ScheduleItem (title, userid, startTime, endTime, weekNo, year, location, color, description) " +
                 "output Inserted.id values (?,?,?,?,?,?,?,?,?);";
