@@ -18,6 +18,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+import project.persistence.repositories.Mappers.GroupMapper;
 import project.persistence.repositories.Mappers.ItemMapper;
 import project.persistence.repositories.Mappers.UserMapper;
 
@@ -66,6 +67,11 @@ public class Repository implements RepositoryInterface {
         return userid;
     }
 
+    public void editUser(String username, String password, String photo, String school){
+        String SQL = "";
+        jdbcTemplate.update(SQL, new Object[]{username, password, photo, school});
+    }
+
     public int createItem(String title, String username, LocalDate startTime, LocalDate endTime,
                    int weekNo, int year, String location, String color, String description){
         String SQL="";
@@ -89,19 +95,74 @@ public class Repository implements RepositoryInterface {
 
     public Group findGroup(int grpId) {
         String SQL="";
-        Group group = jdbcTemplate.queryForObject();
+        Group group = (Group)jdbcTemplate.queryForObject(SQL, new Object[]{grpId}, new GroupMapper());
+        
+        SQL="";
+        List<User> members = jdbcTemplate.query(SQL, new Object[]{grpId}, new UserMapper());
+        for (User u : members) {
+            group.addMember(u);
+        }
+        return group;
     }
-    public int createGroup(String grpName, List<User> members){return 0;}
+    public int createGroup(String grpName, List<User> members){
+        String SQL="setja grup inní";
+        jdbcTemplate.update(SQL, grpName);
 
-    public void deleteGroup(int grpId){}
+        SQL="sækja id á nýja grup";
+        int grpId = jdbcTemplate.queryForObject(SQL, new Object[]{"???"}, Integer.class);
 
-    public void editGroup(int grpId, String grpName, List<User> members){}
+        SQL="setja member og grpid inni members tofluna";
+        for (User u : members) {
+            jdbcTemplate.update(SQL, new Object[]{grpId, u.getUserId()});
+        }
+        return grpId;
+    }
 
-    public int createFriendship(int userId1, int userId2){return 0;}
+    public void deleteGroup(int grpId){
+        String SQL = "";
+        jdbcTemplate.update(SQL, grpId);
+    }
 
-    public void deleteFriendship(int friendshipId){}
+    public void editGroupName(int grpId, String grpName){
+        String SQL = "";
+        jdbcTemplate.update(SQL, new Object[]{grpId, grpName});
+    }
 
-    public int createFilter(String filterName, String username){return 0;
+    public void addGroupMember(User user){
+        String SQL="";
+        jdbcTemplate.update(SQL, user.getUserId());
+    }
 
-    public void deleteFilter(int filterId){}
+    public void removeGroupMember(int userId){
+        String SQL="";
+        jdbcTemplate.update(SQL, userId);
+    }
+
+    public int createFriendship(int userId1, int userId2){
+        String SQL="";
+        jdbcTemplate.update(SQL, userId1, userId2);
+
+        SQL="";
+        int friendshipId = jdbcTemplate.queryForObject(SQL, new Object[]{userId1, userId2}, Integer.class);
+        return friendshipId;
+    }
+
+    public void deleteFriendship(int friendshipId){
+        String SQL="";
+        jdbcTemplate.update(SQL,friendshipId);
+    }
+
+    public int createFilter(String filterName, String username){
+        String SQL="";
+        jdbcTemplate.update(SQL, filterName, username);
+
+        SQL="";
+        int filterId = jdbcTemplate.queryForObject(SQL, new Object[]{filterName, username}, Integer.class);
+        return filterId;
+    }
+
+    public void deleteFilter(int filterId){
+        String SQL="";
+        jdbcTemplate.update(SQL, filterId);
+    }
 }

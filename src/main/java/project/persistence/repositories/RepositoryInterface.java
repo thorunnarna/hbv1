@@ -16,6 +16,8 @@ public interface RepositoryInterface {
 
     int createUser(String username, String password, String photo, String school);
 
+    void editUser(String username, String password, String photo, String school);
+
     int createItem(String title, String username, LocalDate startTime, LocalDate endTime,
                    int weekNo, int year, String location, String color, String description);
 
@@ -30,7 +32,11 @@ public interface RepositoryInterface {
 
     void deleteGroup(int grpId);
 
-    void editGroup(int grpId, String grpName, List<User> members);
+    void editGroupName(int grpId, String grpName);
+
+    void addGroupMember(User user);
+
+    void removeGroupMember(int userId);
 
     int createFriendship(int userId1, int userId2);
 
