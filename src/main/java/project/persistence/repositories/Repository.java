@@ -43,6 +43,8 @@ public class Repository implements RepositoryInterface {
     public List<User> findAllUsers(){
         String SQL = "select * from User;";
         List<User> users = jdbcTemplate.query(SQL, new UserMapper());
+
+        //Finna vini og setja í lista??
         return users;
     }
 
@@ -55,19 +57,25 @@ public class Repository implements RepositoryInterface {
     public User findUserById(int userId) {
         String SQL = "select * from User where id=?";
         User user = (User)jdbcTemplate.queryForObject(SQL, new Object[]{userId}, new UserMapper());
+
+        SQL = "select * from User inner join Friendship on (Friendship.userId1=? or Friendship.userId2=?";
+        List<User> friends = jdbcTemplate.query(SQL, new Object[]{userId, userId}, new UserMapper());
+        for (User f : friends) {
+            user.addFriend(f);
+        }
         return user;
     }
 
-    public List<ScheduleItem> findItemsByUserWeek(int userId, int weekNo){
-        String SQL = "select * from ScheduleItem where userid = ? and weekNo = ?;";
-        List<ScheduleItem> items = jdbcTemplate.query(SQL, new Object[]{userId, weekNo}, new ItemMapper());
+    public List<ScheduleItem> findItemsByUserWeek(int userId, int weekNo, int year){
+        String SQL = "select * from ScheduleItem where userid = ? and weekNo = ? and year=?;";
+        List<ScheduleItem> items = jdbcTemplate.query(SQL, new Object[]{userId, weekNo, year}, new ItemMapper());
         return items;
     }
 
-    public List<ScheduleItem> findItemsByUserWeekFilter(int userId, int weekNo, String filter) {
-        String SQL = "select * from ScheduleItem where userid = ? and weekNo = ? inner join " +
+    public List<ScheduleItem> findItemsByUserWeekFilter(int userId, int weekNo, int year, String filter) {
+        String SQL = "select * from ScheduleItem where userid = ? and weekNo = ? and year=? inner join " +
                 "Filters on Filters.itemId=ScheduleItem.id where Filters.name=?";
-        List<ScheduleItem> items = jdbcTemplate.query(SQL, new Object[]{userId, weekNo, filter}, new ItemMapper());
+        List<ScheduleItem> items = jdbcTemplate.query(SQL, new Object[]{userId, weekNo, year, filter}, new ItemMapper());
         return items;
     }
 

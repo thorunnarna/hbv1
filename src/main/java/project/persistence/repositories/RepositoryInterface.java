@@ -14,9 +14,9 @@ public interface RepositoryInterface {
 
     User findUserById(int userId);
 
-    List<ScheduleItem> findItemsByUserWeek(int userId, int weekNo);
+    List<ScheduleItem> findItemsByUserWeek(int userId, int weekNo, int year);
 
-    List<ScheduleItem> findItemsByUserWeekFilter(int userId, int weekNo, String filter);
+    List<ScheduleItem> findItemsByUserWeekFilter(int userId, int weekNo, int year, String filter);
 
     int createUser(String username, String password, String photo, String school);
 
