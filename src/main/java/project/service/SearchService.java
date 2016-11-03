@@ -10,9 +10,9 @@ import project.persistence.entities.*;
 public class SearchService {
     Repository repository;
 
-    public User[] findAll(){}
+    public User[] findAll(){repository.findAll();}
 
-    public User[] findByName(String username){}
+    public User[] findByName(String username){repository.findUsersByName(username);}
 
     public int createFriendship(int userId1, int userId2){}
 }
