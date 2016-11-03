@@ -24,18 +24,10 @@ public class ScheduleService {
         repository = new Repository();
     }
 
-    public void addItem(int itemId, int userId){
+    //public void addItem(int itemId, int  ){}
 
-        repository.
-
-
-    }
-
-    public void deleteItem(int itemId, int userId){
-
-    }
-    //adda úr sínu scheduli?
-    public void removeItem(int itemId,int userId){
+    public void removeItem(int itemId){
+        repository.deleteItem(itemId);
 
     }
 
@@ -57,7 +49,5 @@ public class ScheduleService {
         item.setDescription(description);
         item.setFilters(filters);
         return item;
-
-
     }
 }
