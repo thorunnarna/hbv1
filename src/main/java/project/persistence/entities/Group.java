@@ -6,12 +6,12 @@ import java.util.*;
  */
 public class Group {
 
-    private String grpId;
+    private int grpId;
     private List<User> members;
     private String grpName;
 
-    public String getGrpId(){return grpId;}
-    public void setGrpId(String grpId){this.grpId = grpId;}
+    public int getGrpId(){return grpId;}
+    public void setGrpId(int grpId){this.grpId = grpId;}
 
     public String getGrpName(){return grpName;}
     public void setGrpName(String grpName){this.grpName = grpName;}
