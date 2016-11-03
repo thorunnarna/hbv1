@@ -2,7 +2,11 @@ package project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import project.persistence.entities.Group;
+import project.persistence.entities.User;
 import project.persistence.repositories.Repository;
+
+import java.util.List;
 
 /**
  * Created by halld on 02-Nov-16.
@@ -19,7 +23,15 @@ public class CompareService {
     }
 
     public void compareScheduleGroup(int grpId, int weekNo, int year){
-        repository.findGroup(grpId);
+        Group group = repository.findGroup(grpId);
+        List<User> members = group.getMembers();
+        for (User u:members) {
+            repository.findItemsByUserWeek(u.getUserId(),weekNo, year);
+        }
+
+
+
+
         
     }
 
