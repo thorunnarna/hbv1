@@ -1,5 +1,6 @@
 package project.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.persistence.repositories.Repository;
 
@@ -12,6 +13,7 @@ public class CompareService {
 
     Repository repository;
 
+    @Autowired
     public CompareService(){
         repository = new Repository();
     }
