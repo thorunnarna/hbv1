@@ -1,86 +1,70 @@
 package project.persistence.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import project.persistence.entities.*;
+import project.persistence.entities.ScheduleItem;
+import project.persistence.entities.User;
 
 import java.time.*;
 import java.util.List;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
+
 /**
- * By extending the {@link JpaRepository} we have access to powerful methods.
- * For detailed information, see:
- * http://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html
- * http://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/html/repositories.html
- *
+ * Created by Svava on 03.11.16.
  */
-public interface Repository extends JpaRepository<User, Long> {
+public class Repository implements RepositoryInterface {
 
-    @Query(value = "SELECT u FROM User u")
-    List<User> findAllUsers();
+    private JdbcTemplate jdbcTemplate;
 
-    @Query(value = "SELECT u.id FROM User u where u.username = :uname")
-    List<User> findUsersByName(@Param("uname") String username);
+    public Repository() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/contactdb");
+        dataSource.setUsername("root");
+        dataSource.setPassword("P@ssw0rd");
+        jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
-    @Query(value = "")
-    List<ScheduleItem> findItemsByNameWeek(@Param("name") String name, @Param("weekNo") int weekNo);
 
-    @Query(value="")
-    int createUser(@Param("username") String username,
-                    @Param("pw") String password,
-                    @Param("photo") String photo,
-                    @Param("school") String school);
+    @Override
+    public List<User> findAllUsers(){
+        return null;
+    }
 
-    @Query(value="")
-    int createItem(@Param("title") String title,
-                   @Param("username") String username,
-                   @Param("startTime") LocalDate startTime,
-                   @Param("endTime") LocalDate endTime,
-                   @Param("weekNo") int weekNo,
-                   @Param("year") int year,
-                   @Param("location") String location,
-                   @Param("color") String color,
-                   @Param("description") String description);
+    public List<User> findUsersByName(String username){return null;}
 
-    @Query(value="")
-    void deleteItem(@Param("itemId") int itemId);
+    public List<ScheduleItem> findItemsByNameWeek(String name, int weekNo){return null;}
 
-    @Query(value="")
-    void editItem(@Param("title") String title,
-                  @Param("username") String username,
-                  @Param("startTime") LocalDate startTime,
-                  @Param("endTime") LocalDate endTime,
-                  @Param("weekNo") int weekNo,
-                  @Param("year") int year,
-                  @Param("location") String location,
-                  @Param("color") String color,
-                  @Param("description") String description);
+    public int createUser(String username, String password, String photo, String school){return 0;}
 
-    @Query(value="")
-    int createGroup(@Param("name") String grpName,
-                    @Param("members") List<User> members);
+    public int createItem(String title, String username, LocalDate startTime, LocalDate endTime,
+                   int weekNo, int year, String location, String color, String description){return 0;}
 
-    @Query(value="")
-    void deleteGroup(@Param("id") int grpId);
+    public void deleteItem(int itemId){};
 
-    @Query(value="")
-    void editGroup(@Param("id") int grpId,
-                   @Param("name") String grpName,
-                   @Param("members") List<User> members);
+    public void editItem(String title, String username, LocalDate startTime, LocalDate endTime, int weekNo, int year,
+                  String location, String color, String description){};
 
-    @Query(value="")
-    int createFriendship(@Param("user1") int userId1,
-                         @Param("user2") int userId2);
+    public int createGroup(String grpName, List<User> members){return 0;};
 
-    @Query(value="")
-    void deleteFriendship(@Param("id") int friendshipId);
+    public void deleteGroup(int grpId){};
 
-    @Query(value="")
-    int createFilter(@Param("name") String filterName,
-                     @Param("user") String username);
+    public void editGroup(int grpId, String grpName, List<User> members){};
 
-    @Query(value="")
-    void deleteFilter(@Param("id") int filterId);
+    public int createFriendship(int userId1, int userId2){return 0;};
 
+    public void deleteFriendship(int friendshipId){};
+
+    public int createFilter(String filterName, String username){return 0;};
+
+    public void deleteFilter(int filterId){};
 }
