@@ -3,7 +3,12 @@ package project.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import project.persistence.entities.User;
 import project.service.SearchService;
+
+import java.util.List;
 
 /**
  * Created by halld on 02-Nov-16.
@@ -19,15 +24,29 @@ public class SearchController {
         this.searchService = searchService;
     }
 
+    @RequestMapping(value="", method = RequestMethod.GET)
     public String viewGetListOfUsers(Model model){
-        return "";
+
+        List<User> users = searchService.findAll();
+        model.addAttribute(users);
+
+        return "/";
     }
 
-    public String searchByNamePost(String username, Model model){
-        return "";
+    @RequestMapping(value="", method = RequestMethod.GET)
+    public String getSearchByName(String username, Model model){
+
+        User user = searchService.findByName(username);
+        model.addAttribute(user);
+
+        return "/";
     }
 
+    @RequestMapping(value="", method = RequestMethod.POST)
     public String addFriendPost(Model model, int userId, int friendId){
-        return "";
+
+
+
+        return "/";
     }
 }
