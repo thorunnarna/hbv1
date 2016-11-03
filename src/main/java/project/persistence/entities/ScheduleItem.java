@@ -37,7 +37,7 @@ public class ScheduleItem {
 
     public List<User> getTaggedUsers(){return taggedUsers;}
     public void addTaggeduser(User user){taggedUsers.add(user);}
-    public void deleteTaggedUser(User user){taggedUsers.remove(user);}
+    public void removeTaggedUser(User user){taggedUsers.remove(user);}
 
     public int getWeekNo(){return weekNo;}
     public void setWeekNo(int weekNo){this.weekNo = weekNo;}
@@ -56,11 +56,13 @@ public class ScheduleItem {
 
     public List<String> getfilters(){return filters;}
     public void addFilter(String filter){filters.add(filter);}
-    public void deleteFilter(String filter){filters.remove(filter);}
+    public void removeFilter(String filter){filters.remove(filter);}
 
 
 
-    public void changeTime(LocalTime start, LocalTime end){}
+    public void changeTime(LocalDate start, LocalDate end){
+        startTime = start;
+        endTime = end;
+    }
 
-    public void delete(){}
 }

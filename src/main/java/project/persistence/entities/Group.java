@@ -16,10 +16,15 @@ public class Group {
     public String getGrpName(){return grpName;}
     public void setGrpName(String grpName){this.grpName = grpName;}
 
-    public void addMember(User user){}
-    public void removeMember(User user){}
-    public void changeName(String newname){}
-    public void delete(){}
+    public List<User> getMembers(){return members;}
+    public void addMembers(User user){members.add(user);}
+    public void removeMembers(User user){members.remove(user);}
+
+    public void changeName(String newname){
+        grpName = newname;
+    }
+
+
 
 
 

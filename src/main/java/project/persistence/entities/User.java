@@ -14,7 +14,7 @@ public class User {
 
     public List<User> getFriends(){return friends;}
     public void addFriend(User user){friends.add(user);}
-    public void deleteFriend(User user){friends.remove(user);}
+    public void removeFriend(User user){friends.remove(user);}
 
     public String getUsername(){return username;}
     public void setUsername(String username){this.username = username;}
