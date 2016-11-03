@@ -41,63 +41,65 @@ public class Repository implements RepositoryInterface {
 
     @Override
     public List<User> findAllUsers(){
-        String SQL = "SELECT * FROM User";
+        String SQL = "select * from User;";
         List<User> users = jdbcTemplate.query(SQL, new UserMapper());
         return users;
     }
 
     public User findUsersByName(String username){
-        String SQL = "username = ?";
+        String SQL = "select * from User where username=?;";
         User user = (User)jdbcTemplate.queryForObject(SQL, new Object[]{username}, new UserMapper());
         return user;
     }
 
     public List<ScheduleItem> findItemsByNameWeek(String name, int weekNo){
-        String SQL = "";
-        List<ScheduleItem> items = jdbcTemplate.query(SQL, new ItemMapper());
+        String SQL = "select * from ScheduleItem where username = ? and weekNo = ?;";
+        List<ScheduleItem> items = jdbcTemplate.query(SQL, new Object[]{name, weekNo}, new ItemMapper());
         return items;
     }
 
     public int createUser(String username, String password, String photo, String school){
-        String SQL = "";
-        jdbcTemplate.update(SQL, new Object[]{username, password, photo, school});
+        String SQL = "insert into User (password, photo, username, school) values (?,?,?,?);";
+        jdbcTemplate.update(SQL, username, password, photo, school);
 
-        SQL = "";
+        SQL = "select id from User where username = ?;";
         int userid = jdbcTemplate.queryForObject(SQL, new Object[]{username}, Integer.class);
         return userid;
     }
 
-    public void editUser(String username, String password, String photo, String school){
-        String SQL = "";
-        jdbcTemplate.update(SQL, new Object[]{username, password, photo, school});
+    public void editUser(int userId, String username, String password, String photo, String school){
+        String SQL = "update User set username = ?, password = ?, photo = ?, school = ? where id = ?;";
+        jdbcTemplate.update(SQL, username, password, photo, school, userId);
     }
 
-    public int createItem(String title, String username, LocalDate startTime, LocalDate endTime,
+    public int createItem(String title, String userId, LocalDate startTime, LocalDate endTime,
                    int weekNo, int year, String location, String color, String description){
-        String SQL="";
-        jdbcTemplate.update(SQL, new Object[]{title, username, startTime, endTime, weekNo, year, location, color, description});
+        String SQL="insert into ScheduleItem (title, userid, startTime, endTime, weekNo, year, location, color, description) " +
+                "output Inserted.id values (?,?,?,?,?,?,?,?,?);";
+        int itemid = jdbcTemplate.update(SQL, title, userId, startTime, endTime, weekNo, year, location, color, description);
 
-        SQL="";
-        int itemid = jdbcTemplate.queryForObject(SQL, new Object[]{username}, Integer.class);
+        //SQL="select id from ScheduleItem where ";
+        //int itemid = jdbcTemplate.queryForObject(SQL, new Object[]{username}, Integer.class);
         return itemid;
     }
 
     public void deleteItem(int itemId){
-        String SQL="";
+        String SQL="delete from ScheduleItem where id = ?";
         jdbcTemplate.update(SQL, itemId);
     }
 
-    public void editItem(String title, String username, LocalDate startTime, LocalDate endTime, int weekNo, int year,
+    public void editItem(int itemId, String title, String userId, LocalDate startTime, LocalDate endTime, int weekNo, int year,
                   String location, String color, String description){
-        String SQL="";
-        jdbcTemplate.update(SQL, new Object[]{title, username, startTime, endTime, weekNo, year, location, color, description});
+        String SQL="update ScheduleItem set title=?, userid=?, startTime=?, endTime=?, weekNo=?, year=?, location=?, " +
+                "color=?, description=? where id=?";
+        jdbcTemplate.update(SQL, title, userId, startTime, endTime, weekNo, year, location, color, description, itemId);
     }
 
     public Group findGroup(int grpId) {
-        String SQL="";
+        String SQL="select * from Group where id = ?";
         Group group = (Group)jdbcTemplate.queryForObject(SQL, new Object[]{grpId}, new GroupMapper());
         
-        SQL="";
+        SQL="select * from User inner join Members on User.id = Members.userId and members.grpId = ?";
         List<User> members = jdbcTemplate.query(SQL, new Object[]{grpId}, new UserMapper());
         for (User u : members) {
             group.addMember(u);
@@ -105,13 +107,13 @@ public class Repository implements RepositoryInterface {
         return group;
     }
     public int createGroup(String grpName, List<User> members){
-        String SQL="setja grup inní";
-        jdbcTemplate.update(SQL, grpName);
+        String SQL="insert into Group (name) output Inserted.id values (?)";
+        int grpId = jdbcTemplate.update(SQL, grpName);
 
-        SQL="sækja id á nýja grup";
-        int grpId = jdbcTemplate.queryForObject(SQL, new Object[]{"???"}, Integer.class);
+        //SQL="sækja id á nýja grup";
+        //int grpId = jdbcTemplate.queryForObject(SQL, new Object[]{"???"}, Integer.class);
 
-        SQL="setja member og grpid inni members tofluna";
+        SQL="insert into Members (grpId, userId) values (?,?)";
         for (User u : members) {
             jdbcTemplate.update(SQL, new Object[]{grpId, u.getUserId()});
         }
@@ -119,7 +121,7 @@ public class Repository implements RepositoryInterface {
     }
 
     public void deleteGroup(int grpId){
-        String SQL = "";
+        String SQL = "delete from Group where grpId=?";
         jdbcTemplate.update(SQL, grpId);
     }
 

@@ -16,14 +16,14 @@ public interface RepositoryInterface {
 
     int createUser(String username, String password, String photo, String school);
 
-    void editUser(String username, String password, String photo, String school);
+    void editUser(int userId, String username, String password, String photo, String school);
 
-    int createItem(String title, String username, LocalDate startTime, LocalDate endTime,
+    int createItem(String title, String userId, LocalDate startTime, LocalDate endTime,
                    int weekNo, int year, String location, String color, String description);
 
     void deleteItem(int itemId);
 
-    void editItem(String title, String username, LocalDate startTime, LocalDate endTime, int weekNo, int year,
+    void editItem(int itemId, String title, String userId, LocalDate startTime, LocalDate endTime, int weekNo, int year,
                   String location, String color, String description);
 
     Group findGroup(int grpId);
