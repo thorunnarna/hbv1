@@ -30,6 +30,10 @@ public interface RepositoryInterface {
     void editItem(int itemId, String title, String userId, LocalDate startTime, LocalDate endTime, int weekNo, int year,
                   String location, String color, String description);
 
+    void addFilterToItem(int userId, int itemId, String filterName);
+
+    void removeFilterFromItem(int userId, int itemId, String filterName);
+
     Group findGroup(int grpId);
 
     int createGroup(String grpName, List<User> members);

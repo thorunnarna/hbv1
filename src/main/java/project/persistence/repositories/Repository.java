@@ -44,6 +44,14 @@ public class Repository implements RepositoryInterface {
         String SQL = "select * from User;";
         List<User> users = jdbcTemplate.query(SQL, new UserMapper());
 
+        SQL="select * from User inner join Friendship on (Friendship.userId1=? or Friendship.userId2=?";
+        for (User u : users) {
+            List<User> friends = jdbcTemplate.query(SQL, new Object[]{u.getUserId(),u.getUserId()}, new UserMapper());
+            for (User f : friends) {
+                u.addFriend(f);
+            }
+        }
+
         //Finna vini og setja í lista??
         return users;
     }
@@ -51,6 +59,13 @@ public class Repository implements RepositoryInterface {
     public User findUsersByName(String username){
         String SQL = "select * from User where username=?;";
         User user = (User)jdbcTemplate.queryForObject(SQL, new Object[]{username}, new UserMapper());
+
+        SQL = "select * from User inner join Friendship on (Friendship.userId1=? or Friendship.userId2=?";
+        List<User> friends = jdbcTemplate.query(SQL, new Object[]{user.getUserId(), user.getUserId()}, new UserMapper());
+        for (User f : friends) {
+            user.addFriend(f);
+        }
+
         return user;
     }
 
@@ -69,6 +84,14 @@ public class Repository implements RepositoryInterface {
     public List<ScheduleItem> findItemsByUserWeek(int userId, int weekNo, int year){
         String SQL = "select * from ScheduleItem where userid = ? and weekNo = ? and year=?;";
         List<ScheduleItem> items = jdbcTemplate.query(SQL, new Object[]{userId, weekNo, year}, new ItemMapper());
+
+        SQL="select * from Filters where itemId=?";
+        for (ScheduleItem i : items) {
+            List<String> filters = jdbcTemplate.queryForList(SQL, new Object[]{i.getId()}, String.class);
+            for (String f : filters) {
+                i.addFilter(f);
+            }
+        }
         return items;
     }
 
@@ -76,6 +99,14 @@ public class Repository implements RepositoryInterface {
         String SQL = "select * from ScheduleItem where userid = ? and weekNo = ? and year=? inner join " +
                 "Filters on Filters.itemId=ScheduleItem.id where Filters.name=?";
         List<ScheduleItem> items = jdbcTemplate.query(SQL, new Object[]{userId, weekNo, year, filter}, new ItemMapper());
+
+        SQL="select * from Filters where itemId=?";
+        for (ScheduleItem i : items) {
+            List<String> filters = jdbcTemplate.queryForList(SQL, new Object[]{i.getId()}, String.class);
+            for (String f : filters) {
+                i.addFilter(f);
+            }
+        }
         return items;
     }
 
@@ -97,7 +128,7 @@ public class Repository implements RepositoryInterface {
     public int createItem(String title, int userId, LocalDate startTime, LocalDate endTime,
                    int weekNo, int year, String location, String color, String description){
         String SQL="insert into ScheduleItem (title, userid, startTime, endTime, weekNo, year, location, color, description) " +
-                "output Inserted.id values (?,?,?,?,?,?,?,?,?);";
+                "output inserted.id values (?,?,?,?,?,?,?,?,?);";
         int itemid = jdbcTemplate.update(SQL, title, userId, startTime, endTime, weekNo, year, location, color, description);
 
         //SQL="select id from ScheduleItem where ";
@@ -113,8 +144,18 @@ public class Repository implements RepositoryInterface {
     public void editItem(int itemId, String title, String userId, LocalDate startTime, LocalDate endTime, int weekNo, int year,
                   String location, String color, String description){
         String SQL="update ScheduleItem set title=?, userid=?, startTime=?, endTime=?, weekNo=?, year=?, location=?, " +
-                "color=?, description=? where id=?";
+                "color=?, description=? where id=?;";
         jdbcTemplate.update(SQL, title, userId, startTime, endTime, weekNo, year, location, color, description, itemId);
+    }
+
+    public void addFilterToItem(int userId, int itemId, String filterName) {
+        String SQL ="insert into Filters (userId, itemId, name) values (?,?,?);";
+        jdbcTemplate.update(SQL, userId, itemId, filterName);
+    }
+
+    public void removeFilterFromItem(int userId, int itemId, String filtername) {
+        String SQL = "delete from Filters where name=? and itemId=? and userId=?";
+        jdbcTemplate.update(SQL, filtername, itemId, userId);
     }
 
     public Group findGroup(int grpId) {
@@ -129,11 +170,8 @@ public class Repository implements RepositoryInterface {
         return group;
     }
     public int createGroup(String grpName, List<User> members){
-        String SQL="insert into Group (name) output Inserted.id values (?)";
+        String SQL="insert into Group (name) output inserted.id values (?)";
         int grpId = jdbcTemplate.update(SQL, grpName);
-
-        //SQL="sækja id á nýja grup";
-        //int grpId = jdbcTemplate.queryForObject(SQL, new Object[]{"???"}, Integer.class);
 
         SQL="insert into Members (grpId, userId) values (?,?)";
         for (User u : members) {
@@ -163,7 +201,7 @@ public class Repository implements RepositoryInterface {
     }
 
     public void createFriendship(int userId1, int userId2){
-        String SQL="insert into Friendship output values (?,?)";
+        String SQL="insert into Friendship values (?,?)";
         jdbcTemplate.update(SQL, userId1, userId2);
     }
 
@@ -173,7 +211,7 @@ public class Repository implements RepositoryInterface {
     }
 
     public void createFilter(String filterName, int userId, int itemId){
-        String SQL="insert into Filters (name, userId, itemId) output Inserted.id values (?,?,?)";
+        String SQL="insert into Filters (name, userId, itemId) values (?,?,?)";
         jdbcTemplate.update(SQL, filterName, userId, itemId);
     }
 
