@@ -32,11 +32,13 @@ public class SearchService {
         return user;
     }
 
-    public int createFriendship(int userId1, int userId2){
-        int friendshipId = repository.createFriendship(userId1,userId2);
+    public void createFriendship(int userId1, int userId2){
+        repository.createFriendship(userId1,userId2);
 
-        int user1 =
+        User user1 = repository.findUserById(userId1);
+        User user2 = repository.findUserById(userId2);
 
-        return friendshipId;
+        user1.addFriend(user2);
+        user2.addFriend(user1);
     }
 }
