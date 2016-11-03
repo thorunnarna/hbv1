@@ -19,7 +19,8 @@ public class CompareService {
     }
 
     public void compareScheduleGroup(int grpId, int weekNo, int year){
-
+        repository.findGroup(grpId);
+        
     }
 
     public void compareSchedules(int user1, int user2, int weekNo, int year){
