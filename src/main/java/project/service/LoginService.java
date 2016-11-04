@@ -22,12 +22,12 @@ public class LoginService {
 
     public User createUser(String username, String password, String photo, String school) {
         User user = new User();
-        int i = repository.createUser(user.getUsername(), password);
+        int i = repository.createUser(user.getUsername(), password, photo, school);
         user.setUserId(i);
-        user.setPhoto(i);
-        user.setSchool(i);
+        user.setPhoto(photo);
+        user.setSchool(school);
         return user;
-    }¡¡
+    }
     public void loginUser(int userId){
         ///???
     }
