@@ -6,18 +6,11 @@ import project.persistence.entities.User;
 
 import java.time.*;
 import java.util.List;
-
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-
-import javax.sql.DataSource;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.jdbc.core.RowMapper;
 import project.persistence.repositories.Mappers.GroupMapper;
 import project.persistence.repositories.Mappers.ItemMapper;
 import project.persistence.repositories.Mappers.UserMapper;
@@ -51,8 +44,6 @@ public class Repository implements RepositoryInterface {
                 u.addFriend(f);
             }
         }
-
-        //Finna vini og setja í lista??
         return users;
     }
 
