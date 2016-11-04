@@ -20,8 +20,8 @@ public class CompareService {
     Repository repository;
 
     @Autowired
-    public CompareService(){
-        repository = new Repository();
+    public CompareService(Repository repository){
+        this.repository = repository;
     }
 
     public void compareScheduleGroup(int grpId, int weekNo, int year){

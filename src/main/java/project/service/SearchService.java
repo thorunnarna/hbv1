@@ -17,9 +17,9 @@ public class SearchService {
     Repository repository;
 
     @Autowired
-    public SearchService() {
+    public SearchService(Repository repository) {
 
-        repository = new Repository();
+        this.repository = repository;
     }
 
     public List<User> findAll(){

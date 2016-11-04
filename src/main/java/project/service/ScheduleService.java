@@ -20,8 +20,8 @@ public class ScheduleService {
     Repository  repository;
 
     @Autowired
-    public ScheduleService(){
-        repository = new Repository();
+    public ScheduleService(Repository repository){
+        this.repository = repository;
     }
 
     //public void addItem(int itemId, int  ){}
