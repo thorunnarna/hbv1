@@ -133,10 +133,11 @@ public class Repository implements RepositoryInterface {
     }
 
     public void editItem(int itemId, String title, int userId, String startTime, String endTime, int weekNo, int year,
-                  String location, String color, String description){
+                  String location, String color, String description, List<User> taggedUsers, List<String> filters){
         String SQL="update ScheduleItem set title=?, userid=?, startTime=?, endTime=?, weekNo=?, year=?, location=?, " +
                 "color=?, description=? where id=?;";
         jdbcTemplate.update(SQL, title, userId, startTime, endTime, weekNo, year, location, color, description, itemId);
+
     }
 
     public void addFilterToItem(int userId, int itemId, String filterName) {

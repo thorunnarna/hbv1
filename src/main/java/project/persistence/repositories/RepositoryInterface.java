@@ -27,8 +27,8 @@ public interface RepositoryInterface {
 
     void deleteItem(int itemId);
 
-    void editItem(int itemId, String title, String userId, String startTime, String endTime, int weekNo, int year,
-                  String location, String color, String description);
+    void editItem(int itemId, String title, int userId, String startTime, String endTime, int weekNo, int year,
+                  String location, String color, String description, List<User> taggedUsers, List<String> filters);
 
     void addFilterToItem(int userId, int itemId, String filterName);
 
