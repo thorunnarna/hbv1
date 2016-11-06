@@ -45,10 +45,10 @@ public class ScheduleController {
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String editSchedulePost(@ModelAttribute("scheduleItemEdit") ScheduleItem scheduleItem, Model model, int itemId,
                                    String title, int userId, String startTime, String endTime, int weekNo, int yearNo,
-                                   String location, String color, String description){
+                                   String location, String color, String description, List<User> taggedUsers, List<String> filters){
 
         model.addAttribute("scheduleItemEdit", scheduleService.editScheduleItem(itemId, title, userId, startTime,
-                endTime, weekNo, yearNo, location, color, description));
+                endTime, weekNo, yearNo, location, color, description, taggedUsers, filters));
 
         return "";
     }
