@@ -21,7 +21,7 @@ public class ScheduleService {
 
     Repository  repository;
 
-    @Autowired
+
     public ScheduleService(){
         this.repository = new Repository();
     }
@@ -37,17 +37,23 @@ public class ScheduleService {
     }
 
     public ScheduleItem editScheduleItem(int itemId, String title, int userId, String startTime,
-                                                String endTime, int weekNo, int yearNo, String location, String color, String description){
-        repository.editItem(itemId, title, userId, startTime, endTime, weekNo, yearNo, location, color, description);
+                                                String endTime, int weekNo, int year, String location, String color,
+                                         String description, List<User> taggedUsers, List<String> filters){
+        repository.editItem(itemId, title, userId, startTime, endTime, weekNo, year, location, color, description,
+                taggedUsers, filters);
         ScheduleItem itemEdit = new ScheduleItem();
         itemEdit.setId(itemId);
         itemEdit.setTitle(title);
         itemEdit.setUserId(userId);
         itemEdit.setStartTime(startTime);
         itemEdit.setEndTime(endTime);
+        itemEdit.setWeekNo(weekNo);
+        itemEdit.setYear(year);
         itemEdit.setLocation(location);
         itemEdit.setColor(color);
         itemEdit.setDescription(description);
+        itemEdit.setTaggedUsers(taggedUsers);
+        itemEdit.setFilters(filters);
 
         return itemEdit;
     }

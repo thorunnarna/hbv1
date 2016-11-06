@@ -43,17 +43,24 @@ public class ScheduleController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String editSchedulePost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, Model model, int itemId,
+    public String editSchedulePost(@ModelAttribute("scheduleItemEdit") ScheduleItem scheduleItem, Model model, int itemId,
                                    String title, int userId, String startTime, String endTime, int weekNo, int yearNo,
                                    String location, String color, String description){
-        model.addAttribute("scheduleItem", scheduleService.editScheduleItem(itemId, title, userId, startTime,
+
+        model.addAttribute("scheduleItemEdit", scheduleService.editScheduleItem(itemId, title, userId, startTime,
                 endTime, weekNo, yearNo, location, color, description));
 
         return "";
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String insertItemPost(Model model, ScheduleItem scheduleItem){
+    public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, Model model,
+                                 String title, int userId, String startTime, String endTime, List<User> taggedUsers,
+                                 int weekNo, int year, String location,String color, String description, List<String> filters){
+
+        model.addAttribute("scheduleItem", scheduleService.createItem(title, userId, startTime, endTime,
+                taggedUsers, weekNo, year, location, color, description, filters));
+
         return "";
     }
 }
