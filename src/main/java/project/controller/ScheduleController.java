@@ -3,10 +3,13 @@ package project.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import project.persistence.entities.*;
 import project.service.ScheduleService;
+
+import java.util.List;
 
 /**
  * Created by halld on 02-Nov-16.
@@ -23,19 +26,29 @@ public class ScheduleController {
     }
 
     @RequestMapping(value="", method = RequestMethod.GET)
-    public String viewGetScheduleForUser(int userId, Model model){
+    public String viewGetScheduleForUser(int userId, int weekNo, int yearNo, Model model){
 
+        List<ScheduleItem> schedule = scheduleService.scheduleItems(userId, weekNo, yearNo);
+        model.addAttribute(schedule);
 
-        return "";
+        return "/";
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String viewGetScheduleByFilters(Model model, String[] filters, int userId){
+    public String viewGetScheduleByFilters(Model model, String filters, int userId, int weekNo, int yearNo){
+        List<ScheduleItem> scheduleByFilters = scheduleService.scheduleItemsFilters(userId, weekNo, yearNo, filters);
+        model.addAttribute(scheduleByFilters);
+
         return "";
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String saveSchedulePost(Model model){
+    public String editSchedulePost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, Model model, int itemId,
+                                   String title, int userId, String startTime, String endTime, int weekNo, int yearNo,
+                                   String location, String color, String description){
+        model.addAttribute("scheduleItem", scheduleService.editScheduleItem(itemId, title, userId, startTime,
+                endTime, weekNo, yearNo, location, color, description));
+
         return "";
     }
 

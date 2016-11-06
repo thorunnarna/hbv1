@@ -21,13 +21,11 @@ public class SearchService {
     }
 
     public List<User> findAll(){
-        List<User> users = repository.findAllUsers();
-        return users;
+        return repository.findAllUsers();
     }
 
     public User findByName(String username){
-        User user = repository.findUsersByName(username);
-        return user;
+        return repository.findUsersByName(username);
     }
 
     public boolean createFriendship(int userId1, int userId2){

@@ -3,6 +3,7 @@ package project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.test.annotation.IfProfileValue;
 import project.persistence.entities.Schedule;
 import project.persistence.entities.ScheduleItem;
 import project.persistence.entities.User;
@@ -20,6 +21,7 @@ public class ScheduleService {
 
     Repository  repository;
 
+    @Autowired
     public ScheduleService(){
         this.repository = new Repository();
     }
@@ -27,14 +29,31 @@ public class ScheduleService {
     //public void addItem(int itemId, int  ){}
 
     public List<ScheduleItem> scheduleItems(int userId, int weekNo, int yearNo){
-        List<ScheduleItem> scheduleItems = repository.findItemsByUserWeek(userId, weekNo, yearNo);
-
-        return scheduleItems;
+        return repository.findItemsByUserWeek(userId, weekNo, yearNo);
     }
 
-    
+    public List<ScheduleItem> scheduleItemsFilters(int userId, int weekNo, int yearNo, String filter){
+        return repository.findItemsByUserWeekFilter(userId, weekNo, yearNo, filter);
+    }
+
+    public ScheduleItem editScheduleItem(int itemId, String title, int userId, String startTime,
+                                                String endTime, int weekNo, int yearNo, String location, String color, String description){
+        repository.editItem(itemId, title, userId, startTime, endTime, weekNo, yearNo, location, color, description);
+        ScheduleItem itemEdit = new ScheduleItem();
+        itemEdit.setId(itemId);
+        itemEdit.setTitle(title);
+        itemEdit.setUserId(userId);
+        itemEdit.setStartTime(startTime);
+        itemEdit.setEndTime(endTime);
+        itemEdit.setLocation(location);
+        itemEdit.setColor(color);
+        itemEdit.setDescription(description);
+
+        return itemEdit;
+    }
 
     public void removeItem(int itemId){
+
         repository.deleteItem(itemId);
     }
 

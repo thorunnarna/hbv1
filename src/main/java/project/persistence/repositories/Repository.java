@@ -132,7 +132,7 @@ public class Repository implements RepositoryInterface {
         jdbcTemplate.update(SQL, itemId);
     }
 
-    public void editItem(int itemId, String title, String userId, String startTime, String endTime, int weekNo, int year,
+    public void editItem(int itemId, String title, int userId, String startTime, String endTime, int weekNo, int year,
                   String location, String color, String description){
         String SQL="update ScheduleItem set title=?, userid=?, startTime=?, endTime=?, weekNo=?, year=?, location=?, " +
                 "color=?, description=? where id=?;";
