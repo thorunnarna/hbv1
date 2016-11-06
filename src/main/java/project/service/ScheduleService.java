@@ -7,7 +7,7 @@ import project.persistence.entities.ScheduleItem;
 import project.persistence.entities.User;
 import project.persistence.repositories.Repository;
 
-import java.time.LocalDate;
+//import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -19,9 +19,8 @@ public class ScheduleService {
 
     Repository  repository;
 
-    @Autowired
-    public ScheduleService(Repository repository){
-        this.repository = repository;
+    public ScheduleService(){
+        this.repository = new Repository();
     }
 
     //public void addItem(int itemId, int  ){}
@@ -31,7 +30,7 @@ public class ScheduleService {
 
     }
 
-    public ScheduleItem createItem(String title, int userId, LocalDate startTime, LocalDate endTime,
+    public ScheduleItem createItem(String title, int userId, String startTime, String endTime,
                                    List<User> taggedUsers, int weekNo, int year, String location,String color,
                                    String description, List<String> filters){
         int id = repository.createItem(title, userId, startTime, endTime, weekNo, year, location, color, description);

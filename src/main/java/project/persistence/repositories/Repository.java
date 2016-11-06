@@ -24,7 +24,7 @@ public class Repository implements RepositoryInterface {
 
     public Repository() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:5432/planguin");
         dataSource.setUsername("postgres");
         dataSource.setPassword("lalli");
@@ -116,7 +116,7 @@ public class Repository implements RepositoryInterface {
     }
 
 
-    public int createItem(String title, int userId, LocalDate startTime, LocalDate endTime,
+    public int createItem(String title, int userId, String startTime, String endTime,
                    int weekNo, int year, String location, String color, String description){
         String SQL="insert into ScheduleItem (title, userid, startTime, endTime, weekNo, year, location, color, description) " +
                 "output inserted.id values (?,?,?,?,?,?,?,?,?);";
@@ -132,7 +132,7 @@ public class Repository implements RepositoryInterface {
         jdbcTemplate.update(SQL, itemId);
     }
 
-    public void editItem(int itemId, String title, String userId, LocalDate startTime, LocalDate endTime, int weekNo, int year,
+    public void editItem(int itemId, String title, String userId, String startTime, String endTime, int weekNo, int year,
                   String location, String color, String description){
         String SQL="update ScheduleItem set title=?, userid=?, startTime=?, endTime=?, weekNo=?, year=?, location=?, " +
                 "color=?, description=? where id=?;";

@@ -15,9 +15,8 @@ public class LoginService {
 
     Repository repository;
 
-    @Autowired
-    public LoginService(Repository repository) {
-        this.repository = repository;
+    public LoginService() {
+        this.repository = new Repository();
     }
 
     public User createUser(String username, String password, String photo, String school) {

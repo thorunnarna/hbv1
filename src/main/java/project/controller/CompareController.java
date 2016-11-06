@@ -13,12 +13,9 @@ import project.service.CompareService;
 @Controller
 public class CompareController {
 
-    CompareService compareService;
+    CompareService compareService = new CompareService();
 
-    @Autowired
-    public CompareController(CompareService compareService){
-        this.compareService=compareService;
-    }
+    public CompareController(){}
 
     @RequestMapping
     public String viewGetComparison(Model model){

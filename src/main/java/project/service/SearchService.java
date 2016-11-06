@@ -16,10 +16,9 @@ import java.util.List;
 public class SearchService {
     Repository repository;
 
-    @Autowired
-    public SearchService(Repository repository) {
+    public SearchService() {
 
-        this.repository = repository;
+        this.repository = new Repository();
     }
 
     public List<User> findAll(){
