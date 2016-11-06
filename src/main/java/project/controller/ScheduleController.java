@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import project.persistence.entities.*;
 import project.service.ScheduleService;
 
-import javax.annotation.security.PermitAll;
+//import javax.annotation.security.PermitAll;
 import java.util.List;
 
 /**
