@@ -24,9 +24,9 @@ public class LoginController {
     }
 
     @RequestMapping(value="/signUp", method = RequestMethod.POST)
-    public String signUpPost(@ModelAttribute("SignUp") User Signup, Model model, String username, String password, String photo, String school) {
+    public String signUpPost(@ModelAttribute("SignUp") User SignUp, Model model, String username, String password, String photo, String school) {
         User user = loginService.createUser(username, password, photo, school);
-        model.addAttribute("Signup", user);
+        model.addAttribute("SignUp", user);
         return "/";
     }
 
