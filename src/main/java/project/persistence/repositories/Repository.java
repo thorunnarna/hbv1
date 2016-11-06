@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.postgresql.Driver;
 import project.persistence.repositories.Mappers.GroupMapper;
 import project.persistence.repositories.Mappers.ItemMapper;
 import project.persistence.repositories.Mappers.UserMapper;
@@ -25,7 +26,7 @@ public class Repository implements RepositoryInterface {
     public Repository() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:5432/planguin");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/planguin");
         dataSource.setUsername("postgres");
         dataSource.setPassword("lalli");
         jdbcTemplate = new JdbcTemplate(dataSource);
@@ -34,10 +35,10 @@ public class Repository implements RepositoryInterface {
 
     @Override
     public List<User> findAllUsers(){
-        String SQL = "select * from User;";
+        String SQL = "select * from user;";
         List<User> users = jdbcTemplate.query(SQL, new UserMapper());
 
-        SQL="select * from User inner join Friendship on (Friendship.userId1=? or Friendship.userId2=?";
+        SQL="select * from user inner join Friendship on (Friendship.userId1=? or Friendship.userId2=?)";
         for (User u : users) {
             List<User> friends = jdbcTemplate.query(SQL, new Object[]{u.getUserId(),u.getUserId()}, new UserMapper());
             for (User f : friends) {
