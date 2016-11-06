@@ -26,11 +26,12 @@ public class HomeController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(){
 
+        System.out.println("HALLÓ!!!!!");
         // The string "Index" that is returned here is the name of the view
         // (the Index.jsp file) that is in the path /main/webapp/WEB-INF/jsp/
         // If you change "Index" to something else, be sure you have a .jsp
         // file that has the same name
-        return "Index";
+        return "test";
     }
 
     // To call this method, enter "localhost:8080/user" into a browser

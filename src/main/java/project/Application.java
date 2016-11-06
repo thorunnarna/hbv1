@@ -1,15 +1,21 @@
 package project;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * The main class of the project.
  * By running the main class of {@link Application} then you start the Spring Boot system
  */
-@SpringBootApplication
+//@SpringBootApplication
+@Configuration
+@EnableAutoConfiguration
+@ComponentScan({"project.controller","project.service","project.persistence"})
 public class Application extends SpringBootServletInitializer{
 
     @Override

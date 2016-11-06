@@ -38,10 +38,12 @@ public class SearchController {
     @RequestMapping(value="/user/{username}", method = RequestMethod.GET)
     public String getSearchByName(@PathVariable("username") String username, Model model){
 
+        System.out.println(username);
         User user = searchService.findByName(username);
+        System.out.println("í controller: "+user.getUsername());
         model.addAttribute(user);
 
-        return "/";
+        return "redirect:/User";
     }
 
     @RequestMapping(value="/user/{userId1}/{userId2}", method = RequestMethod.POST)

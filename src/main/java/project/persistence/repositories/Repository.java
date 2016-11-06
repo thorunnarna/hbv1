@@ -50,15 +50,17 @@ public class Repository implements RepositoryInterface {
 
     public User findUsersByName(String username){
         String SQL = "select * from \"user\" where username=?;";
-        User user = (User)jdbcTemplate.queryForObject(SQL, new Object[]{username}, new UserMapper());
-
-        SQL = "select * from User inner join Friendship on (Friendship.userId1=? or Friendship.userId2=?)";
+        List<User> users = jdbcTemplate.query(SQL, new Object[]{username}, new UserMapper());
+        System.out.println("í repo: "+users.get(0).getUsername()+users.get(0).getPhoto());
+        /*SQL = "select * from User inner join Friendship on (Friendship.userId1=? or Friendship.userId2=?)";
         List<User> friends = jdbcTemplate.query(SQL, new Object[]{user.getUserId(), user.getUserId()}, new UserMapper());
         for (User f : friends) {
             user.addFriend(f);
-        }
-
-        return user;
+        }*/
+        
+        if(users.size()==0) return new User();
+        if(users.size()>=1) return users.get(0);
+        return null;
     }
 
     public User findUserById(int userId) {
