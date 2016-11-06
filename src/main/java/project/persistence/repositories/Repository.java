@@ -35,7 +35,7 @@ public class Repository implements RepositoryInterface {
 
     @Override
     public List<User> findAllUsers(){
-        String SQL = "select * from user;";
+        String SQL = "select * from \"user\";";
         List<User> users = jdbcTemplate.query(SQL, new UserMapper());
 
         SQL="select * from user inner join Friendship on (Friendship.userId1=? or Friendship.userId2=?)";
@@ -49,10 +49,10 @@ public class Repository implements RepositoryInterface {
     }
 
     public User findUsersByName(String username){
-        String SQL = "select * from User where username=?;";
+        String SQL = "select * from \"user\" where username=?;";
         User user = (User)jdbcTemplate.queryForObject(SQL, new Object[]{username}, new UserMapper());
 
-        SQL = "select * from User inner join Friendship on (Friendship.userId1=? or Friendship.userId2=?";
+        SQL = "select * from User inner join Friendship on (Friendship.userId1=? or Friendship.userId2=?)";
         List<User> friends = jdbcTemplate.query(SQL, new Object[]{user.getUserId(), user.getUserId()}, new UserMapper());
         for (User f : friends) {
             user.addFriend(f);
@@ -62,7 +62,7 @@ public class Repository implements RepositoryInterface {
     }
 
     public User findUserById(int userId) {
-        String SQL = "select * from User where id=?";
+        String SQL = "select * from \"user\" where id=?";
         User user = (User)jdbcTemplate.queryForObject(SQL, new Object[]{userId}, new UserMapper());
 
         SQL = "select * from User inner join Friendship on (Friendship.userId1=? or Friendship.userId2=?";
@@ -74,7 +74,7 @@ public class Repository implements RepositoryInterface {
     }
 
     public List<ScheduleItem> findItemsByUserWeek(int userId, int weekNo, int year){
-        String SQL = "select * from ScheduleItem where userid = ? and weekNo = ? and year=?;";
+        String SQL = "select * from \"scheduleitem\" where userid = ? and weekNo = ? and year=?;";
         List<ScheduleItem> items = jdbcTemplate.query(SQL, new Object[]{userId, weekNo, year}, new ItemMapper());
 
         SQL="select * from Filters where itemId=?";
@@ -88,7 +88,7 @@ public class Repository implements RepositoryInterface {
     }
 
     public List<ScheduleItem> findItemsByUserWeekFilter(int userId, int weekNo, int year, String filter) {
-        String SQL = "select * from ScheduleItem where userid = ? and weekNo = ? and year=? inner join " +
+        String SQL = "select * from \"scheduleitem\" where userid = ? and weekNo = ? and year=? inner join " +
                 "Filters on Filters.itemId=ScheduleItem.id where Filters.name=?";
         List<ScheduleItem> items = jdbcTemplate.query(SQL, new Object[]{userId, weekNo, year, filter}, new ItemMapper());
 
@@ -103,7 +103,7 @@ public class Repository implements RepositoryInterface {
     }
 
     public int createUser(String username, String password, String photo, String school){
-        String SQL = "insert into User (password, photo, username, school) values (?,?,?,?);";
+        String SQL = "insert into \"user\" (password, photo, username, school) values (?,?,?,?);";
         jdbcTemplate.update(SQL, username, password, photo, school);
 
         SQL = "select id from User where username = ?;";
@@ -112,14 +112,14 @@ public class Repository implements RepositoryInterface {
     }
 
     public void editUser(int userId, String username, String password, String photo, String school){
-        String SQL = "update User set username = ?, password = ?, photo = ?, school = ? where id = ?;";
+        String SQL = "update \"user\" set username = ?, password = ?, photo = ?, school = ? where id = ?;";
         jdbcTemplate.update(SQL, username, password, photo, school, userId);
     }
 
 
     public int createItem(String title, int userId, String startTime, String endTime,
                    int weekNo, int year, String location, String color, String description){
-        String SQL="insert into ScheduleItem (title, userid, startTime, endTime, weekNo, year, location, color, description) " +
+        String SQL="insert into \"scheduleitem\" (title, userid, startTime, endTime, weekNo, year, location, color, description) " +
                 "output inserted.id values (?,?,?,?,?,?,?,?,?);";
         int itemid = jdbcTemplate.update(SQL, title, userId, startTime, endTime, weekNo, year, location, color, description);
 
@@ -129,30 +129,30 @@ public class Repository implements RepositoryInterface {
     }
 
     public void deleteItem(int itemId){
-        String SQL="delete from ScheduleItem where id = ?";
+        String SQL="delete from \"scheduleitem\" where id = ?";
         jdbcTemplate.update(SQL, itemId);
     }
 
     public void editItem(int itemId, String title, int userId, String startTime, String endTime, int weekNo, int year,
                   String location, String color, String description, List<User> taggedUsers, List<String> filters){
-        String SQL="update ScheduleItem set title=?, userid=?, startTime=?, endTime=?, weekNo=?, year=?, location=?, " +
+        String SQL="update \"scheduleitem\" set title=?, userid=?, startTime=?, endTime=?, weekNo=?, year=?, location=?, " +
                 "color=?, description=? where id=?;";
         jdbcTemplate.update(SQL, title, userId, startTime, endTime, weekNo, year, location, color, description, itemId);
 
     }
 
     public void addFilterToItem(int userId, int itemId, String filterName) {
-        String SQL ="insert into Filters (userId, itemId, name) values (?,?,?);";
+        String SQL ="insert into \"filters\" (userId, itemId, name) values (?,?,?);";
         jdbcTemplate.update(SQL, userId, itemId, filterName);
     }
 
     public void removeFilterFromItem(int userId, int itemId, String filtername) {
-        String SQL = "delete from Filters where name=? and itemId=? and userId=?";
+        String SQL = "delete from \"filters\" where name=? and itemId=? and userId=?";
         jdbcTemplate.update(SQL, filtername, itemId, userId);
     }
 
     public Group findGroup(int grpId) {
-        String SQL="select * from Group where id = ?";
+        String SQL="select * from \"group\" where id = ?";
         Group group = (Group)jdbcTemplate.queryForObject(SQL, new Object[]{grpId}, new GroupMapper());
         
         SQL="select * from User inner join Members on User.id = Members.userId and members.grpId = ?";
@@ -163,7 +163,7 @@ public class Repository implements RepositoryInterface {
         return group;
     }
     public int createGroup(String grpName, List<User> members){
-        String SQL="insert into Group (name) output inserted.id values (?)";
+        String SQL="insert into \"group\" (name) output inserted.id values (?)";
         int grpId = jdbcTemplate.update(SQL, grpName);
 
         SQL="insert into Members (grpId, userId) values (?,?)";
@@ -174,42 +174,42 @@ public class Repository implements RepositoryInterface {
     }
 
     public void deleteGroup(int grpId){
-        String SQL = "delete from Group where grpId=?";
+        String SQL = "delete from \"group\" where grpId=?";
         jdbcTemplate.update(SQL, grpId);
     }
 
     public void editGroupName(int grpId, String grpName){
-        String SQL = "update Group set name=? where id = ?";
+        String SQL = "update \"group\" set name=? where id = ?";
         jdbcTemplate.update(SQL, new Object[]{grpName, grpId});
     }
 
     public void addGroupMember(int groupId, int userId){
-        String SQL="insert into Members (grpId, userId) values (?,?)";
+        String SQL="insert into \"members\" (grpId, userId) values (?,?)";
         jdbcTemplate.update(SQL, groupId, userId);
     }
 
     public void removeGroupMember(int groupId, int userId){
-        String SQL="delete from Members where groupId=? and userId=? ";
+        String SQL="delete from \"members\" where groupId=? and userId=? ";
         jdbcTemplate.update(SQL, userId);
     }
 
     public void createFriendship(int userId1, int userId2){
-        String SQL="insert into Friendship values (?,?)";
+        String SQL="insert into \"friendship\" values (?,?)";
         jdbcTemplate.update(SQL, userId1, userId2);
     }
 
     public void deleteFriendship(int friendshipId){
-        String SQL="delete from Friendship where id=?";
+        String SQL="delete from \"friendship\" where id=?";
         jdbcTemplate.update(SQL,friendshipId);
     }
 
     public void createFilter(String filterName, int userId, int itemId){
-        String SQL="insert into Filters (name, userId, itemId) values (?,?,?)";
+        String SQL="insert into \"filters\" (name, userId, itemId) values (?,?,?)";
         jdbcTemplate.update(SQL, filterName, userId, itemId);
     }
 
     public void deleteFilter(int filterId){
-        String SQL="delete from Filters where id=?";
+        String SQL="delete from \"filters\" where id=?";
         jdbcTemplate.update(SQL, filterId);
     }
 }
