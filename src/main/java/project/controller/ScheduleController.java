@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import project.persistence.entities.*;
 import project.service.ScheduleService;
 
+import javax.annotation.security.PermitAll;
 import java.util.List;
 
 /**
@@ -25,8 +27,8 @@ public class ScheduleController {
         this.scheduleService = scheduleService;
     }
 
-    @RequestMapping(value="", method = RequestMethod.GET)
-    public String viewGetScheduleForUser(int userId, int weekNo, int yearNo, Model model){
+    @RequestMapping(value="/schedule/{userId}", method = RequestMethod.GET)
+    public String viewGetScheduleForUser(@PathVariable("userId") int userId, int weekNo, int yearNo, Model model){
 
         List<ScheduleItem> schedule = scheduleService.scheduleItems(userId, weekNo, yearNo);
         model.addAttribute(schedule);
@@ -34,18 +36,19 @@ public class ScheduleController {
         return "/";
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public String viewGetScheduleByFilters(Model model, String filters, int userId, int weekNo, int yearNo){
+    @RequestMapping(value = "/schedule/{filter}", method = RequestMethod.GET)
+    public String viewGetScheduleByFilters(Model model, @PathVariable("filter") String filters, int userId, int weekNo, int yearNo){
         List<ScheduleItem> scheduleByFilters = scheduleService.scheduleItemsFilters(userId, weekNo, yearNo, filters);
         model.addAttribute(scheduleByFilters);
 
         return "";
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public String editSchedulePost(@ModelAttribute("scheduleItemEdit") ScheduleItem scheduleItem, Model model, int itemId,
-                                   String title, int userId, String startTime, String endTime, int weekNo, int yearNo,
-                                   String location, String color, String description, List<User> taggedUsers, List<String> filters){
+    @RequestMapping(value = "/schedule/edit/{itemId}", method = RequestMethod.POST)
+    public String editSchedulePost(@ModelAttribute("scheduleItemEdit") ScheduleItem scheduleItem, Model model,
+                                   @PathVariable("itemId") int itemId, String title, int userId, String startTime,
+                                   String endTime, int weekNo, int yearNo, String location, String color,
+                                   String description, List<User> taggedUsers, List<String> filters){
 
         model.addAttribute("scheduleItemEdit", scheduleService.editScheduleItem(itemId, title, userId, startTime,
                 endTime, weekNo, yearNo, location, color, description, taggedUsers, filters));
