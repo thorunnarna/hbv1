@@ -3,6 +3,7 @@ package project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import project.persistence.entities.Schedule;
 import project.persistence.entities.ScheduleItem;
 import project.persistence.entities.User;
 import project.persistence.repositories.Repository;
@@ -25,9 +26,16 @@ public class ScheduleService {
 
     //public void addItem(int itemId, int  ){}
 
+    public List<ScheduleItem> scheduleItems(int userId, int weekNo, int yearNo){
+        List<ScheduleItem> scheduleItems = repository.findItemsByUserWeek(userId, weekNo, yearNo);
+
+        return scheduleItems;
+    }
+
+    
+
     public void removeItem(int itemId){
         repository.deleteItem(itemId);
-
     }
 
     public ScheduleItem createItem(String title, int userId, String startTime, String endTime,

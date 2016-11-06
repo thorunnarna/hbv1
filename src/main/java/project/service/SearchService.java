@@ -1,6 +1,5 @@
 package project.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project.persistence.repositories.Repository;
 import project.persistence.entities.*;
@@ -31,7 +30,7 @@ public class SearchService {
         return user;
     }
 
-    public void createFriendship(int userId1, int userId2){
+    public boolean createFriendship(int userId1, int userId2){
         repository.createFriendship(userId1,userId2);
 
         User user1 = repository.findUserById(userId1);
@@ -39,5 +38,7 @@ public class SearchService {
 
         user1.addFriend(user2);
         user2.addFriend(user1);
+
+        return true;
     }
 }
