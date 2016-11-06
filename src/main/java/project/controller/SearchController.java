@@ -3,6 +3,7 @@ package project.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import project.persistence.entities.User;
@@ -43,9 +44,10 @@ public class SearchController {
     }
 
     @RequestMapping(value="", method = RequestMethod.POST)
-    public String addFriendPost(Model model, int userId, int friendId){
+    public String addFriendPost(@ModelAttribute("friendship") User friendship,
+                                Model model, int userId1, int userId2){
 
-
+        model.addAttribute("friendship", searchService.createFriendship(userId1,userId2));
 
         return "/";
     }
