@@ -17,7 +17,6 @@
         <li><a href="/signup">Click here for SignUp</a></li>
         <li><a href="/login">Click here for LogIn</a></li>
 
-
     </ul>
     </body>
     <footer>Class HBV501G, University of Iceland, Fall 2015</footer>

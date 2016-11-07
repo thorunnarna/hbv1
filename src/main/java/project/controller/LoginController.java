@@ -3,9 +3,7 @@ package project.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import project.persistence.entities.User;
 import project.service.LoginService;
 
@@ -31,17 +29,25 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
-    public String signup(){
+    public String signup(Model model){
         //String test = "test name";
-       // model.addAttribute("name", test);
+        model.addAttribute("SignUp", new User());
+        model.addAttribute("password", "");
         return "SignUp";
     }
 
-    @RequestMapping(value="/signUp", method = RequestMethod.POST)
-    public String signUpPost(@ModelAttribute("SignUp") User SignUp, Model model, String username, String password, String photo, String school) {
-        User user = loginService.createUser(username, password, photo, school);
+    /*@RequestMapping(value="/signUp", method = RequestMethod.POST)
+    public String signUpPost(@ModelAttribute("SignUp") User SignUp, Model model, @ModelAttribute("password") String password) {
+        User user = loginService.createUser(SignUp.getUsername(), password, SignUp.getPhoto(), SignUp.getSchool());
         model.addAttribute("SignUp", user);
-        return "/home";
+        return "Index";
+    }*/
+
+    @PostMapping(value="/signUp")
+    public String signUpPost(@ModelAttribute("SignUp") User SignUp, Model model) {
+        User user = loginService.createUser(SignUp.getUsername(),SignUp.getPassword(), SignUp.getPhoto(), SignUp.getSchool());
+        model.addAttribute("SignUp", user);
+        return "Index";
     }
 
     @RequestMapping(value="/", method = RequestMethod.POST)

@@ -11,6 +11,7 @@ public class User {
     private int userId;
     private String photo;
     private String school;
+    private String password;
 
     public List<User> getFriends(){return friends;}
     public void addFriend(User user){friends.add(user);}
@@ -27,6 +28,9 @@ public class User {
 
     public String getSchool(){return school;}
     public void setSchool(String school){this.school = school;}
+
+    public String getPassword(){return password;}
+    public void setPassword(String password){this.password = password;}
 
 
 
