@@ -52,11 +52,14 @@ public class Repository implements RepositoryInterface {
         String SQL = "select * from \"user\" where username=?;";
         List<User> users = jdbcTemplate.query(SQL, new Object[]{username}, new UserMapper());
         System.out.println("í repo: "+users.get(0).getUsername()+users.get(0).getPhoto());
-        /*SQL = "select * from User inner join Friendship on (Friendship.userId1=? or Friendship.userId2=?)";
-        List<User> friends = jdbcTemplate.query(SQL, new Object[]{user.getUserId(), user.getUserId()}, new UserMapper());
-        for (User f : friends) {
-            user.addFriend(f);
-        }*/
+
+        SQL = "select * from User inner join Friendship on (Friendship.userId1=? or Friendship.userId2=?)";
+        for (User u : users) {
+            List<User> friends = jdbcTemplate.query(SQL, new Object[]{u.getUserId(), u.getUserId()}, new UserMapper());
+            for (User f : friends) {
+                u.addFriend(f);
+            }
+        }
         
         if(users.size()==0) return new User();
         if(users.size()>=1) return users.get(0);
@@ -65,8 +68,11 @@ public class Repository implements RepositoryInterface {
 
     public User findUserById(int userId) {
         String SQL = "select * from \"user\" where id=?";
-        User user = (User)jdbcTemplate.queryForObject(SQL, new Object[]{userId}, new UserMapper());
+        List<User> users = jdbcTemplate.query(SQL, new Object[]{userId}, new UserMapper());
 
+        if(users.size()==0) return null;
+
+        User user = users.get(0);
         SQL = "select * from User inner join Friendship on (Friendship.userId1=? or Friendship.userId2=?";
         List<User> friends = jdbcTemplate.query(SQL, new Object[]{userId, userId}, new UserMapper());
         for (User f : friends) {
@@ -155,8 +161,11 @@ public class Repository implements RepositoryInterface {
 
     public Group findGroup(int grpId) {
         String SQL="select * from \"group\" where id = ?";
-        Group group = (Group)jdbcTemplate.queryForObject(SQL, new Object[]{grpId}, new GroupMapper());
-        
+        List<Group> groups = jdbcTemplate.query(SQL, new Object[]{grpId}, new GroupMapper());
+
+        if(groups.size()==0) return null;
+
+        Group group = groups.get(0);
         SQL="select * from User inner join Members on User.id = Members.userId and members.grpId = ?";
         List<User> members = jdbcTemplate.query(SQL, new Object[]{grpId}, new UserMapper());
         for (User u : members) {
