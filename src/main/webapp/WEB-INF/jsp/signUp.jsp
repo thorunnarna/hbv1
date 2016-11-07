@@ -6,6 +6,7 @@
 <html lang="en">
 
     <head>
+        <meta charset="UTF-8">
         <title>Sign Up Page</title>
     </head>
     <body>
