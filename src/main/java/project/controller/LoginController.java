@@ -30,6 +30,14 @@ public class LoginController {
         return "LogIn";
     }
 
+    @RequestMapping(value = "/signup", method = RequestMethod.GET)
+    public String signup(Model model){
+        //String test = "test name";
+       // model.addAttribute("name", test);
+
+        return "SignUp";
+    }
+
     @RequestMapping(value="/signUp", method = RequestMethod.POST)
     public String signUpPost(@ModelAttribute("SignUp") User SignUp, Model model, String username, String password, String photo, String school) {
         User user = loginService.createUser(username, password, photo, school);

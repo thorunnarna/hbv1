@@ -20,7 +20,7 @@
     </table>
 
     <ul>
-        <!--li><a href="/postit">Click here for Persistence Layer Demo</a></li-->
+        <li><a href="/signup">Click here for SignUp</a></li>
 
 
     </ul>
