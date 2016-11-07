@@ -10,13 +10,17 @@
         <title>Sign Up Page</title>
     </head>
     <body>
-    
+
         <h1>Sign Up</h1>
 
         <form>
             Username: <input type="text" required="required">
             <br>
             Password: <input type="password" required="required">
+            <br>
+            School:<input type="text">
+            <br>
+            Photo: <input type="text">
         </form>
 
         <p>
