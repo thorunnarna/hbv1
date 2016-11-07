@@ -111,10 +111,11 @@ public class Repository implements RepositoryInterface {
 
     public int createUser(String username, String password, String photo, String school){
         String SQL = "insert into \"user\" (password, photo, username, school) values (?,?,?,?);";
-        jdbcTemplate.update(SQL, username, password, photo, school);
+        jdbcTemplate.update(SQL, password, photo, username, school);
 
-        SQL = "select id from User where username = ?;";
+        SQL = "select id from \"user\" where username=?";
         int userid = jdbcTemplate.queryForObject(SQL, new Object[]{username}, Integer.class);
+        System.out.println(userid);
         return userid;
     }
 

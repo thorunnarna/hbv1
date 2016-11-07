@@ -43,7 +43,7 @@ public class LoginController {
         return "Index";
     }*/
 
-    @PostMapping(value="/signUp")
+    @PostMapping(value="/signup")
     public String signUpPost(@ModelAttribute("SignUp") User SignUp, Model model) {
         User user = loginService.createUser(SignUp.getUsername(),SignUp.getPassword(), SignUp.getPhoto(), SignUp.getSchool());
         model.addAttribute("SignUp", user);

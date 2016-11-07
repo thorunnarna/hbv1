@@ -14,7 +14,7 @@
 
         <h1>Sign Up</h1>
 
-        <sf:form method="POST" commandName="SignUp" action ="/signUp">
+        <sf:form method="POST" commandName="SignUp" action ="/signup">
             <table>
                 <tr>
                     <td> Username:</td>
