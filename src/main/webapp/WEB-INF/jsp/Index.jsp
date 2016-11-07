@@ -11,16 +11,11 @@
     </head>
     <body>
 
-    <h1>HBV501G Project Spring Boot </h1>
-    <p>This is our project.</p>
-
-    <p>hérna kemur schedulið okkar</p>
-    <table>
-        
-    </table>
+    <h1>Planguin </h1>
 
     <ul>
         <li><a href="/signup">Click here for SignUp</a></li>
+        <li><a href="/login">Click here for LogIn</a></li>
 
 
     </ul>

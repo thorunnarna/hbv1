@@ -31,10 +31,9 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
-    public String signup(Model model){
+    public String signup(){
         //String test = "test name";
        // model.addAttribute("name", test);
-
         return "SignUp";
     }
 
