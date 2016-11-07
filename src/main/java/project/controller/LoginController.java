@@ -23,11 +23,18 @@ public class LoginController {
         this.loginService = loginService;
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String user(Model model){
+        String test = "testname";
+        model.addAttribute("name",test);
+        return "LogIn";
+    }
+
     @RequestMapping(value="/signUp", method = RequestMethod.POST)
     public String signUpPost(@ModelAttribute("SignUp") User SignUp, Model model, String username, String password, String photo, String school) {
         User user = loginService.createUser(username, password, photo, school);
         model.addAttribute("SignUp", user);
-        return "/";
+        return "/home";
     }
 
     @RequestMapping(value="/", method = RequestMethod.POST)
