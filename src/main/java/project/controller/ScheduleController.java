@@ -64,6 +64,21 @@ public class ScheduleController {
         model.addAttribute("scheduleItem", scheduleService.createItem(title, userId, startTime, endTime,
                 taggedUsers, weekNo, year, location, color, description, filters));
 
-        return "";
+        return "Home";
     }
+
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    public String signup(Model model){
+        //String test = "test name";
+        model.addAttribute("Home", new ScheduleItem());
+        return "Home";
+    }
+/*
+    @PostMapping(value="/signup")
+    public String signUpPost(@ModelAttribute("SignUp") User SignUp, Model model) {
+        User user = loginService.createUser(SignUp.getUsername(),SignUp.getPassword(), SignUp.getPhoto(), SignUp.getSchool());
+        model.addAttribute("SignUp", user);
+        return "Index";
+    }
+    */
 }
