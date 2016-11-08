@@ -11,7 +11,7 @@
         <title>home Page </title>
         <body>
 
-            <sf:form method="POST" commandName="Home" action ="/home">
+            <sf:form method="POST" commandName="scheduleItem" action ="/home">
                 <table>
                     <tr>
                         <td> Title:</td>

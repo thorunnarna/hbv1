@@ -52,7 +52,7 @@ public class ScheduleItem {
     public String getColor(){return color;}
     public void setColor(String color ){this.color = color;}
 
-    public String getDexcription(){return description;}
+    public String getDescription(){return description;}
     public void setDescription(String description ){this.description = description;}
 
     public void setFilters(List<String> filters){this.filters = filters;}

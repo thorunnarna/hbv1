@@ -3,10 +3,7 @@ package project.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import project.persistence.entities.*;
 import project.service.ScheduleService;
 
@@ -52,33 +49,25 @@ public class ScheduleController {
 
         model.addAttribute("scheduleItemEdit", scheduleService.editScheduleItem(itemId, title, userId, startTime,
                 endTime, weekNo, yearNo, location, color, description, taggedUsers, filters));
-
         return "";
     }
 
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, Model model,
-                                 String title, int userId, String startTime, String endTime, List<User> taggedUsers,
-                                 int weekNo, int year, String location,String color, String description, List<String> filters){
+    //@RequestMapping(value = "/home", method = RequestMethod.POST)
+    @PostMapping(value = "/home")
+    public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, Model model) {
+        ScheduleItem scheduleitem = scheduleService.createItem(scheduleItem.getTitle(), scheduleItem.getUserId(), scheduleItem.getStartTime(), scheduleItem.getEndTime(),
+                scheduleItem.getTaggedUsers(), scheduleItem.getWeekNo(), scheduleItem.getYear(), scheduleItem.getLocation(),
+                scheduleItem.getColor(),scheduleItem.getDescription(), scheduleItem.getFilters());
 
-        model.addAttribute("scheduleItem", scheduleService.createItem(title, userId, startTime, endTime,
-                taggedUsers, weekNo, year, location, color, description, filters));
-
+        model.addAttribute("scheduleItem",scheduleitem);
         return "Home";
     }
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public String signup(Model model){
+    public String home(Model model){
         //String test = "test name";
-        model.addAttribute("Home", new ScheduleItem());
+        model.addAttribute("scheduleItem", new ScheduleItem());
         return "Home";
     }
-/*
-    @PostMapping(value="/signup")
-    public String signUpPost(@ModelAttribute("SignUp") User SignUp, Model model) {
-        User user = loginService.createUser(SignUp.getUsername(),SignUp.getPassword(), SignUp.getPhoto(), SignUp.getSchool());
-        model.addAttribute("SignUp", user);
-        return "Index";
-    }
-    */
+
 }
