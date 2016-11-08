@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 
+
 <html lang="">
 
     <head>
@@ -12,11 +13,21 @@
     </head>
 
     <body>
-         <form>
-            Username: <input type="text" required="required">
-            <br>
-            Password: <input type="password" required="required">
-         </form>
+
+        <sf:form method="POST" commandName="LogIn" action ="/login">
+            <table>
+                <tr>
+                    <td> Username:</td>
+                    <td><sf:input path ="username" type="text" placeholder="Enter name"/></td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><sf:input path ="password" type="text" placeholder="Enter password"/></td>
+                </tr>
+            </table>
+            <input type="submit" value="Login!">
+
+        </sf:form>
     </body>
 
 </html>

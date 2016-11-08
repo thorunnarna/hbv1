@@ -23,8 +23,9 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String user(Model model){
-        String test = "testname";
-        model.addAttribute("name",test);
+        //String test = "testname";
+        //model.addAttribute("name",test);
+        model.addAttribute("LogIn",new User());
         return "LogIn";
     }
 
@@ -47,6 +48,13 @@ public class LoginController {
     public String signUpPost(@ModelAttribute("SignUp") User SignUp, Model model) {
         User user = loginService.createUser(SignUp.getUsername(),SignUp.getPassword(), SignUp.getPhoto(), SignUp.getSchool());
         model.addAttribute("SignUp", user);
+        return "Index";
+    }
+
+    @PostMapping(value="/login")
+    public String LogInPost(@ModelAttribute("LogIn") User LogIn, Model model) {
+        loginService.logInUser(LogIn.getUsername(),LogIn.getPassword());
+        model.addAttribute("LogIn");
         return "Index";
     }
 

@@ -27,7 +27,7 @@ public class LoginService {
         user.setSchool(school);
         return user;
     }
-    public void loginUser(int userId){
-        ///???
+    public void logInUser(String username, String password){
+        System.out.println("login tjékk");
     }
 }
