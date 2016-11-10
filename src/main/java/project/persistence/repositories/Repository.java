@@ -134,12 +134,12 @@ public class Repository implements RepositoryInterface {
     public int createItem(String title, int userId, String startTime, String endTime,
                    int weekNo, int year, String location, String color, String description){
         String SQL="insert into \"scheduleitem\" (title, userid, startTime, endTime, weekNo, year, location, color, description) " +
-                "output inserted.id values (?,?,?,?,?,?,?,?,?);";
-        int itemid = jdbcTemplate.update(SQL, title, userId, startTime, endTime, weekNo, year, location, color, description);
+                "values (?,?,?,?,?,?,?,?,?);";
+        jdbcTemplate.update(SQL, title, userId, startTime, endTime, weekNo, year, location, color, description);
 
         //SQL="select id from ScheduleItem where ";
         //int itemid = jdbcTemplate.queryForObject(SQL, new Object[]{username}, Integer.class);
-        return itemid;
+        return 0;
     }
 
     public void deleteItem(int itemId){
