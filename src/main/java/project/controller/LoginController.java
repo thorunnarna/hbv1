@@ -33,8 +33,7 @@ public class LoginController {
     public String signup(Model model){
         //String test = "test name";
         model.addAttribute("SignUp", new User());
-        model.addAttribute("password", "");
-        return "SignUp";
+        return "signUp";
     }
 
     /*@RequestMapping(value="/signUp", method = RequestMethod.POST)
@@ -46,6 +45,9 @@ public class LoginController {
 
     @PostMapping(value="/signup")
     public String signUpPost(@ModelAttribute("SignUp") User SignUp, Model model) {
+        //hér þurfum við að returna signUp með error um að username sé til!!!!
+        if(loginService.usernameExists(SignUp.getUsername())) return "signUp";
+
         User user = loginService.createUser(SignUp.getUsername(),SignUp.getPassword(), SignUp.getPhoto(), SignUp.getSchool());
         model.addAttribute("SignUp", user);
         return "Index";

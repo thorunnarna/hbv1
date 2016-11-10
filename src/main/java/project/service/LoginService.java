@@ -21,12 +21,21 @@ public class LoginService {
 
     public User createUser(String username, String password, String photo, String school) {
         User user = new User();
-        int i = repository.createUser(user.getUsername(), password, photo, school);
-        user.setUserId(i);
+        int id = repository.createUser(username, password, photo, school);
+        user.setUserId(id);
+        user.setUsername(username);
+        user.setPassword(password);
         user.setPhoto(photo);
         user.setSchool(school);
         return user;
     }
+
+    public boolean usernameExists(String username) {
+        int id = repository.getUserByUsername(username);
+        if (id == -1) return false;
+        else return true;
+    }
+
     public void logInUser(String username, String password){
         System.out.println("login tjékk");
     }

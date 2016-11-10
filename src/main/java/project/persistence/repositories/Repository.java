@@ -111,18 +111,23 @@ public class Repository implements RepositoryInterface {
 
     public int createUser(String password,String photo, String username, String school){
         String SQL = "insert into \"user\" (password, photo, username, school) values (?,?,?,?);";
-        jdbcTemplate.update(SQL, password, photo, username, school);
+        jdbcTemplate.update(SQL, new Object[]{password, photo, username, school});
 
         //SQL = "select id from \"user\" where username=?";
         //int userid = jdbcTemplate.queryForObject(SQL, new Object[]{username}, Integer.class);
         int userid = getUserByUsername(username);
-        System.out.println(userid);
         return userid;
     }
 
     public int getUserByUsername(String username){
         String SQL = "select id from \"user\" where username =?;";
-        int userid = jdbcTemplate.queryForObject(SQL, new Object[]{username}, Integer.class);
+        int userid;
+        try {
+            userid = jdbcTemplate.queryForObject(SQL, new Object[]{username}, Integer.class);
+        }
+        catch (Exception e){
+            return -1;
+        }
         return userid;
     }
     public void editUser(int userId, String username, String password, String photo, String school){
