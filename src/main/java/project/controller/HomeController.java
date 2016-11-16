@@ -29,7 +29,6 @@ public class HomeController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(){
 
-        System.out.println("control: "+SecurityContextHolder.getContext().getAuthentication().getDetails());
         // The string "Index" that is returned here is the name of the view
         // (the Index.jsp file) that is in the path /main/webapp/WEB-INF/jsp/
         // If you change "Index" to something else, be sure you have a .jsp

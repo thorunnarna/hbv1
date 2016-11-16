@@ -61,7 +61,7 @@ public class LoginController {
         User user = loginService.createUser(SignUp.getUsername(),SignUp.getPassword(), SignUp.getPhoto(), SignUp.getSchool());
         securityService.autologin(user.getUsername(), user.getPasswordConfirm());
         //model.addAttribute("SignUp", user);
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     @PostMapping(value="/login")
