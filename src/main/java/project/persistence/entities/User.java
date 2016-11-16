@@ -12,6 +12,7 @@ public class User {
     private String photo;
     private String school;
     private String password;
+    private String passwordConfirm;
 
     public List<User> getFriends(){return friends;}
     public void addFriend(User user){friends.add(user);}
@@ -31,6 +32,9 @@ public class User {
 
     public String getPassword(){return password;}
     public void setPassword(String password){this.password = password;}
+
+    public String getPasswordConfirm(){return passwordConfirm;}
+    public void setPasswordConfirm(String passwordConfirm){this.passwordConfirm = passwordConfirm;}
 
 
 
