@@ -26,6 +26,11 @@
 
                 </tr>
                 <tr>
+                    <td>Confirm password:</td>
+                    <td><sf:input path="passwordConfirm" type="" placeholder="Enter password again"/></td>
+
+                </tr>
+                <tr>
                     <td> Photo:</td>
                     <td><sf:input path="photo" type="text" placeholder="Choose photo"/></td>
 

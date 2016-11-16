@@ -14,8 +14,7 @@ public class SecurityService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService = new UserDetailsServiceImpl();
 
     public String findLoggedInUsername() {
         Object userDetails = SecurityContextHolder.getContext();
