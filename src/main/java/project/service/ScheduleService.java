@@ -10,6 +10,7 @@ import project.persistence.entities.User;
 import project.persistence.repositories.Repository;
 
 //import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -36,8 +37,8 @@ public class ScheduleService {
         return repository.findItemsByUserWeekFilter(userId, weekNo, yearNo, filter);
     }
 
-    public ScheduleItem editScheduleItem(int itemId, String title, int userId, String startTime,
-                                                String endTime, int weekNo, int year, String location, String color,
+    public ScheduleItem editScheduleItem(int itemId, String title, int userId, LocalDateTime startTime,
+                                                LocalDateTime endTime, int weekNo, int year, String location, String color,
                                          String description, List<User> taggedUsers, List<String> filters){
         repository.editItem(itemId, title, userId, startTime, endTime, weekNo, year, location, color, description,
                 taggedUsers, filters);
@@ -63,7 +64,7 @@ public class ScheduleService {
         repository.deleteItem(itemId);
     }
 
-    public ScheduleItem createItem(String title, int userId, String startTime, String endTime,
+    public ScheduleItem createItem(String title, int userId, LocalDateTime startTime, LocalDateTime endTime,
                                    List<User> taggedUsers, int weekNo, int year, String location,String color,
                                    String description, List<String> filters){
         int id = repository.createItem(title, userId, startTime, endTime, weekNo, year, location, color, description);

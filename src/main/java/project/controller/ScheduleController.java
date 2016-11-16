@@ -14,6 +14,7 @@ import project.service.ScheduleService;
 //import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -49,8 +50,8 @@ public class ScheduleController {
 
     @RequestMapping(value = "/schedule/edit/{itemId}", method = RequestMethod.POST)
     public String editSchedulePost(@ModelAttribute("scheduleItemEdit") ScheduleItem scheduleItem, Model model,
-                                   @PathVariable("itemId") int itemId, String title, int userId, String startTime,
-                                   String endTime, int weekNo, int yearNo, String location, String color,
+                                   @PathVariable("itemId") int itemId, String title, int userId, LocalDateTime startTime,
+                                   LocalDateTime endTime, int weekNo, int yearNo, String location, String color,
                                    String description, List<User> taggedUsers, List<String> filters){
 
         model.addAttribute("scheduleItemEdit", scheduleService.editScheduleItem(itemId, title, userId, startTime,

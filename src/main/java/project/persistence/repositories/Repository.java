@@ -1,9 +1,11 @@
 package project.persistence.repositories;
 
+import org.springframework.cglib.core.Local;
 import project.persistence.entities.Group;
 import project.persistence.entities.ScheduleItem;
 import project.persistence.entities.User;
 
+import java.sql.Timestamp;
 import java.time.*;
 import java.util.List;
 import java.sql.SQLException;
@@ -136,11 +138,11 @@ public class Repository implements RepositoryInterface {
     }
 
 
-    public int createItem(String title, int userId, String startTime, String endTime,
+    public int createItem(String title, int userId, LocalDateTime startTime, LocalDateTime endTime,
                    int weekNo, int year, String location, String color, String description){
         String SQL="insert into \"scheduleitem\" (title, userid, startTime, endTime, weekNo, year, location, color, description) " +
                 "values (?,?,?,?,?,?,?,?,?);";
-        jdbcTemplate.update(SQL, title, userId, startTime, endTime, weekNo, year, location, color, description);
+        jdbcTemplate.update(SQL, title, userId, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), weekNo, year, location, color, description);
 
         //SQL="select id from ScheduleItem where ";
         //int itemid = jdbcTemplate.queryForObject(SQL, new Object[]{username}, Integer.class);
@@ -152,8 +154,8 @@ public class Repository implements RepositoryInterface {
         jdbcTemplate.update(SQL, itemId);
     }
 
-    public void editItem(int itemId, String title, int userId, String startTime, String endTime, int weekNo, int year,
-                  String location, String color, String description, List<User> taggedUsers, List<String> filters){
+    public void editItem(int itemId, String title, int userId, LocalDateTime startTime, LocalDateTime endTime, int weekNo, int year,
+                         String location, String color, String description, List<User> taggedUsers, List<String> filters){
         String SQL="update \"scheduleitem\" set title=?, userid=?, startTime=?, endTime=?, weekNo=?, year=?, location=?, " +
                 "color=?, description=? where id=?;";
         jdbcTemplate.update(SQL, title, userId, startTime, endTime, weekNo, year, location, color, description, itemId);

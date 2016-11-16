@@ -22,12 +22,12 @@ public interface RepositoryInterface {
 
     void editUser(int userId, String username, String password, String photo, String school);
 
-    int createItem(String title, int userId, String startTime, String endTime,
+    int createItem(String title, int userId, LocalDateTime startTime, LocalDateTime endTime,
                    int weekNo, int year, String location, String color, String description);
 
     void deleteItem(int itemId);
 
-    void editItem(int itemId, String title, int userId, String startTime, String endTime, int weekNo, int year,
+    void editItem(int itemId, String title, int userId, LocalDateTime startTime, LocalDateTime endTime, int weekNo, int year,
                   String location, String color, String description, List<User> taggedUsers, List<String> filters);
 
     void addFilterToItem(int userId, int itemId, String filterName);

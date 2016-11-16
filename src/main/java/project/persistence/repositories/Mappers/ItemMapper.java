@@ -16,8 +16,8 @@ public class ItemMapper implements RowMapper {
         item.setUserId(rs.getInt("userid"));
         item.setColor(rs.getString("color"));
         item.setDescription(rs.getString("description"));
-        //item.setEndTime(rs.getTime("endTime"));
-        //item.setStartTime(rs.getTime("startTime"));
+        item.setEndTime(rs.getTimestamp("endTime").toLocalDateTime());
+        item.setStartTime(rs.getTimestamp("startTime").toLocalDateTime());
         item.setLocation(rs.getString("location"));
         item.setTitle(rs.getString("title"));
         item.setWeekNo(rs.getInt("weekNo"));

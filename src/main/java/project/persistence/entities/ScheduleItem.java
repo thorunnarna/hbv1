@@ -9,9 +9,9 @@ public class ScheduleItem {
     private String title;
     private int id;
     private int userId;
-    private String startTime;
+    private LocalDateTime startTime;
     private List<User> taggedUsers;
-    private String endTime;
+    private LocalDateTime endTime;
     private int weekNo;
     private int year;
     private String location;
@@ -29,11 +29,11 @@ public class ScheduleItem {
     public int getUserId(){return userId;}
     public void setUserId(int userId){this.userId = userId;}
 
-    public String getStartTime(){return startTime;}
-    public void setStartTime(String startTime){this.startTime = startTime;}
+    public LocalDateTime getStartTime(){return startTime;}
+    public void setStartTime(LocalDateTime startTime){this.startTime = startTime;}
 
-    public String getEndTime(){return endTime;}
-    public void setEndTime(String endTime){this.endTime = endTime;}
+    public LocalDateTime getEndTime(){return endTime;}
+    public void setEndTime(LocalDateTime endTime){this.endTime = endTime;}
 
     public void setTaggedUsers(List<User> taggedUsers){this.taggedUsers = taggedUsers;}
     public List<User> getTaggedUsers(){return taggedUsers;}
@@ -62,7 +62,7 @@ public class ScheduleItem {
 
 
 
-    public void changeTime(String start, String end){
+    public void changeTime(LocalDateTime start, LocalDateTime end){
         startTime = start;
         endTime = end;
     }
