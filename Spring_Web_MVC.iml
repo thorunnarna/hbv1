@@ -4,8 +4,6 @@
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="fileset" name="Spring Application Context" removed="false">
-          <file>file://$MODULE_DIR$/src/main/resources/Beans.xml</file>
-          <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/appconfig-security.xml</file>
           <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/securityConfig.xml</file>
         </fileset>
       </configuration>
