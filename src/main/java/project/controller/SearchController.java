@@ -26,27 +26,27 @@ public class SearchController {
         this.searchService = searchService;
     }
 
-    @RequestMapping(value="/user/all", method = RequestMethod.GET)
+    @RequestMapping(value="/search/all", method = RequestMethod.GET)
     public String viewGetListOfUsers(Model model){
 
         List<User> users = searchService.findAll();
         model.addAttribute(users);
 
-        return "/";
+        return "Search";
     }
 
-    @RequestMapping(value="/user/{username}", method = RequestMethod.GET)
+    @RequestMapping(value="/search/{username}", method = RequestMethod.GET)
     public String getSearchByName(@PathVariable("username") String username, Model model){
 
         System.out.println(username);
         User user = searchService.findByName(username);
         System.out.println("í controller: "+user.getUsername());
-        model.addAttribute(user);
+        model.addAttribute("User", user);
 
-        return "redirect:/User";
+        return "Search";
     }
 
-    @RequestMapping(value="/user/{userId1}/{userId2}", method = RequestMethod.POST)
+    @RequestMapping(value="/search/{userId1}/{userId2}", method = RequestMethod.POST)
     public String addFriendPost(@ModelAttribute("friendship") Boolean friendship,
                                 Model model, @PathVariable("userId1") int userId1, @PathVariable("userId2") int userId2){
 
