@@ -3,6 +3,8 @@ package project.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,8 +13,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * Created by Svava on 16.11.16.
  */
 public class SecurityService {
-    @Autowired
-    private AuthenticationManager authenticationManager;
+
+    private AuthenticationManager authenticationManager = new AuthenticationManager() {
+        @Override
+        public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+            return null;
+        }
+    };
 
     private UserDetailsService userDetailsService = new UserDetailsServiceImpl();
 
@@ -32,6 +39,7 @@ public class SecurityService {
 
         if (usernamePasswordAuthenticationToken.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            System.out.println("auth?" + SecurityContextHolder.getContext().getAuthentication());
         }
     }
 }

@@ -29,7 +29,7 @@ public class UserValidator implements Validator {
         }
         System.out.println("valid: "+loginService);
         if (loginService.usernameExists(user.getUsername())) {
-            errors.rejectValue("username", "THis username already exists!");
+            errors.rejectValue("username", "This username already exists!");
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");

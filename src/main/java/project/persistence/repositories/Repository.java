@@ -59,7 +59,7 @@ public class Repository implements RepositoryInterface {
                 u.addFriend(f);
             }
         }
-        System.out.println(users.get(0).getUsername());
+
         if(users.size()==0) return new User();
         if(users.size()>=1) return users.get(0);
         return null;

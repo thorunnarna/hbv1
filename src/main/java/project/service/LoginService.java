@@ -21,7 +21,7 @@ public class LoginService {
 
     public User createUser(String username, String password, String photo, String school) {
         User user = new User();
-        int id = repository.createUser(username, password, photo, school);
+        int id = repository.createUser(password, photo, username, school);
         user.setUserId(id);
         user.setUsername(username);
         user.setPassword(password);
