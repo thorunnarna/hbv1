@@ -1,6 +1,7 @@
 package project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import project.persistence.entities.*;
@@ -15,12 +16,16 @@ public class LoginService {
 
     Repository repository;
 
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
     public LoginService() {
         this.repository = new Repository();
+        this.bCryptPasswordEncoder = new BCryptPasswordEncoder();
     }
 
     public User createUser(String username, String password, String photo, String school) {
         User user = new User();
+        password = bCryptPasswordEncoder.encode(password);
         int id = repository.createUser(password, photo, username, school);
         user.setUserId(id);
         user.setUsername(username);
