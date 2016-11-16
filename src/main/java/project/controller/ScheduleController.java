@@ -5,10 +5,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.support.RequestContext;
 import project.persistence.entities.*;
 import project.service.ScheduleService;
 
 //import javax.annotation.security.PermitAll;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -66,11 +70,10 @@ public class ScheduleController {
     }
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public String home(Model model){
+    public String home(Model model, HttpServletRequest request) {
         //String test = "test name";
-        //HttpSession session = request.getSession(true);
-        //System.out.println(session.getAttribute("SPRING_SECURITY_CONTEXT"));
-
+        HttpSession session = request.getSession();
+        System.out.println("session? : " +session.getAttribute("SPRING_SECURITY_CONTEXT"));
         System.out.println("control: "+ SecurityContextHolder.getContext().getAuthentication());
         model.addAttribute("scheduleItem", new ScheduleItem());
         return "Home";

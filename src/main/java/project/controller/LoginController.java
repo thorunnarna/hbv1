@@ -1,10 +1,12 @@
 package project.controller;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
 import project.persistence.entities.User;
 import project.service.LoginService;
 import project.service.SecurityService;
@@ -60,7 +62,8 @@ public class LoginController {
         }
         User user = loginService.createUser(SignUp.getUsername(),SignUp.getPassword(), SignUp.getPhoto(), SignUp.getSchool());
         securityService.autologin(user.getUsername(), user.getPasswordConfirm());
-        //model.addAttribute("SignUp", user);
+        System.out.println("eftir login: "+ SecurityContextHolder.getContext().getAuthentication());
+        System.out.println(RequestContextHolder.getRequestAttributes().getSessionId());
         return "redirect:/home";
     }
 
@@ -68,8 +71,8 @@ public class LoginController {
     public String LogInPost(@ModelAttribute("LogIn") User LogIn, Model model) {
         //loginService.logInUser(LogIn.getUsername(),LogIn.getPassword());
         //model.addAttribute("LogIn");
-
-        return "Index";
+        securityService.autologin(LogIn.getUsername(), LogIn.getPassword());
+        return "redirect:/home";
     }
 
     @RequestMapping(value="/", method = RequestMethod.POST)
