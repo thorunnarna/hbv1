@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.persistence.entities.User;
 import project.persistence.repositories.Repository;
@@ -15,6 +16,7 @@ import java.util.Set;
 /**
  * Created by Svava on 16.11.16.
  */
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private Repository userRepository = new Repository();
