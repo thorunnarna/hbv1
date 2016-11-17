@@ -71,11 +71,7 @@ public class ScheduleController {
     }
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public String home(Model model, HttpServletRequest request) {
-        //String test = "test name";
-        HttpSession session = request.getSession();
-        System.out.println("session? : " +session.getAttribute("SPRING_SECURITY_CONTEXT"));
-        System.out.println("control: "+ SecurityContextHolder.getContext().getAuthentication());
+    public String home(Model model) {
         model.addAttribute("scheduleItem", new ScheduleItem());
         return "Home";
     }
