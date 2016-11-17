@@ -8,10 +8,12 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by Svava on 16.11.16.
  */
+@Service
 public class SecurityService {
 
     private AuthenticationManager authenticationManager = new AuthenticationManager() {

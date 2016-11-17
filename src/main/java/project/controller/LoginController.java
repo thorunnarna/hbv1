@@ -12,6 +12,8 @@ import project.service.LoginService;
 import project.service.SecurityService;
 import project.validator.UserValidator;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Created by halld on 02-Nov-16.
  */
@@ -21,7 +23,8 @@ public class LoginController {
 
     LoginService loginService;
 
-    SecurityService securityService = new SecurityService();
+    @Autowired
+    SecurityService securityService;
 
     UserValidator userValidator = new UserValidator();
 
@@ -34,6 +37,7 @@ public class LoginController {
     public String user(Model model){
         //String test = "testname";
         //model.addAttribute("name",test);
+        System.out.println("eftir login: "+SecurityContextHolder.getContext().getAuthentication());
         model.addAttribute("LogIn",new User());
         return "LogIn";
     }
@@ -53,7 +57,7 @@ public class LoginController {
     }*/
 
     @PostMapping(value="/signup")
-    public String signUpPost(@ModelAttribute("SignUp") User SignUp, BindingResult bindingResult, Model model) {
+    public String signUpPost(@ModelAttribute("SignUp") User SignUp, BindingResult bindingResult, Model model, HttpServletRequest request) {
         userValidator.validate(SignUp, bindingResult);
 
         if (bindingResult.hasErrors()) {
@@ -62,8 +66,7 @@ public class LoginController {
         }
         User user = loginService.createUser(SignUp.getUsername(),SignUp.getPassword(), SignUp.getPhoto(), SignUp.getSchool());
         securityService.autologin(user.getUsername(), user.getPasswordConfirm());
-        System.out.println("eftir login: "+ SecurityContextHolder.getContext().getAuthentication());
-        System.out.println(RequestContextHolder.getRequestAttributes().getSessionId());
+
         return "redirect:/home";
     }
 
