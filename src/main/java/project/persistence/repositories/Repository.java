@@ -83,7 +83,7 @@ public class Repository implements RepositoryInterface {
     }
 
     public List<ScheduleItem> findItemsByUserWeek(int userId, int weekNo, int year){
-        String SQL = "select * from \"scheduleitem\" where userid = ? and weekNo = ? and year=?;";
+        String SQL = "select * from \"scheduleItem\" where userid = ? and \"weekNo\" = ? and year=?;";
         List<ScheduleItem> items = jdbcTemplate.query(SQL, new Object[]{userId, weekNo, year}, new ItemMapper());
 
         SQL="select * from Filters where itemId=?";

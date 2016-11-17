@@ -67,16 +67,21 @@ public class ScheduleController {
                 scheduleItem.getColor(),scheduleItem.getDescription(), scheduleItem.getFilters());
 
         model.addAttribute("scheduleItem",scheduleitem);
+        System.out.println(scheduleService.scheduleItems(1,2,3).get(0));
+        model.addAttribute("scheduleItems",scheduleService.scheduleItems(1,2,3));
         return "Home";
     }
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home(Model model, HttpServletRequest request) {
         //String test = "test name";
+        System.out.println(scheduleService.scheduleItems(1,2,3).get(0));
         HttpSession session = request.getSession();
         System.out.println("session? : " +session.getAttribute("SPRING_SECURITY_CONTEXT"));
         System.out.println("control: "+ SecurityContextHolder.getContext().getAuthentication());
         model.addAttribute("scheduleItem", new ScheduleItem());
+        model.addAttribute("scheduleItems",scheduleService.scheduleItems(1,2,3));
+
         return "Home";
     }
 

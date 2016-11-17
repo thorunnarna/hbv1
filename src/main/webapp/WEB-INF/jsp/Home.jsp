@@ -65,12 +65,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>${title}</td>
-                    <td>${userId}</td>
-                    <td>${location}</td>
-                    <td>${description}</td>
-                </tr>
+                    <c:forEach var="schedItem" items="${scheduleItems}">
+                        <tr>
+                        <%--We can reference attributes of the Entity by just entering the name we gave--%>
+                        <%--it in the singular item var, and then just a dot followed by the attribute name--%>
+                            <td><a href="/schedItem/${schedItem.title}">${schedItem.title}</a></td>
+                            <td>${schedItem.color}</td>
+                        </tr>
+                    </c:forEach>
+
                 </tbody>
             </table>
         </body>
