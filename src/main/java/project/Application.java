@@ -16,7 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 //@SpringBootApplication
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan({"project.controller","project.service","project.persistence"})
+@ComponentScan({"project"})
 public class Application extends SpringBootServletInitializer{
 
     @Override

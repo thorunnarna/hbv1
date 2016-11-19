@@ -18,9 +18,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecurityService {
 
-    @Autowired
-    @Qualifier("authenticationManager")
-    private AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager = new AuthenticationManager() {
+        @Override
+        public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+            return null;
+        }
+    };
 
     private UserDetailsService userDetailsService = new UserDetailsServiceImpl();
 
