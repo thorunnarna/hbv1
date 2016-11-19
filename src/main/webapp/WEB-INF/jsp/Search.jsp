@@ -11,7 +11,7 @@
         <title>Search Page</title>
     </head>
     <body>
-        <form method="get" action="/search">
+        <form action="/search">
             Search: <input type="text" name="username" placeholder="Type username.."/>
         </form>
         <table border="1px gray">

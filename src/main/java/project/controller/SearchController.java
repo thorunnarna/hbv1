@@ -24,7 +24,7 @@ public class SearchController {
         this.searchService = searchService;
     }
 
-    @RequestMapping(value="/search/all", method = RequestMethod.GET)
+    @RequestMapping(value="/search/all")
     public String viewGetListOfUsers(Model model){
 
         List<User> users = searchService.findAll();
@@ -33,7 +33,7 @@ public class SearchController {
         return "Search";
     }
 
-    @RequestMapping(value="/search", method = RequestMethod.GET)
+    @RequestMapping(value="/search")
     public String getSearchByName(@RequestParam("username") String username, Model model){
 
         System.out.println(username);
