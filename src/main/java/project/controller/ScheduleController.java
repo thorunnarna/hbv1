@@ -17,6 +17,7 @@ import project.validator.ItemValidator;
 //import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class ScheduleController {
 
     ScheduleService scheduleService;
     SearchService searchService;
-    ItemValidator itemValidator = new ItemValidator();
+    //ItemValidator itemValidator = new ItemValidator();
 
     @Autowired
     public ScheduleController(ScheduleService scheduleService, SearchService searchService){
@@ -67,18 +68,17 @@ public class ScheduleController {
 
     //@RequestMapping(value = "/home", method = RequestMethod.POST)
     @PostMapping(value = "/home")
-    public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, BindingResult bindingResult, Model model) {
-        itemValidator.validate(scheduleItem, bindingResult);
+    public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, LocalDate date, LocalDateTime sTime, LocalDateTime eTime, Model model) {
+        //itemValidator.validate(scheduleItem, bindingResult);
 
-        if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult.getAllErrors());
-            return "Home";
-        }
+        //if (bindingResult.hasErrors()) {
+          //  System.out.println(bindingResult.getAllErrors());
+            //return "Home";
+        //}
 
         String tmpUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         User tmpUser = searchService.findByName(tmpUsername);
         int userid = tmpUser.getUserId();
-
 
 
         ScheduleItem scheduleitem = scheduleService.createItem(scheduleItem.getTitle(), userid, scheduleItem.getStartTime(), scheduleItem.getEndTime(),
@@ -99,11 +99,17 @@ public class ScheduleController {
         if (SecurityContextHolder.getContext().getAuthentication().getName() == null ) isLoggedIn = false;
         else isLoggedIn = true;
         String LoggedInUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        LocalDate date = LocalDate.now();
+        LocalDateTime sTime = LocalDateTime.now();
+        LocalDateTime eTime = LocalDateTime.now();
 
         model.addAttribute("loggedInUser",LoggedInUser);
         model.addAttribute("loggedInStatus",isLoggedIn);
         model.addAttribute("scheduleItem", new ScheduleItem());
         model.addAttribute("scheduleItems",scheduleService.scheduleItems(1,2,3));
+        model.addAttribute("date",date);
+        model.addAttribute("sTime",sTime);
+        model.addAttribute("eTime",eTime);
 
         return "Home";
     }

@@ -11,6 +11,9 @@
 
     <head>
         <%@ page contentType="text/html; charset=UTF-8"%>
+            <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+                  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+            <link href="../css/stylesheet.css" rel="stylesheet" type="text/css">
         <title>home Page </title>
 
             <meta charset="utf-8">
@@ -20,56 +23,77 @@
             <link rel="stylesheet" href="/resources/demos/style.css">
             <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <script src="../src/main/resources/static.css/combodate.js"></script>
             <script>
                 $( function() {
                     $( "#datepicker" ).datepicker();
                 } );
             </script>
+
+            <script>
+                $( function() {
+                    $( "#datepicker1" ).datepicker();
+                } );
+            </script>
+            <script>
+                $(function(){
+                    $('#datetime24').combodate();
+                });
+            </script>
+
         <body>
 
-            <sf:form method="POST" commandName="scheduleItem" action ="/home">
+            <form method="POST" action ="/home">
                 <c:if test="${loggedInStatus}">
-                    <p>Velkominn ${loggedInUser}!</p>
+                    <p>welcome ${loggedInUser}!</p>
                 </c:if>
                 <table>
                     <tr>
                         <td> Title:</td>
-                        <td><sf:input path ="title" type="text" placeholder="Enter title"/></td>
+                        <spring:bind path="scheduleItem.title">
+                        <td><input  type="text" placeholder="Enter title"/></td>
+                        </spring:bind>
                     </tr>
                     
                     <tr>
                         <td> Location:</td>
-                        <td><sf:input path="location" type="text" placeholder="Choose location"/></td>
+                        <spring:bind path="scheduleItem.location">
+                        <td><input type="text" placeholder="Choose location"/></td>
+                        </spring:bind>
                     </tr>
                     <tr>
                         <td> Description:</td>
-                        <td><sf:input path="description" type="text" placeholder="Enter description"/></td>
+                        <spring:bind path="scheduleItem.description">
+                        <td><input type="text" placeholder="Enter description"/></td>
+                        </spring:bind>
                     </tr>
                     <tr>
-                        <td> StartTime:</td>
-                        <td><sf:input path="startTime" type="text" placeholder="Enter starttime" id="datepicker"/></td>
-                    </tr>
-
-
-                    <tr>
-                        <td> EndTime:</td>
-                        <td><sf:input path="endTime" type="text" placeholder="Enter endtime" id="datepicker"/></td>
+                        <td> Day:</td>
+                        <spring:bind path="date">
+                            <td><input type="text" placeholder="Choose date" id="datepicker"/></td>
+                        </spring:bind>
                     </tr>
                     <tr>
-                        <td> WeekNo:</td>
-                        <td><sf:input path="weekNo" type="int" placeholder="Enter weekno"/></td>
+                        <td> start time:</td>
+                        <spring:bind path="sTime">
+                            <td><input type="text" placeholder="enter start time" /></td>
+                        </spring:bind>
                     </tr>
                     <tr>
-                        <td> Year:</td>
-                        <td><sf:input path="year" type="int" placeholder="Enter year"/></td>
+                        <td> End time:</td>
+                        <spring:bind path="eTime">
+                            <td><input type="text" placeholder="enter end time" /></td>
+                        </spring:bind>
                     </tr>
                     <tr>
                         <td> Color:</td>
-                        <td><sf:input path="color" type="text" placeholder="Choose color"/></td>
+                        <spring:bind path="scheduleItem.color">
+                        <td><input type="text" placeholder="Choose color"/></td>
+                        </spring:bind>
                     </tr>
                 </table>
                 <input type="submit" value="Create scheduleItem!">
-            </sf:form>
+            </form>
             <table>
                 <thead>
                 <tr style="font-weight: 600;">
