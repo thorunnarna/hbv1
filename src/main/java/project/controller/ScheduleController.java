@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.support.RequestContext;
 import project.persistence.entities.*;
 import project.service.ScheduleService;
 import project.service.SearchService;
+import project.validator.ItemValidator;
 
 //import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +29,7 @@ public class ScheduleController {
 
     ScheduleService scheduleService;
     SearchService searchService;
+    ItemValidator itemValidator = new ItemValidator();
 
     @Autowired
     public ScheduleController(ScheduleService scheduleService, SearchService searchService){
@@ -64,7 +67,14 @@ public class ScheduleController {
 
     //@RequestMapping(value = "/home", method = RequestMethod.POST)
     @PostMapping(value = "/home")
-    public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, Model model) {
+    public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, BindingResult bindingResult, Model model) {
+        itemValidator.validate(scheduleItem, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult.getAllErrors());
+            return "Home";
+        }
+
         String tmpUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         User tmpUser = searchService.findByName(tmpUsername);
         int userid = tmpUser.getUserId();
