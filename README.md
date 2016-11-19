@@ -1,5 +1,25 @@
 # hbv1
 
+=====
+TO DO
+=====
+Virkni
+ - Compare dótið
+ - Senda á fólk invite
+ - Búa til group
+ - ??
+
+View
+ - Compare
+ - Index meira fínt
+ - User
+ - Útlit almennt meira?
+ - Group page?
+ - Invite? How look?
+
+
+
+
 ===================
 SQL DATABASE SCRIPT
 ===================
