@@ -11,6 +11,7 @@ import project.persistence.entities.User;
 import project.service.SearchService;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by halld on 02-Nov-16.
@@ -30,7 +31,7 @@ public class SearchController {
     public String viewGetListOfUsers(Model model){
 
         List<User> users = searchService.findAll();
-        model.addAttribute(users);
+        model.addAttribute("users", users);
 
         return "Search";
     }
@@ -41,7 +42,9 @@ public class SearchController {
         System.out.println(username);
         User user = searchService.findByName(username);
         System.out.println("í controller: "+user.getUsername());
-        model.addAttribute("User", user);
+        List<User> users = new ArrayList<User>();
+        users.add(user);
+        model.addAttribute("users", users);
 
         return "Search";
     }

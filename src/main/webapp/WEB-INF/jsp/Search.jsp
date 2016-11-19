@@ -2,6 +2,7 @@
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 
 
 <html lang="">
@@ -11,16 +12,18 @@
         <title>Search Page</title>
     </head>
     <body>
-            <table border="1px gray">
-                <tbody>
+        <sf:form method="GET" commandName="User" action="/Search">
+
+        </sf:form>
+        <table border="1px gray">
+            <tbody>
+            <c:forEach items="${users}" var="user">
                 <tr>
-                    <td>${name}</td>
-                    <td>${job}</td>
-                    <td>${email}</td>
-                    <td>${description}</td>
+                    <td>${user.name}</td>
                 </tr>
-                </tbody>
-            </table>
+            </c:forEach>
+            </tbody>
+        </table>
     </body>
 
 </html>
