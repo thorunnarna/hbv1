@@ -1,3 +1,4 @@
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 <!DOCTYPE html>
 
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -11,19 +12,31 @@
     <head>
         <%@ page contentType="text/html; charset=UTF-8"%>
         <title>home Page </title>
+
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>jQuery UI Datepicker - Default functionality</title>
+            <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+            <link rel="stylesheet" href="/resources/demos/style.css">
+            <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+            <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+            <script>
+                $( function() {
+                    $( "#datepicker" ).datepicker();
+                } );
+            </script>
         <body>
-            <p>Hæ ${pageContext.request.userPrincipal.name}</p>
 
             <sf:form method="POST" commandName="scheduleItem" action ="/home">
+                <c:if test="${loggedInStatus}">
+                    <p>Velkominn ${loggedInUser}!</p>
+                </c:if>
                 <table>
                     <tr>
                         <td> Title:</td>
                         <td><sf:input path ="title" type="text" placeholder="Enter title"/></td>
                     </tr>
-                    <tr>
-                        <td>UserId:</td>
-                        <td><sf:input path="userId" type="int" placeholder="verður þannig að það fyllist inn sjálfkrafa"/></td>
-                    </tr>
+                    
                     <tr>
                         <td> Location:</td>
                         <td><sf:input path="location" type="text" placeholder="Choose location"/></td>
@@ -34,11 +47,13 @@
                     </tr>
                     <tr>
                         <td> StartTime:</td>
-                        <td><sf:input path="startTime" type="text" placeholder="Enter starttime"/></td>
+                        <td><sf:input path="startTime" type="text" placeholder="Enter starttime" id="datepicker"/></td>
                     </tr>
+
+
                     <tr>
-                        <td> StartTime:</td>
-                        <td><sf:input path="endTime" type="text" placeholder="Enter endtime"/></td>
+                        <td> EndTime:</td>
+                        <td><sf:input path="endTime" type="text" placeholder="Enter endtime" id="datepicker"/></td>
                     </tr>
                     <tr>
                         <td> WeekNo:</td>

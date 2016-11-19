@@ -10,6 +10,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.support.RequestContext;
 import project.persistence.entities.*;
 import project.service.ScheduleService;
+import project.service.SearchService;
 
 //import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletRequest;
@@ -25,10 +26,12 @@ import java.util.List;
 public class ScheduleController {
 
     ScheduleService scheduleService;
+    SearchService searchService;
 
     @Autowired
-    public ScheduleController(ScheduleService scheduleService){
+    public ScheduleController(ScheduleService scheduleService, SearchService searchService){
         this.scheduleService = scheduleService;
+        this.searchService = searchService;
     }
 
     @RequestMapping(value="/schedule/{userId}", method = RequestMethod.GET)
@@ -62,9 +65,16 @@ public class ScheduleController {
     //@RequestMapping(value = "/home", method = RequestMethod.POST)
     @PostMapping(value = "/home")
     public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, Model model) {
-        ScheduleItem scheduleitem = scheduleService.createItem(scheduleItem.getTitle(), scheduleItem.getUserId(), scheduleItem.getStartTime(), scheduleItem.getEndTime(),
+        String tmpUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        User tmpUser = searchService.findByName(tmpUsername);
+        int userid = tmpUser.getUserId();
+
+
+
+        ScheduleItem scheduleitem = scheduleService.createItem(scheduleItem.getTitle(), userid, scheduleItem.getStartTime(), scheduleItem.getEndTime(),
                 scheduleItem.getTaggedUsers(), scheduleItem.getWeekNo(), scheduleItem.getYear(), scheduleItem.getLocation(),
                 scheduleItem.getColor(),scheduleItem.getDescription(), scheduleItem.getFilters());
+
 
         model.addAttribute("scheduleItem",scheduleitem);
         System.out.println(scheduleService.scheduleItems(1,2,3).get(0));
@@ -74,9 +84,14 @@ public class ScheduleController {
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home(Model model) {
-        //String test = "test name";
-
         System.out.println("control: "+ SecurityContextHolder.getContext().getAuthentication().getName());
+        boolean isLoggedIn;
+        if (SecurityContextHolder.getContext().getAuthentication().getName() == null ) isLoggedIn = false;
+        else isLoggedIn = true;
+        String LoggedInUser = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        model.addAttribute("loggedInUser",LoggedInUser);
+        model.addAttribute("loggedInStatus",isLoggedIn);
         model.addAttribute("scheduleItem", new ScheduleItem());
         model.addAttribute("scheduleItems",scheduleService.scheduleItems(1,2,3));
 
