@@ -24,7 +24,7 @@ public class ItemValidator implements Validator {
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "NotEmpty");
         if (item.getTitle().length() == 0 || item.getTitle().length() > 32) {
-            errors.rejectValue("title", "Title should not be empty");
+            errors.rejectValue("title", "Title length should be less than 32 characters");
         }
 
         if (item.getEndTime().isBefore(item.getStartTime())) {

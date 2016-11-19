@@ -1,7 +1,9 @@
 package project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -16,12 +18,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecurityService {
 
-    private AuthenticationManager authenticationManager = new AuthenticationManager() {
-        @Override
-        public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-            return null;
-        }
-    };
+    @Autowired
+    @Qualifier("authenticationManager")
+    private AuthenticationManager authenticationManager;
 
     private UserDetailsService userDetailsService = new UserDetailsServiceImpl();
 
@@ -35,13 +34,15 @@ public class SecurityService {
 
     public void autologin(String username, String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        if(userDetails.getUsername().equals("NotFound")) {
+            return;
+        }
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
 
         authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
         if (usernamePasswordAuthenticationToken.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            System.out.println("auth?" + SecurityContextHolder.getContext().getAuthentication());
         }
     }
 }

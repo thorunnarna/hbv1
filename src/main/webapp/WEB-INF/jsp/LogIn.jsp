@@ -26,7 +26,9 @@
                 </tr>
             </table>
             <input type="submit" value="Login!">
-
+            <c:if test="${loginfail}">
+                <p>Log-in failed. Please try again. If you are a new user, please <a href="/signup">sign up</a></p>
+            </c:if>
         </sf:form>
     </body>
 

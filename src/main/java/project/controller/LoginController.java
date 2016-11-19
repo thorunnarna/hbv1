@@ -45,12 +45,6 @@ public class LoginController {
         return "signUp";
     }
 
-    /*@RequestMapping(value="/signUp", method = RequestMethod.POST)
-    public String signUpPost(@ModelAttribute("SignUp") User SignUp, Model model, @ModelAttribute("password") String password) {
-        User user = loginService.createUser(SignUp.getUsername(), password, SignUp.getPhoto(), SignUp.getSchool());
-        model.addAttribute("SignUp", user);
-        return "Index";
-    }*/
 
     @PostMapping(value="/signup")
     public String signUpPost(@ModelAttribute("SignUp") User SignUp, BindingResult bindingResult, Model model) {
@@ -62,21 +56,20 @@ public class LoginController {
         }
         User user = loginService.createUser(SignUp.getUsername(),SignUp.getPassword(), SignUp.getPhoto(), SignUp.getSchool());
         securityService.autologin(user.getUsername(), user.getPasswordConfirm());
-        System.out.println("eftir login: "+ SecurityContextHolder.getContext().getAuthentication());
-        System.out.println(RequestContextHolder.getRequestAttributes().getSessionId());
         return "redirect:/home";
     }
 
     @PostMapping(value="/login")
     public String LogInPost(@ModelAttribute("LogIn") User LogIn, Model model) {
-        //loginService.logInUser(LogIn.getUsername(),LogIn.getPassword());
-        //model.addAttribute("LogIn");
+        System.out.println("controller: "+LogIn.getPassword());
         securityService.autologin(LogIn.getUsername(), LogIn.getPassword());
+
+        System.out.println(SecurityContextHolder.getContext().getAuthentication());
+        if (SecurityContextHolder.getContext().getAuthentication() == null) {
+            model.addAttribute("loginfail", true);
+            return "LogIn";
+        }
         return "redirect:/home";
     }
 
-    @RequestMapping(value="/", method = RequestMethod.POST)
-    public String loginUserPost(String user, String pass, Model model){
-        return "";
-    }
 }
