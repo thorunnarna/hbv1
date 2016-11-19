@@ -3,10 +3,7 @@ package project.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import project.persistence.entities.User;
 import project.service.SearchService;
 
@@ -36,8 +33,8 @@ public class SearchController {
         return "Search";
     }
 
-    @RequestMapping(value="/search/{username}", method = RequestMethod.GET)
-    public String getSearchByName(@PathVariable("username") String username, Model model){
+    @RequestMapping(value="/search", method = RequestMethod.GET)
+    public String getSearchByName(@RequestParam("username") String username, Model model){
 
         System.out.println(username);
         User user = searchService.findByName(username);
