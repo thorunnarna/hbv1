@@ -30,17 +30,6 @@
                 } );
             </script>
 
-            <script>
-                $( function() {
-                    $( "#datepicker1" ).datepicker();
-                } );
-            </script>
-            <script>
-                $(function(){
-                    $('#datetime24').combodate();
-                });
-            </script>
-
         <body>
 
 

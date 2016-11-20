@@ -29,7 +29,7 @@ public class CompareController {
         this.compareService = compareService;
     }
 
-    @RequestMapping(value="", method = RequestMethod.GET)
+    @RequestMapping(value="/compare", method = RequestMethod.GET)
     public String viewGetComparison(Model model){
         String loggedInUserName = SecurityContextHolder.getContext().getAuthentication().getName();
         User loggedInUser = compareService.findUserByName(loggedInUserName);

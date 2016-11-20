@@ -114,6 +114,8 @@ public class ScheduleController {
                 TimeSlots.add(""+i+":"+k+"0");
             }
         }
+        //hreinsa breytur fyrir næsta item
+        scheduleitem = new ScheduleItem();
 
         int yearNow = LocalDateTime.now().getYear();
         int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
