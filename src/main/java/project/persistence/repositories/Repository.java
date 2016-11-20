@@ -80,7 +80,7 @@ public class Repository implements RepositoryInterface {
         if(users.size()==0) return null;
 
         User user = users.get(0);
-        SQL = "select * from User inner join Friendship on (Friendship.userId1=? or Friendship.userId2=?";
+        SQL = "select * from User inner join Friendship on (Friendship.userId1=? or Friendship.userId2=?)";
         List<User> friends = jdbcTemplate.query(SQL, new Object[]{userId, userId}, new UserMapper());
         for (User f : friends) {
             user.addFriend(f);
@@ -224,7 +224,7 @@ public class Repository implements RepositoryInterface {
     }
 
     public void createFriendship(int userId1, int userId2){
-        String SQL="insert into \"friendship\" values (?,?)";
+        String SQL="insert into \"friendship\" (userid1, userid2) values (?,?)";
         jdbcTemplate.update(SQL, userId1, userId2);
     }
 

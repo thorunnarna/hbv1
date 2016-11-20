@@ -73,12 +73,11 @@ public class SearchController {
         return "Search";
     }
 
-    @RequestMapping(value="/search/{userId1}/{userId2}", method = RequestMethod.POST)
-    public String addFriendPost(@ModelAttribute("friendship") Boolean friendship,
-                                Model model, @PathVariable("userId1") int userId1, @PathVariable("userId2") int userId2){
-
-        model.addAttribute("friendship", searchService.createFriendship(userId1,userId2));
-
-        return "/";
+    @RequestMapping(value="/search/addFriend", method = RequestMethod.POST)
+    public String addFriendPost(@RequestParam("userId") int userId) {
+        String loggedInUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        User loggedInUser = searchService.findByName(loggedInUsername);
+        searchService.createFriendship(loggedInUser.getUserId(), userId);
+        return "redirect:/search";
     }
 }
