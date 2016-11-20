@@ -19,11 +19,28 @@
     <body>
 
     <main>
-        <section class="col-md-6">
-            <p>Flottasta síða ever</p>
+        <section class="col-md-8">
+
+            <ul>
+                <li>
+                    <span class="glyphicon glyphicon-calendar"/>  Your own personal planner </span>
+                </li>
+                <ul>
+                <li>
+                    <span class="glyphicon glyphicon-user">  Create your own schedule </span>
+                </li>
+                <li>
+                    <span class="glyphicon glyphicon-link">  Create groups with friends </span>
+                </li>
+                <li>
+                    <span class="glyphicon glyphicon-transfer">  Compare schedules within groups</span>
+                </li>
+                </ul>
+            </ul>
+
         </section>
 
-        <section class="col-md-6">
+        <section class="col-md-4">
             <a role="button" class="btn btn-primary btn-lg" href="/login">Log In!</a>
             <a role="button" class="btn btn-danger btn-lg" href="/signup">Sign Up!</a>
         </section>

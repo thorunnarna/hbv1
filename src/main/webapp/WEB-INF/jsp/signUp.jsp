@@ -21,8 +21,6 @@
 
     <main>
 
-        <h2>Sign Up!</h2>
-
         <sf:form class="form-group col-md-6" method="POST" commandName="SignUp" action ="/signup">
             <label> Username:</label>
             <sf:input class="form-control" path ="username" type="text" placeholder="Enter name"/>
@@ -34,7 +32,7 @@
             <sf:input class="form-control" path="passwordConfirm" type="password" placeholder="Enter password again"/></td>
 
             <label> Photo:</label>
-            <sf:input class="form-control" path="photo" type="text" placeholder="Choose photo"/>
+            <sf:input class="form-control" path="photo" type="text" placeholder="Link photo"/>
 
             <label> School:</label>
             <sf:input class="form-control" path="school" type="text" placeholder="Enter school"/>

@@ -22,8 +22,6 @@
 
     <main>
 
-        <h2>Log In!</h2>
-
         <sf:form class="form-group col-md-6" method="POST" commandName="LogIn" action ="/login">
             <label>Username:</label>
             <sf:input class="form-control" path ="username" type="text" placeholder="Enter username"/>
