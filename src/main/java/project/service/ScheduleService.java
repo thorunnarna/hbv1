@@ -87,13 +87,13 @@ public class ScheduleService {
 
     public String changeStringDateToRigthDate(String date){
         String newDate = date.substring(6,10) +"-"+date.substring(0,2) +"-"+ date.substring(3,5);
-        System.out.println(newDate);
+        System.out.println("change date"+newDate);
         return newDate;
     }
 
     public String changeformatOfTime(String time) {
         String newTime = time + ":00";
-        System.out.println(newTime);
+        System.out.println("change time"+newTime);
         return newTime;
     }
 }

@@ -17,8 +17,10 @@ import project.validator.ItemValidator;
 //import javax.annotation.security.PermitAll;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -68,9 +70,9 @@ public class ScheduleController {
 
 
 
-    //@RequestMapping(value = "/home", method = RequestMethod.POST)
-    @PostMapping(value = "/home")
-    public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, String date, String sTime, String eTime, Model model) {
+    @RequestMapping(value = "/home", method = RequestMethod.POST)
+    //@PostMapping(value = "/home")
+    public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, @ModelAttribute("date") String date, @ModelAttribute("sTime")String sTime, String eTime, Model model) {
         //itemValidator.validate(scheduleItem, bindingResult);
 
         //if (bindingResult.hasErrors()) {
@@ -82,10 +84,13 @@ public class ScheduleController {
         User tmpUser = searchService.findByName(tmpUsername);
         int userid = tmpUser.getUserId();
 
-        System.out.println(date);
-        String newDate = scheduleService.changeStringDateToRigthDate(date);
+        System.out.println("bla"+ date);
+        System.out.println("item"+scheduleItem.getTitle());
+        String newDate = scheduleService.changeStringDateToRigthDate("llllllllllllllllll");
         String newSTime = scheduleService.changeformatOfTime("21:30");
-        System.out.println(newSTime);
+        System.out.println("tjekk"+newSTime);
+        System.out.println("starttime"+sTime);
+        System.out.println("endtime"+eTime);
 
         //date =;
 
@@ -122,6 +127,15 @@ public class ScheduleController {
         String sTime = "";
         String eTime = "";
 
+        List <String> TimeSlots = new ArrayList<String>();
+        for (int i = 6; i<=24; i++){
+            for (int k = 0; k <= 5; k++ ){
+                TimeSlots.add(""+i+":"+k+"0");
+            }
+        }
+
+
+        model.addAttribute("timeSlots",TimeSlots);
         model.addAttribute("loggedInUser",LoggedInUser);
         model.addAttribute("loggedInStatus",isLoggedIn);
         model.addAttribute("scheduleItem", new ScheduleItem());

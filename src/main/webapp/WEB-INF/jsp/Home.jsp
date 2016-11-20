@@ -76,7 +76,7 @@
                     <tr>
                         <td> start time:</td>
                         <spring:bind path="sTime">
-                            <td><input type="text" placeholder=" HH:MM - please pick a time on the 10 min interval" /></td>
+                            <td><input type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td>
                         </spring:bind>
                     </tr>
                     <tr>
