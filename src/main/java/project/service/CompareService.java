@@ -45,5 +45,10 @@ public class CompareService {
         return schedule;
     }
 
+    public User findUserByName(String username) {
+        User user = repository.findUsersByName(username);
+        return user;
+    }
+
 
 }

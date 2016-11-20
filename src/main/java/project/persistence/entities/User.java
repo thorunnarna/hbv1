@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class User {
     private List<User> friends;
+    private List<Integer> groupIds;
     private String username;
     private int userId;
     private String photo;
@@ -17,6 +18,10 @@ public class User {
     public List<User> getFriends(){return friends;}
     public void addFriend(User user){friends.add(user);}
     public void removeFriend(User user){friends.remove(user);}
+
+    public List<Integer> getGroups() {return groupIds;}
+    public void addGroupId(int grpid) {groupIds.add(grpid);}
+    public void removeGroupId(int grpId) {groupIds.remove((Integer)grpId);}
 
     public String getUsername(){return username;}
     public void setUsername(String username){this.username = username;}
