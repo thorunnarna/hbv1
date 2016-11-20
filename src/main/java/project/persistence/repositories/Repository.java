@@ -62,11 +62,11 @@ public class Repository implements RepositoryInterface {
             }
         }
 
-        SQL = "select id from Group where userid=?";
+       /* SQL = "select id from Group where userid=?";
         List<Integer> groupids = jdbcTemplate.queryForList(SQL, new Object[]{users.get(0).getUserId()}, Integer.class);
         for (int grpid : groupids) {
             users.get(0).addGroupId(grpid);
-        }
+        }*/
 
         if(users.size()==0) return new User();
         if(users.size()>=1) return users.get(0);

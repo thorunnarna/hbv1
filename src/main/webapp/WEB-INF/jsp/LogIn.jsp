@@ -22,14 +22,14 @@
 
     <main>
 
-        <h1>Log In!</h1>
+        <h2>Log In!</h2>
 
         <sf:form class="form-group col-md-6" method="POST" commandName="LogIn" action ="/login">
             <label>Username:</label>
-            <sf:input class="form-control" path ="username" type="password" placeholder="Enter username"/>
+            <sf:input class="form-control" path ="username" type="text" placeholder="Enter username"/>
 
             <label>Password:</label>
-            <sf:input class="form-control" path ="password" type="text" placeholder="Enter password"/>
+            <sf:input class="form-control" path ="password" type="password" placeholder="Enter password"/>
 
             <button type="submit" class="btn btn-primary" value="Log In!">Log In!</button>
             <c:if test="${loginfail}">

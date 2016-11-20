@@ -16,7 +16,7 @@
 
 <body>
     <header>
-        <h1>Planguin</h1>
+        <a href="/" class="link btn">Planguin</a>
     </header>
 </body>
 
