@@ -10,6 +10,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.support.RequestContext;
 import project.persistence.entities.*;
+import project.persistence.repositories.Repository;
 import project.service.ScheduleService;
 import project.service.SearchService;
 import project.validator.ItemValidator;
@@ -34,11 +35,14 @@ public class ScheduleController {
     ScheduleService scheduleService;
     SearchService searchService;
     //ItemValidator itemValidator = new ItemValidator();
+    //Repository repository
+
 
     @Autowired
     public ScheduleController(ScheduleService scheduleService, SearchService searchService){
         this.scheduleService = scheduleService;
         this.searchService = searchService;
+        //this.repository = repository;
     }
 
     @RequestMapping(value="/schedule/{userId}", method = RequestMethod.GET)
@@ -73,7 +77,7 @@ public class ScheduleController {
 
     @RequestMapping(value = "/home", method = RequestMethod.POST)
     //@PostMapping(value = "/home")
-    public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, @ModelAttribute("date") String date, @ModelAttribute("sTime")String sTime, String eTime, Model model) {
+    public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, Model model) {
         //itemValidator.validate(scheduleItem, bindingResult);
 
         //if (bindingResult.hasErrors()) {
@@ -85,8 +89,8 @@ public class ScheduleController {
         User tmpUser = searchService.findByName(tmpUsername);
         int userid = tmpUser.getUserId();
 
-        String newDate = scheduleService.changeStringDateToRigthDate(date);
-        String newSTime = scheduleService.changeformatOfTime(sTime);
+        String newDate = scheduleService.changeStringDateToRigthDate(scheduleItem.getdate());
+        String newSTime = scheduleService.changeformatOfTime(scheduleItem.get);
         String newETime = scheduleService.changeformatOfTime(eTime);
 
         String startTimeforItem = newDate +" "+ newSTime;
@@ -131,11 +135,18 @@ public class ScheduleController {
             }
         }
 
+        int year = LocalDateTime.now().getYear();
+        int week = scheduleService.findWeekNo(LocalDateTime.now());
+        User user = scheduleService.findUserByUsername(LoggedInUser);
+
+
+
+
         model.addAttribute("timeSlots",TimeSlots);
         model.addAttribute("loggedInUser",LoggedInUser);
         model.addAttribute("loggedInStatus",isLoggedIn);
         model.addAttribute("scheduleItem", new ScheduleItem());
-        model.addAttribute("scheduleItems",scheduleService.scheduleItems(1,2,3));
+        model.addAttribute("scheduleItems",scheduleService.scheduleItems(1,week,year));
         //model.addAttribute("date",date);
         //model.addAttribute("sTime",sTime);
         //model.addAttribute("eTime",eTime);

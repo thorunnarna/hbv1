@@ -88,6 +88,11 @@ public class ScheduleService {
         return item;
     }
 
+    public User findUserByUsername(String username){
+        User finduser = repository.findUsersByName(username);
+        return finduser;
+    }
+
     public String changeStringDateToRigthDate(String date){
         String newDate = date.substring(6,10) +"-"+date.substring(0,2) +"-"+ date.substring(3,5);
         return newDate;
