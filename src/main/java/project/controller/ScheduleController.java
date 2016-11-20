@@ -108,6 +108,14 @@ public class ScheduleController {
                 scheduleItem.getTaggedUsers(), weekNo, year, scheduleItem.getLocation(),
                 scheduleItem.getColor(),scheduleItem.getDescription(), scheduleItem.getFilters());
 
+        List <String> TimeSlots = new ArrayList<String>();
+        for (int i = 6; i<=20; i++){
+            for (int k = 0; k <= 5; k++ ){
+                TimeSlots.add(""+i+":"+k+"0");
+            }
+        }
+
+        model.addAttribute("timeSlots",TimeSlots);
         model.addAttribute("scheduleItem",scheduleitem);
         System.out.println(scheduleService.scheduleItems(1,2,3).get(0));
         model.addAttribute("scheduleItems",scheduleService.scheduleItems(1,2,3));
@@ -138,15 +146,15 @@ public class ScheduleController {
         int year = LocalDateTime.now().getYear();
         int week = scheduleService.findWeekNo(LocalDateTime.now());
         User user = scheduleService.findUserByUsername(LoggedInUser);
-
-
+        int userid= user.getUserId();
+        System.out.println(userid);
 
 
         model.addAttribute("timeSlots",TimeSlots);
         model.addAttribute("loggedInUser",LoggedInUser);
         model.addAttribute("loggedInStatus",isLoggedIn);
         model.addAttribute("scheduleItem", new ScheduleItem());
-        model.addAttribute("scheduleItems",scheduleService.scheduleItems(1,week,year));
+        model.addAttribute("scheduleItems",scheduleService.scheduleItems(userid,week,year));
         //model.addAttribute("date",date);
         //model.addAttribute("sTime",sTime);
         //model.addAttribute("eTime",eTime);
