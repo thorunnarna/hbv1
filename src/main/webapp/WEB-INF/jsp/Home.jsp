@@ -113,39 +113,36 @@
                         </tr>
                     </c:forEach>
 
+                </tbody>
+            </table>
+            <table border="1" cellspacing="0">
+                <tbody>
+                <tr>
+                    <th align="center" valign="middle" width="80"></th>
+                    <th align="center" valign="middle" width="100">Monday</th>
+                    <th align="center" valign="middle">Tuesday</th>
+                    <th align="center" valign="middle">Wednesday</th>
+                    <th align="center" valign="middle">Thursday</th>
+                    <th align="center" valign="middle">Friday</th>
+                    <th align="center" valign="middle">Saturday</th>
+                    <th align="center" valign="middle">Sunday</th>
+                </tr>
 
-                <table border="1" cellspacing="0">
-                    <tbody>
+                <c:forEach var="slot" items="${timeSlots}">
                     <tr>
-                        <th align="center" valign="middle" width="80"></th>
-                        <th align="center" valign="middle" width="100">Monday</th>
-                        <th align="center" valign="middle">Tuesday</th>
-                        <th align="center" valign="middle">Wednesday</th>
-                        <th align="center" valign="middle">Thursday</th>
-                        <th align="center" valign="middle">Friday</th>
-                        <th align="center" valign="middle">Saturday</th>
-                        <th align="center" valign="middle">Sunday</th>
-                    </tr>
-
-                    <c:forEach var="timeSlot" items="timeSlots">
-                    <tr>
-                        <td align="center" valign="middle" width="80">
-                            ${timeSlot}
+                        <td align="center" valign="middle" width="80" height="5">
                         </td>
                         <c:forEach begin="0" end="6" step="1" var="day">
-                        <td align="center" valign="middle" width="100">
                             <c:forEach var="item" items="${scheduleItems}">
-                                <c:if test="${item.startTime==timeSlot && item.startTime.getDayOfWeek().ordinal()==day}">
-                                    <c:out value="${item.title}"/>
+                                <c:if test="${item.startTime==slot}">
+                                    <td align="center" valign="middle" width="100" rowspan="${item.length}">
+                                        <c:out value="${item.title}"/>
+                                    </td>
                                 </c:if>
                             </c:forEach>
-                        </td>
                         </c:forEach>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </body>
