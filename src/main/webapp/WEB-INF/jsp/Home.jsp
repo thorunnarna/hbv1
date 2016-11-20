@@ -73,58 +73,142 @@
                 </table>
                 <input type="submit" value="Create scheduleItem!">
             </sf:form>
-            <table>
-                <thead>
-                <tr style="font-weight: 600;">
-                    <td>Title</td>
-                    <td>UserId</td>
-                    <td>Location</td>
-                    <td>Description</td>
-                </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="schedItem" items="${scheduleItems}">
-                        <tr>
-                        <%--We can reference attributes of the Entity by just entering the name we gave--%>
-                        <%--it in the singular item var, and then just a dot followed by the attribute name--%>
-                            <td><a href="/schedItem/${schedItem.title}">${schedItem.title}</a></td>
-                            <td>${schedItem.color}</td>
-                        </tr>
-                    </c:forEach>
 
-                </tbody>
-            </table>
-            <table border="1" cellspacing="0">
-                <tbody>
+        <table border="1" cellspacing="0">
+            <tbody>
+            <tr>
+                <th align="center" valign="middle" width="80"></th>
+                <th align="center" valign="middle" width="100">Monday</th>
+                <th align="center" valign="middle" width="100">Tuesday</th>
+                <th align="center" valign="middle" width="100">Wednesday</th>
+                <th align="center" valign="middle" width="100">Thursday</th>
+                <th align="center" valign="middle" width="100">Friday</th>
+                <th align="center" valign="middle" width="100">Saturday</th>
+                <th align="center" valign="middle" width="100">Sunday</th>
+            </tr>
+            <c:set var="timespan" value="0"/>
+            <c:set var="timespan2" value="0"/>
+            <c:set var="timespan3" value="0"/>
+            <c:set var="timespan4" value="0"/>
+            <c:set var="timespan5" value="0"/>
+            <c:set var="timespan6" value="0"/>
+            <c:set var="timespan7" value="0"/>
+            <c:forEach var="slot" items="${timeSlots}">
                 <tr>
-                    <th align="center" valign="middle" width="80"></th>
-                    <th align="center" valign="middle" width="100">Monday</th>
-                    <th align="center" valign="middle">Tuesday</th>
-                    <th align="center" valign="middle">Wednesday</th>
-                    <th align="center" valign="middle">Thursday</th>
-                    <th align="center" valign="middle">Friday</th>
-                    <th align="center" valign="middle">Saturday</th>
-                    <th align="center" valign="middle">Sunday</th>
-                </tr>
+                    <td align="center" valign="middle" width="80" height="5">
+                    </td>
+                    <%-- MÁNUDAGUR --%>
+                    <c:set var="foundItem" value="false"/>
+                    <c:forEach var="item" items="${scheduleItems}">
+                        <c:if test="${item.startstring eq slot && item.weekDay eq 0}">
+                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}">
+                                <c:out value="${item.title}"/>
+                                <c:set var="timespan" value="${item.timeSpan+1}"/>
+                            </td>
+                            <c:set var="foundItem" value="true"/>
+                        </c:if>
+                    </c:forEach>
+                    <c:set var="timespan" value="${timespan-1}"/>
+                    <c:if test="${foundItem eq false && timespan<=0}">
+                        <td align="center" valign="middle" width="100">
 
-                <c:forEach var="slot" items="${timeSlots}">
-                    <tr>
-                        <td align="center" valign="middle" width="80" height="5">
-                            <c:out value="${slot}"/>
                         </td>
-                        <c:forEach begin="0" end="6" step="1" var="day">
-                            <c:forEach var="item" items="${scheduleItems}">
-                                <c:if test="${item.startstring eq slot && item.weekDay eq day}">
-                                    <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}">
-                                        <c:out value="${item.title}"/>
-                                    </td>
-                                </c:if>
-                            </c:forEach>
-                        </c:forEach>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+                    </c:if>
+                        <%-- ÞRIÐJUDAGUR --%>
+                    <c:set var="foundItem2" value="false"/>
+                    <c:forEach var="item" items="${scheduleItems}">
+                        <c:if test="${item.startstring eq slot && item.weekDay eq 1}">
+                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}">
+                                <c:out value="${item.title}"/>
+                                <c:set var="timespan2" value="${item.timeSpan+1}"/>
+                            </td>
+                            <c:set var="foundItem2" value="true"/>
+                        </c:if>
+                    </c:forEach>
+                    <c:set var="timespan2" value="${timespan2-1}"/>
+                    <c:if test="${foundItem2 eq false && timespan2<=0}">
+                        <td align="center" valign="middle" width="100"></td>
+                    </c:if>
+                    <%-- MIÐVIKUDAGUR --%>
+                    <c:set var="foundItem3" value="false"/>
+                    <c:forEach var="item" items="${scheduleItems}">
+                        <c:if test="${item.startstring eq slot && item.weekDay eq 2}">
+                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}">
+                                <c:out value="${item.title}"/>
+                                <c:set var="timespan3" value="${item.timeSpan+1}"/>
+                            </td>
+                            <c:set var="foundItem3" value="true"/>
+                        </c:if>
+                    </c:forEach>
+                    <c:set var="timespan3" value="${timespan3-1}"/>
+                    <c:if test="${foundItem3 eq false && timespan3<=0}">
+                        <td align="center" valign="middle" width="100"></td>
+                    </c:if>
+                    <%-- FIMMTUDAGUR --%>
+                    <c:set var="foundItem4" value="false"/>
+                    <c:forEach var="item" items="${scheduleItems}">
+                        <c:if test="${item.startstring eq slot && item.weekDay eq 3}">
+                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}">
+                                <c:out value="${item.title}"/>
+                                <c:set var="timespan4" value="${item.timeSpan+1}"/>
+                            </td>
+                            <c:set var="foundItem4" value="true"/>
+                        </c:if>
+                    </c:forEach>
+                    <c:set var="timespan4" value="${timespan4-1}"/>
+                    <c:if test="${foundItem4 eq false && timespan4<=0}">
+                        <td align="center" valign="middle" width="100"></td>
+                    </c:if>
+                    <%-- FÖSTUDAGUR --%>
+                    <c:set var="foundItem5" value="false"/>
+                    <c:forEach var="item" items="${scheduleItems}">
+                        <c:if test="${item.startstring eq slot && item.weekDay eq 4}">
+                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}">
+                                <c:out value="${item.title}"/>
+                                <c:set var="timespan5" value="${item.timeSpan+1}"/>
+                            </td>
+                            <c:set var="foundItem5" value="true"/>
+                        </c:if>
+                    </c:forEach>
+                    <c:set var="timespan5" value="${timespan5-1}"/>
+                    <c:if test="${foundItem5 eq false && timespan5<=0}">
+                        <td align="center" valign="middle" width="100"></td>
+                    </c:if>
+                    <%-- LAUGARDAGUR --%>
+                    <c:set var="foundItem6" value="false"/>
+                    <c:forEach var="item" items="${scheduleItems}">
+                        <c:if test="${item.startstring eq slot && item.weekDay eq 5}">
+                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}">
+                                <c:out value="${item.title}"/>
+                                <c:set var="timespan6" value="${item.timeSpan+1}"/>
+                            </td>
+                            <c:set var="foundItem6" value="true"/>
+                        </c:if>
+                    </c:forEach>
+                    <c:set var="timespan6" value="${timespan6-1}"/>
+                    <c:if test="${foundItem6 eq false && timespan6<=0}">
+                        <td align="center" valign="middle" width="100"></td>
+                    </c:if>
+                    <%-- SUNNUDAGUR --%>
+                    <c:set var="foundItem7" value="false"/>
+                    <c:forEach var="item" items="${scheduleItems}">
+                        <c:if test="${item.startstring eq slot && item.weekDay eq 6}">
+                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}">
+                                <c:out value="${item.title}"/>
+                                <c:set var="timespan7" value="${item.timeSpan+1}"/>
+                            </td>
+                            <c:set var="foundItem7" value="true"/>
+                        </c:if>
+                    </c:forEach>
+                    <c:set var="timespan7" value="${timespan7-1}"/>
+                    <c:if test="${foundItem7 eq false && timespan7<=0}">
+                        <td align="center" valign="middle" width="100"></td>
+                    </c:if>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+
         </body>
     </head>
 
