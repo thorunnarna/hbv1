@@ -36,6 +36,7 @@ public class CompareController {
         List<User> friends = loggedInUser.getFriends();
         List<Integer> groups = loggedInUser.getGroups();
 
+        model.addAttribute("command",new String());
         model.addAttribute("selectedFriend", new String());
         model.addAttribute("selectedGroup", new String());
         model.addAttribute("friendList", friends);
