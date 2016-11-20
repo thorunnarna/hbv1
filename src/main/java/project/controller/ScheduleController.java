@@ -115,10 +115,14 @@ public class ScheduleController {
             }
         }
 
+        int yearNow = LocalDateTime.now().getYear();
+        int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
+        System.out.println("post " +String.valueOf(weekNow));
+
         model.addAttribute("timeSlots",TimeSlots);
         model.addAttribute("scheduleItem",scheduleitem);
         //System.out.println(scheduleService.scheduleItems(1,2,3).get(0));
-        model.addAttribute("scheduleItems",scheduleService.scheduleItems(userid,weekNo,year));
+        model.addAttribute("scheduleItems",scheduleService.scheduleItems(userid,weekNow,yearNow));
         return "Home";
     }
 
@@ -143,8 +147,9 @@ public class ScheduleController {
             }
         }
 
-        int year = LocalDateTime.now().getYear();
-        int week = scheduleService.findWeekNo(LocalDateTime.now());
+        int yearNow = LocalDateTime.now().getYear();
+        int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
+        System.out.println("get "+String.valueOf(weekNow));
         User user = scheduleService.findUserByUsername(LoggedInUser);
         int userid= user.getUserId();
         System.out.println(userid);
@@ -154,7 +159,7 @@ public class ScheduleController {
         model.addAttribute("loggedInUser",LoggedInUser);
         model.addAttribute("loggedInStatus",isLoggedIn);
         model.addAttribute("scheduleItem", new ScheduleItem());
-        model.addAttribute("scheduleItems",scheduleService.scheduleItems(userid,week,year));
+        model.addAttribute("scheduleItems",scheduleService.scheduleItems(userid,weekNow,yearNow));
         //model.addAttribute("date",date);
         //model.addAttribute("sTime",sTime);
         //model.addAttribute("eTime",eTime);

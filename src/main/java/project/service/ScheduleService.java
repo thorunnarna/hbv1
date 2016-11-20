@@ -107,6 +107,7 @@ public class ScheduleService {
     public int findWeekNo(LocalDateTime LDT){
         TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
         int weekNumber = LDT.get(woy);
+        if (LDT.getDayOfWeek().getValue() == 7) weekNumber = weekNumber-1;
         return weekNumber;
     }
 
