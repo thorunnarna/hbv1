@@ -85,16 +85,9 @@ public class ScheduleController {
         User tmpUser = searchService.findByName(tmpUsername);
         int userid = tmpUser.getUserId();
 
-        System.out.println("bla "+ date+" lengd:  "+date.length());
-        System.out.println("item"+scheduleItem.getTitle());
         String newDate = scheduleService.changeStringDateToRigthDate(date);
-        System.out.println("nýtt date "+ newDate);
         String newSTime = scheduleService.changeformatOfTime(sTime);
         String newETime = scheduleService.changeformatOfTime(eTime);
-        System.out.println("tjekk"+newSTime);
-        System.out.println("starttime"+sTime);
-        System.out.println("endtime"+eTime);
-
 
         String startTimeforItem = newDate +" "+ newSTime;
         String endTimeforItem = newDate +" "+newETime;
@@ -103,11 +96,9 @@ public class ScheduleController {
         LocalDateTime startdateTime = LocalDateTime.parse(startTimeforItem,formatter);
         LocalDateTime enddateTime = LocalDateTime.parse(endTimeforItem,formatter);
 
-
         ScheduleItem scheduleitem = scheduleService.createItem(scheduleItem.getTitle(), userid, startdateTime, enddateTime,
                 scheduleItem.getTaggedUsers(), scheduleItem.getWeekNo(), scheduleItem.getYear(), scheduleItem.getLocation(),
                 scheduleItem.getColor(),scheduleItem.getDescription(), scheduleItem.getFilters());
-
 
         model.addAttribute("scheduleItem",scheduleitem);
         System.out.println(scheduleService.scheduleItems(1,2,3).get(0));
@@ -135,7 +126,6 @@ public class ScheduleController {
                 TimeSlots.add(""+i+":"+k+"0");
             }
         }
-
 
         model.addAttribute("timeSlots",TimeSlots);
         model.addAttribute("loggedInUser",LoggedInUser);

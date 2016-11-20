@@ -22,6 +22,8 @@ public class ScheduleItem {
     private String date;
     private String sTime;
     private String eTime;
+    private int timeSpan;
+    private int weekDay;
 
     public String getTitle(){return title;}
     public void setTitle(String title){this.title = title;}
@@ -67,16 +69,35 @@ public class ScheduleItem {
     public String getETime(){return eTime;}
     public void setETime(String eTime ){this.eTime= eTime;}
 
+    public int getTimeSpan(){return timeSpan;}
+    public void setTimeSpan(int timeSpan){this.timeSpan = timeSpan;}
+
+    public int getWeekDay(){return weekDay;}
+    public void setWeekDay(int weekDay){this.weekDay = weekDay;}
+
+
+
     public void setFilters(List<String> filters){this.filters = filters;}
     public List<String> getFilters(){return filters;}
     public void addFilter(String filter){filters.add(filter);}
     public void removeFilter(String filter){filters.remove(filter);}
 
-
-
     public void changeTime(LocalDateTime start, LocalDateTime end){
         startTime = start;
         endTime = end;
+    }
+    public void calculateTime(){
+        int hours =endTime.getHour() -startTime.getHour();
+        int minutes = endTime.getMinute() - startTime.getMinute();
+
+        int finalMin = hours*60 + minutes;
+        int timespan = finalMin/10;
+        this.timeSpan = timespan;
+    }
+
+    public void findWeekDay(){
+        int weekday = startTime.getDayOfWeek().getValue();
+        this.weekDay = weekday;
     }
 
 }

@@ -61,13 +61,13 @@ public class Repository implements RepositoryInterface {
                 u.addFriend(f);
             }
         }
-
+/*
         SQL = "select id from Group where userid=?";
         List<Integer> groupids = jdbcTemplate.queryForList(SQL, new Object[]{users.get(0).getUserId()}, Integer.class);
         for (int grpid : groupids) {
             users.get(0).addGroupId(grpid);
         }
-
+*/
         if(users.size()==0) return new User();
         if(users.size()>=1) return users.get(0);
         return null;
@@ -146,7 +146,7 @@ public class Repository implements RepositoryInterface {
 
     public int createItem(String title, int userId, LocalDateTime startTime, LocalDateTime endTime,
                    int weekNo, int year, String location, String color, String description){
-        String SQL="insert into \"scheduleitem\" (title, userid, \"startTime\", endTime, weekNo, year, location, color, description) " +
+        String SQL="insert into \"scheduleItem\" (title, userid, \"startTime\", \"endTime\", \"weekNo\", year, location, color, description) " +
                 "values (?,?,?,?,?,?,?,?,?);";
         jdbcTemplate.update(SQL, title, userId, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), weekNo, year, location, color, description);
 
