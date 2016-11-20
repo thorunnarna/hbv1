@@ -39,4 +39,8 @@ public class SearchService {
 
         return true;
     }
+
+    public boolean checkIfFriend(User user1, User user2) {
+        return user1.getFriends() != null && user1.getFriends().contains(user2);
+    }
 }
