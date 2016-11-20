@@ -117,8 +117,8 @@ public class ScheduleController {
 
         model.addAttribute("timeSlots",TimeSlots);
         model.addAttribute("scheduleItem",scheduleitem);
-        System.out.println(scheduleService.scheduleItems(1,2,3).get(0));
-        model.addAttribute("scheduleItems",scheduleService.scheduleItems(1,2,3));
+        //System.out.println(scheduleService.scheduleItems(1,2,3).get(0));
+        model.addAttribute("scheduleItems",scheduleService.scheduleItems(userid,weekNo,year));
         return "Home";
     }
 
