@@ -96,8 +96,12 @@ public class ScheduleController {
         LocalDateTime startdateTime = LocalDateTime.parse(startTimeforItem,formatter);
         LocalDateTime enddateTime = LocalDateTime.parse(endTimeforItem,formatter);
 
+        int year = scheduleService.findYear(date);
+
+        int weekNo = scheduleService.findWeekNo(startdateTime);
+
         ScheduleItem scheduleitem = scheduleService.createItem(scheduleItem.getTitle(), userid, startdateTime, enddateTime,
-                scheduleItem.getTaggedUsers(), scheduleItem.getWeekNo(), scheduleItem.getYear(), scheduleItem.getLocation(),
+                scheduleItem.getTaggedUsers(), weekNo, year, scheduleItem.getLocation(),
                 scheduleItem.getColor(),scheduleItem.getDescription(), scheduleItem.getFilters());
 
         model.addAttribute("scheduleItem",scheduleitem);

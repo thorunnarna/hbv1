@@ -12,7 +12,10 @@ import project.persistence.repositories.Repository;
 //import java.time.LocalDate;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by halld on 02-Nov-16.
@@ -86,18 +89,28 @@ public class ScheduleService {
     }
 
     public String changeStringDateToRigthDate(String date){
-
-        System.out.println("í aðgerð: "+date);
         String newDate = date.substring(6,10) +"-"+date.substring(0,2) +"-"+ date.substring(3,5);
-        System.out.println("change date"+newDate);
         return newDate;
+    }
+
+    public int findYear(String date){
+        String stYear = date.substring(6,10);
+        int year = Integer.parseInt(stYear);
+        return year;
+    }
+
+    public int findWeekNo(LocalDateTime LDT){
+        TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
+        int weekNumber = LDT.get(woy);
+        return weekNumber;
     }
 
     public String changeformatOfTime(String time) {
         String newTime = time + ":00";
-        System.out.println("change time"+newTime);
         return newTime;
     }
+
+
 
 
 }
