@@ -5,12 +5,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import project.persistence.entities.User;
 import project.service.LoginService;
 import project.service.SecurityService;
 import project.validator.UserValidator;
+
+import java.util.List;
 
 /**
  * Created by halld on 02-Nov-16.
@@ -42,6 +45,8 @@ public class LoginController {
     public String signup(Model model){
         //String test = "test name";
         model.addAttribute("SignUp", new User());
+        model.addAttribute("errors", null);
+        model.addAttribute("hasErrors", false);
         return "signUp";
     }
 
@@ -51,7 +56,8 @@ public class LoginController {
         userValidator.validate(SignUp, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult.getAllErrors());
+            model.addAttribute("hasErrors", true);
+            model.addAttribute("errors", bindingResult.getAllErrors());
             return "signUp";
         }
         User user = loginService.createUser(SignUp.getUsername(),SignUp.getPassword(), SignUp.getPhoto(), SignUp.getSchool());

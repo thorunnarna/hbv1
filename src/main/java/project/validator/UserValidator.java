@@ -27,7 +27,7 @@ public class UserValidator implements Validator {
         if (user.getUsername().length() < 4 || user.getUsername().length() > 32) {
             errors.rejectValue("username", "Username should be between 4 and 32 characters");
         }
-        System.out.println("valid: "+loginService);
+
         if (loginService.usernameExists(user.getUsername())) {
             errors.rejectValue("username", "This username already exists!");
         }

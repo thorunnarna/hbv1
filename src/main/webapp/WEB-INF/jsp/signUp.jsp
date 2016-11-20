@@ -9,6 +9,7 @@
     <head>
         <%@ page contentType="text/html; charset=UTF-8"%>
         <title>Sign Up Page</title>
+        <link href="<c:url value="../../../resources/static/css/stylesheet.css"/>" rel="stylesheet" type="text/css">
     </head>
     <body>
 
@@ -41,6 +42,13 @@
                 </tr>
             </table>
             <input type="submit" value="Sign up!">
+            <table>
+                <c:if test = "${hasErrors}">
+                    <c:forEach var="error" items="${errors}">
+                        <tr class="errors"><td>${error.getCode()}</td></tr>
+                    </c:forEach>
+                </c:if>
+            </table>
 
         </sf:form>
 
