@@ -5,3 +5,26 @@ body {
 .errors {
     color: red;
 }
+
+main{
+    padding:70px;
+}
+
+body {
+
+}
+
+header{
+    background-color: lightblue;
+    width: 100%;
+    padding: 2%;
+}
+
+.btn {
+    margin: 5%;
+}
+
+h1{
+    font-family: "Perpetua Titling MT";
+    font-size: 36px;
+}
