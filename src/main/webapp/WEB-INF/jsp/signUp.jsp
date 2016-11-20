@@ -11,51 +11,41 @@
         <title>Sign Up Page</title>
         <link href="<c:url value="../../../resources/static/css/stylesheet.css"/>" rel="stylesheet" type="text/css">
     </head>
+
+    <jsp:include page="Header.jsp"/>
+
     <body>
+
+    <main>
 
         <h1>Sign Up</h1>
 
-        <sf:form method="POST" commandName="SignUp" action ="/signup">
-            <table>
-                <tr>
-                    <td> Username:</td>
-                    <td><sf:input path ="username" type="text" placeholder="Enter name"/></td>
-                </tr>
-                <tr>
-                    <td>Password:</td>
-                        <td><sf:input path="password" type="" placeholder="Enter password"/></td>
+        <sf:form class="form-group col-md-6" method="POST" commandName="SignUp" action ="/signup">
+                <label> Username:</label>
+                <sf:input class="form-control" path ="username" type="text" placeholder="Enter name"/>
 
-                </tr>
-                <tr>
-                    <td>Confirm password:</td>
-                    <td><sf:input path="passwordConfirm" type="" placeholder="Enter password again"/></td>
+                <label>Password:</label>
+                <sf:input class="form-control" path="password" type="password" placeholder="Enter password"/>
 
-                </tr>
-                <tr>
-                    <td> Photo:</td>
-                    <td><sf:input path="photo" type="text" placeholder="Choose photo"/></td>
+                <label>Confirm password:</label>
+                <sf:input class="form-control" path="passwordConfirm" type="password" placeholder="Enter password again"/></td>
 
-                </tr>
-                <tr>
-                    <td> School:</td>
-                    <td><sf:input path="school" type="text" placeholder="Enter school"/></td>
-                </tr>
-            </table>
-            <input type="submit" value="Sign up!">
-            <table>
+                <label> Photo:</label>
+                <sf:input class="form-control" path="photo" type="text" placeholder="Choose photo"/>
+
+                <label> School:</label>
+                <sf:input class="form-control" path="school" type="text" placeholder="Enter school"/>
+
+                <button type="submit" class="btn btn-primary" value="Sign up!">Sign Up!</button>
+
                 <c:if test = "${hasErrors}">
                     <c:forEach var="error" items="${errors}">
-                        <tr class="errors"><td>${error.getCode()}</td></tr>
-                    </c:forEach>
-                </c:if>
-            </table>
+                    <p class="alert alert-danger">${error.getCode()}
 
+                </c:forEach>
+            </c:if>
         </sf:form>
-
-        <p>
-
-
-        </p>
+    </main>
 
     </body>
 

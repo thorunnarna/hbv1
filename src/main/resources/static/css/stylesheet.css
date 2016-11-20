@@ -1,5 +1,5 @@
 body {
-    background-color: lightblue;
+
 }
 
 .errors {
@@ -7,7 +7,7 @@ body {
 }
 
 main{
-    padding:70px;
+    padding: 50px 2% 0% 7%;
 }
 
 body {
@@ -17,14 +17,26 @@ body {
 header{
     background-color: lightblue;
     width: 100%;
-    padding: 2%;
+    padding: 3%;
 }
 
 .btn {
-    margin: 5%;
+    margin-top: 2px;
 }
 
 h1{
     font-family: "Perpetua Titling MT";
     font-size: 36px;
+}
+
+label{
+    margin-bottom: 5px;
+}
+
+.form-control{
+    margin-bottom: 5px;
+}
+
+.alert{
+    margin-top: 20px;
 }

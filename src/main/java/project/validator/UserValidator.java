@@ -23,18 +23,18 @@ public class UserValidator implements Validator {
     public void validate(Object o, Errors errors) {
         User user = (User) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "Username should not be empty!");
         if (user.getUsername().length() < 4 || user.getUsername().length() > 32) {
-            errors.rejectValue("username", "Username should be between 4 and 32 characters");
+            errors.rejectValue("username", "Username should be between 4 and 32 characters!");
         }
 
         if (loginService.usernameExists(user.getUsername())) {
             errors.rejectValue("username", "This username already exists!");
         }
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "Password should not be empty!");
         if (user.getPassword().length() < 6 || user.getPassword().length() > 20) {
-            errors.rejectValue("password", "Password should be between 6 and 20 characters");
+            errors.rejectValue("password", "Password should be between 6 and 20 characters!");
         }
 
         if (!user.getPasswordConfirm().equals(user.getPassword())) {

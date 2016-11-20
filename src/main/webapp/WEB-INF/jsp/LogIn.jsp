@@ -9,27 +9,35 @@
 
     <head>
         <%@ page contentType="text/html; charset=UTF-8"%>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+
+              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link href="../css/stylesheet.css" rel="stylesheet" type="text/css">
         <title>Login page</title>
     </head>
 
+    <jsp:include page="Header.jsp"/>
+
     <body>
 
-        <sf:form method="POST" commandName="LogIn" action ="/login">
-            <table>
-                <tr>
-                    <td> Username:</td>
-                    <td><sf:input path ="username" type="text" placeholder="Enter name"/></td>
-                </tr>
-                <tr>
-                    <td>Password:</td>
-                    <td><sf:input path ="password" type="text" placeholder="Enter password"/></td>
-                </tr>
-            </table>
-            <input type="submit" value="Login!">
+    <main>
+
+        <h1>Log In!</h1>
+
+        <sf:form class="form-group col-md-6" method="POST" commandName="LogIn" action ="/login">
+            <label>Username:</label>
+            <sf:input class="form-control" path ="username" type="password" placeholder="Enter username"/>
+
+            <label>Password:</label>
+            <sf:input class="form-control" path ="password" type="text" placeholder="Enter password"/>
+
+            <button type="submit" class="btn btn-primary" value="Log In!">Log In!</button>
             <c:if test="${loginfail}">
-                <p>Log-in failed. Please try again. If you are a new user, please <a href="/signup">sign up</a></p>
+                <p class="alert alert-danger">Log-in failed. Please try again. If you are a new user, please <a href="/signup">sign up</a></p>
             </c:if>
         </sf:form>
+    </main>
+
     </body>
 
 </html>
