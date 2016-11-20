@@ -146,7 +146,7 @@ public class Repository implements RepositoryInterface {
 
     public int createItem(String title, int userId, LocalDateTime startTime, LocalDateTime endTime,
                    int weekNo, int year, String location, String color, String description){
-        String SQL="insert into \"scheduleitem\" (title, userid, \"startTime\", endTime, weekNo, year, location, color, description) " +
+        String SQL="insert into \"scheduleItem\" (title, userid, \"startTime\", \"endTime\", \"weekNo\", year, location, color, description) " +
                 "values (?,?,?,?,?,?,?,?,?);";
         jdbcTemplate.update(SQL, title, userId, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), weekNo, year, location, color, description);
 
