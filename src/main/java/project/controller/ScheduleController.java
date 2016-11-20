@@ -90,8 +90,8 @@ public class ScheduleController {
         int userid = tmpUser.getUserId();
 
         String newDate = scheduleService.changeStringDateToRigthDate(scheduleItem.getdate());
-        String newSTime = scheduleService.changeformatOfTime(scheduleItem.get);
-        String newETime = scheduleService.changeformatOfTime(eTime);
+        String newSTime = scheduleService.changeformatOfTime(scheduleItem.getStartstring());
+        String newETime = scheduleService.changeformatOfTime(scheduleItem.getEndstring());
 
         String startTimeforItem = newDate +" "+ newSTime;
         String endTimeforItem = newDate +" "+newETime;
@@ -100,7 +100,7 @@ public class ScheduleController {
         LocalDateTime startdateTime = LocalDateTime.parse(startTimeforItem,formatter);
         LocalDateTime enddateTime = LocalDateTime.parse(endTimeforItem,formatter);
 
-        int year = scheduleService.findYear(date);
+        int year = scheduleService.findYear(scheduleItem.getdate());
 
         int weekNo = scheduleService.findWeekNo(startdateTime);
 
