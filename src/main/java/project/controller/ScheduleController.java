@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,25 +85,26 @@ public class ScheduleController {
         User tmpUser = searchService.findByName(tmpUsername);
         int userid = tmpUser.getUserId();
 
-        System.out.println("bla"+ date);
+        System.out.println("bla "+ date+" lengd:  "+date.length());
         System.out.println("item"+scheduleItem.getTitle());
-        String newDate = scheduleService.changeStringDateToRigthDate("llllllllllllllllll");
-        String newSTime = scheduleService.changeformatOfTime("21:30");
+        String newDate = scheduleService.changeStringDateToRigthDate(date);
+        System.out.println("nýtt date "+ newDate);
+        String newSTime = scheduleService.changeformatOfTime(sTime);
+        String newETime = scheduleService.changeformatOfTime(eTime);
         System.out.println("tjekk"+newSTime);
         System.out.println("starttime"+sTime);
         System.out.println("endtime"+eTime);
 
-        //date =;
 
-        //startTime
-        //endTime
-        //year
-        //week
-        //"2016-12-01 05:06:00" - formatið sem við viljum
+        String startTimeforItem = newDate +" "+ newSTime;
+        String endTimeforItem = newDate +" "+newETime;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime startdateTime = LocalDateTime.parse(startTimeforItem,formatter);
+        LocalDateTime enddateTime = LocalDateTime.parse(endTimeforItem,formatter);
 
 
-
-        ScheduleItem scheduleitem = scheduleService.createItem(scheduleItem.getTitle(), userid, scheduleItem.getStartTime(), scheduleItem.getEndTime(),
+        ScheduleItem scheduleitem = scheduleService.createItem(scheduleItem.getTitle(), userid, startdateTime, enddateTime,
                 scheduleItem.getTaggedUsers(), scheduleItem.getWeekNo(), scheduleItem.getYear(), scheduleItem.getLocation(),
                 scheduleItem.getColor(),scheduleItem.getDescription(), scheduleItem.getFilters());
 
@@ -123,12 +125,12 @@ public class ScheduleController {
         //LocalDate date = LocalDate.now();
         //LocalDateTime sTime = LocalDateTime.now();
         //LocalDateTime eTime = LocalDateTime.now();
-        String date = "";
-        String sTime = "";
-        String eTime = "";
+        //String date = "";
+        //String sTime = "";
+        //String eTime = "";
 
         List <String> TimeSlots = new ArrayList<String>();
-        for (int i = 6; i<=24; i++){
+        for (int i = 6; i<=20; i++){
             for (int k = 0; k <= 5; k++ ){
                 TimeSlots.add(""+i+":"+k+"0");
             }
@@ -140,9 +142,9 @@ public class ScheduleController {
         model.addAttribute("loggedInStatus",isLoggedIn);
         model.addAttribute("scheduleItem", new ScheduleItem());
         model.addAttribute("scheduleItems",scheduleService.scheduleItems(1,2,3));
-        model.addAttribute("date",date);
-        model.addAttribute("sTime",sTime);
-        model.addAttribute("eTime",eTime);
+        //model.addAttribute("date",date);
+        //model.addAttribute("sTime",sTime);
+        //model.addAttribute("eTime",eTime);
 
         return "Home";
     }

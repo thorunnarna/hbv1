@@ -86,6 +86,8 @@ public class ScheduleService {
     }
 
     public String changeStringDateToRigthDate(String date){
+
+        System.out.println("í aðgerð: "+date);
         String newDate = date.substring(6,10) +"-"+date.substring(0,2) +"-"+ date.substring(3,5);
         System.out.println("change date"+newDate);
         return newDate;

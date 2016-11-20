@@ -43,57 +43,47 @@
 
         <body>
 
-            <form method="POST" action ="/home">
+
+        <sf:form method="POST" commandName="scheduleItem" action ="/home">
                 <c:if test="${loggedInStatus}">
                     <p>welcome ${loggedInUser}!</p>
                 </c:if>
                 <table>
+
                     <tr>
                         <td> Title:</td>
-                        <spring:bind path="scheduleItem.title">
-                        <td><input  type="text" placeholder="Enter title"/></td>
-                        </spring:bind>
+                        <td><sf:input path ="title" type="text" placeholder="Enter title"/></td>
                     </tr>
                     
                     <tr>
                         <td> Location:</td>
-                        <spring:bind path="scheduleItem.location">
-                        <td><input type="text" placeholder="Choose location"/></td>
-                        </spring:bind>
+                        <td><sf:input path="location" type="text" placeholder="Choose location"/></td>
                     </tr>
                     <tr>
                         <td> Description:</td>
-                        <spring:bind path="scheduleItem.description">
-                        <td><input type="text" placeholder="Enter description"/></td>
-                        </spring:bind>
+                        <td><sf:input path="description" type="text" placeholder="Enter description"/></td>
                     </tr>
                     <tr>
                         <td> Day:</td>
-                        <spring:bind path="date">
-                            <td><input type="text" placeholder="Choose date" id="datepicker"/></td>
-                        </spring:bind>
+                        <td><sf:input path="date" type="text" placeholder="Choose date" id="datepicker"/></td>
                     </tr>
                     <tr>
                         <td> start time:</td>
-                        <spring:bind path="sTime">
-                            <td><input type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td>
-                        </spring:bind>
+                        <td><sf:input path="sTime" type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td>
+
                     </tr>
                     <tr>
                         <td> End time:</td>
-                        <spring:bind path="eTime">
-                            <td><input type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td>
-                        </spring:bind>
+                        <td><sf:input path="eTime" type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td>
+
                     </tr>
                     <tr>
                         <td> Color:</td>
-                        <spring:bind path="scheduleItem.color">
-                        <td><input type="text" placeholder="Choose color"/></td>
-                        </spring:bind>
+                        <td><sf:input path="color" type="text" placeholder="Choose color"/></td>
                     </tr>
                 </table>
                 <input type="submit" value="Create scheduleItem!">
-            </form>
+            </sf:form>
             <table>
                 <thead>
                 <tr style="font-weight: 600;">

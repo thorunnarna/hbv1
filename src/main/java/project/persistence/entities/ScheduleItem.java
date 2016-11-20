@@ -19,6 +19,9 @@ public class ScheduleItem {
     private String description;
     private List<String> filters;
     private String filter;
+    private String date;
+    private String sTime;
+    private String eTime;
 
     public String getTitle(){return title;}
     public void setTitle(String title){this.title = title;}
@@ -54,6 +57,15 @@ public class ScheduleItem {
 
     public String getDescription(){return description;}
     public void setDescription(String description ){this.description = description;}
+
+    public String getdate(){return date;}
+    public void setDate(String date){this.date = date;}
+
+    public String getSTime(){return sTime;}
+    public void setSTime(String sTime ){this.sTime= sTime;}
+
+    public String getETime(){return eTime;}
+    public void setETime(String eTime ){this.eTime= eTime;}
 
     public void setFilters(List<String> filters){this.filters = filters;}
     public List<String> getFilters(){return filters;}
