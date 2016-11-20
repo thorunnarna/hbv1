@@ -111,7 +111,10 @@ public class ScheduleController {
         List <String> TimeSlots = new ArrayList<String>();
         for (int i = 6; i<=20; i++){
             for (int k = 0; k <= 5; k++ ){
-                TimeSlots.add(""+i+":"+k+"0");
+                if(i<10) {
+                    TimeSlots.add("0"+i+":"+k+"0");
+                }
+                else TimeSlots.add(""+i+":"+k+"0");
             }
         }
         //hreinsa breytur fyrir næsta item
@@ -145,7 +148,10 @@ public class ScheduleController {
         List <String> TimeSlots = new ArrayList<String>();
         for (int i = 6; i<=20; i++){
             for (int k = 0; k <= 5; k++ ){
-                TimeSlots.add(""+i+":"+k+"0");
+                if(i<10) {
+                    TimeSlots.add("0"+i+":"+k+"0");
+                }
+                else TimeSlots.add(""+i+":"+k+"0");
             }
         }
 
