@@ -10,6 +10,7 @@ import project.persistence.entities.User;
 import project.persistence.repositories.Repository;
 
 //import java.time.LocalDate;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -82,5 +83,17 @@ public class ScheduleService {
         item.setDescription(description);
         item.setFilters(filters);
         return item;
+    }
+
+    public String changeStringDateToRigthDate(String date){
+        String newDate = date.substring(6,10) +"-"+date.substring(0,2) +"-"+ date.substring(3,5);
+        System.out.println(newDate);
+        return newDate;
+    }
+
+    public String changeformatOfTime(String time) {
+        String newTime = time + ":00";
+        System.out.println(newTime);
+        return newTime;
     }
 }

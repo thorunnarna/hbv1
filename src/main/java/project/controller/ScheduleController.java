@@ -66,9 +66,11 @@ public class ScheduleController {
         return "";
     }
 
+
+
     //@RequestMapping(value = "/home", method = RequestMethod.POST)
     @PostMapping(value = "/home")
-    public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, LocalDate date, LocalDateTime sTime, LocalDateTime eTime, Model model) {
+    public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, String date, String sTime, String eTime, Model model) {
         //itemValidator.validate(scheduleItem, bindingResult);
 
         //if (bindingResult.hasErrors()) {
@@ -79,6 +81,20 @@ public class ScheduleController {
         String tmpUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         User tmpUser = searchService.findByName(tmpUsername);
         int userid = tmpUser.getUserId();
+
+        System.out.println(date);
+        String newDate = scheduleService.changeStringDateToRigthDate(date);
+        String newSTime = scheduleService.changeformatOfTime("21:30");
+        System.out.println(newSTime);
+
+        //date =;
+
+        //startTime
+        //endTime
+        //year
+        //week
+        //"2016-12-01 05:06:00" - formatið sem við viljum
+
 
 
         ScheduleItem scheduleitem = scheduleService.createItem(scheduleItem.getTitle(), userid, scheduleItem.getStartTime(), scheduleItem.getEndTime(),
@@ -99,9 +115,12 @@ public class ScheduleController {
         if (SecurityContextHolder.getContext().getAuthentication().getName() == null ) isLoggedIn = false;
         else isLoggedIn = true;
         String LoggedInUser = SecurityContextHolder.getContext().getAuthentication().getName();
-        LocalDate date = LocalDate.now();
-        LocalDateTime sTime = LocalDateTime.now();
-        LocalDateTime eTime = LocalDateTime.now();
+        //LocalDate date = LocalDate.now();
+        //LocalDateTime sTime = LocalDateTime.now();
+        //LocalDateTime eTime = LocalDateTime.now();
+        String date = "";
+        String sTime = "";
+        String eTime = "";
 
         model.addAttribute("loggedInUser",LoggedInUser);
         model.addAttribute("loggedInStatus",isLoggedIn);
