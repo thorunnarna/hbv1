@@ -22,6 +22,10 @@ public class ItemMapper implements RowMapper {
         item.setTitle(rs.getString("title"));
         item.setWeekNo(rs.getInt("weekNo"));
         item.setYear(rs.getInt("year"));
+        item.calculateTime();
+        item.findWeekDay();
+        item.setStartstring(item.getStartTime().toString().substring(11));
+        item.setEndstring(item.getEndTime().toString().substring(11));
         return item;
     }
 }

@@ -20,8 +20,8 @@ public class ScheduleItem {
     private List<String> filters;
     private String filter;
     private String date;
-    private String sTime;
-    private String eTime;
+    private String startstring;
+    private String endstring;
     private int timeSpan;
     private int weekDay;
 
@@ -63,11 +63,11 @@ public class ScheduleItem {
     public String getdate(){return date;}
     public void setDate(String date){this.date = date;}
 
-    public String getSTime(){return sTime;}
-    public void setSTime(String sTime ){this.sTime= sTime;}
+    public String getStartstring(){return startstring;}
+    public void setStartstring(String startstring ){this.startstring= startstring;}
 
-    public String getETime(){return eTime;}
-    public void setETime(String eTime ){this.eTime= eTime;}
+    public String getEndstring(){return endstring;}
+    public void setEndstring(String endstring ){this.endstring = endstring;}
 
     public int getTimeSpan(){return timeSpan;}
     public void setTimeSpan(int timeSpan){this.timeSpan = timeSpan;}
@@ -97,7 +97,7 @@ public class ScheduleItem {
 
     public void findWeekDay(){
         int weekday = startTime.getDayOfWeek().getValue();
-        this.weekDay = weekday;
+        this.weekDay = weekday-1;
     }
 
 }

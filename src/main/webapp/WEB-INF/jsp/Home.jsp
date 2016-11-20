@@ -69,12 +69,12 @@
                     </tr>
                     <tr>
                         <td> start time:</td>
-                        <td><sf:input path="sTime" type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td>
+                        <td><sf:input path="startstring" type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td>
 
                     </tr>
                     <tr>
                         <td> End time:</td>
-                        <td><sf:input path="eTime" type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td>
+                        <td><sf:input path="endstring" type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td>
 
                     </tr>
                     <tr>
@@ -121,11 +121,12 @@
                 <c:forEach var="slot" items="${timeSlots}">
                     <tr>
                         <td align="center" valign="middle" width="80" height="5">
+                            <c:out value="${slot}"/>
                         </td>
                         <c:forEach begin="0" end="6" step="1" var="day">
                             <c:forEach var="item" items="${scheduleItems}">
-                                <c:if test="${item.startTime==slot}">
-                                    <td align="center" valign="middle" width="100" rowspan="${item.length}">
+                                <c:if test="${item.startstring eq slot && item.weekDay eq day}">
+                                    <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}">
                                         <c:out value="${item.title}"/>
                                     </td>
                                 </c:if>
