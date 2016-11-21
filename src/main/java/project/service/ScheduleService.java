@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -70,7 +71,7 @@ public class ScheduleService {
 
     public ScheduleItem createItem(String title, int userId, LocalDateTime startTime, LocalDateTime endTime,
                                    List<User> taggedUsers, int weekNo, int year, String location,String color,
-                                   String description, List<String> filters){
+                                   String description, String filter){
         int id = repository.createItem(title, userId, startTime, endTime, weekNo, year, location, color, description);
         ScheduleItem item = new ScheduleItem();
         item.setId(id);
@@ -84,8 +85,10 @@ public class ScheduleService {
         item.setLocation(location);
         item.setColor(color);
         item.setDescription(description);
-        item.setFilters(filters);
+        item.setFilter(filter);
+        repository.createFilter(filter,userId,item.getId());
         return item;
+
     }
 
     public User findUserByUsername(String username){
@@ -116,6 +119,18 @@ public class ScheduleService {
         return newTime;
     }
 
+    public List <String> getTimeSlots(){
+        List <String> TimeSlots = new ArrayList<String>();
+        for (int i = 6; i<=20; i++){
+            for (int k = 0; k <= 5; k++ ){
+                if(i<10) {
+                    TimeSlots.add("0"+i+":"+k+"0");
+                }
+                else TimeSlots.add(""+i+":"+k+"0");
+            }
+        }
+        return TimeSlots;
+    }
 
 
 
