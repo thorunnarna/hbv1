@@ -1,11 +1,15 @@
 package project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.datetime.joda.LocalDateTimeParser;
 import org.springframework.stereotype.Service;
 import project.persistence.entities.*;
 import project.persistence.repositories.Repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
@@ -23,7 +27,7 @@ public class CompareService {
 
     public CompareService(){repository = new Repository();}
 
-    public List<ScheduleItem> compareScheduleGroup(int grpId, int weekNo, int year){
+    public List<String> compareScheduleGroup(int grpId, int weekNo, int year){
         Group group = repository.findGroup(grpId);
         List<User> members = group.getMembers();
         List<ScheduleItem> items = new ArrayList<>();
@@ -33,17 +37,55 @@ public class CompareService {
                 items.add(s);
             }
         }
-        return items;
+
+        List <String> timeSlots = new ArrayList<>();
+        for (int i = 6; i<=20; i++){
+            for (int k = 0; k <= 5; k++ ){
+                if(i<10) {
+                    timeSlots.add("0"+i+":"+k+"0");
+                }
+                else timeSlots.add(""+i+":"+k+"0");
+            }
+        }
+        List<String> nonFreeSlots = new ArrayList<>();
+        for (String slot : timeSlots) {
+            for (ScheduleItem item : items) {
+                LocalTime slotTime = LocalTime.parse(slot);
+                if(slotTime.compareTo(item.getStartTime().toLocalTime())>=0 && slotTime.compareTo(item.getEndTime().toLocalTime())<=0) {
+                    nonFreeSlots.add(LocalDateTime.of(item.getStartTime().toLocalDate(),slotTime).toString());
+                }
+            }
+        }
+
+        return nonFreeSlots;
     }
 
-    public List<ScheduleItem> compareSchedules(int user1, int user2, int weekNo, int year){
+    public List<String> compareSchedules(int user1, int user2, int weekNo, int year){
         List<ScheduleItem> items1 = repository.findItemsByUserWeek(user1,weekNo, year);
         List<ScheduleItem> items2 = repository.findItemsByUserWeek(user2,weekNo, year);
         for (ScheduleItem s:items2) {
             items1.add(s);
         }
 
-        return items1;
+        List <String> timeSlots = new ArrayList<>();
+        for (int i = 6; i<=20; i++){
+            for (int k = 0; k <= 5; k++ ){
+                if(i<10) {
+                    timeSlots.add("0"+i+":"+k+"0");
+                }
+                else timeSlots.add(""+i+":"+k+"0");
+            }
+        }
+        List<String> nonFreeSlots = new ArrayList<>();
+        for (String slot : timeSlots) {
+            for (ScheduleItem item : items1) {
+                LocalTime slotTime = LocalTime.parse(slot);
+                if(slotTime.compareTo(item.getStartTime().toLocalTime())>=0 && slotTime.compareTo(item.getEndTime().toLocalTime())<=0) {
+                    nonFreeSlots.add(LocalDateTime.of(item.getStartTime().toLocalDate(),slotTime).toString());
+                }
+            }
+        }
+        return nonFreeSlots;
     }
 
     public User findUserByName(String username) {
