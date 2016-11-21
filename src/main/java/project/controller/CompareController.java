@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import project.persistence.entities.Schedule;
+import project.persistence.entities.ScheduleItem;
 import project.persistence.entities.User;
 import project.service.CompareService;
 import project.service.LoginService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,6 +38,17 @@ public class CompareController {
         List<User> friends = loggedInUser.getFriends();
         List<Integer> groups = loggedInUser.getGroups();
 
+        List <String> timeSlots = new ArrayList<String>();
+        for (int i = 6; i<=20; i++){
+            for (int k = 0; k <= 5; k++ ){
+                if(i<10) {
+                    timeSlots.add("0"+i+":"+k+"0");
+                }
+                else timeSlots.add(""+i+":"+k+"0");
+            }
+        }
+        model.addAttribute("scheduleItems", new ArrayList<ScheduleItem>());
+        model.addAttribute("timeSlots", timeSlots);
         model.addAttribute("selectedFriend", new String());
         model.addAttribute("selectedGroup", new String());
         model.addAttribute("friendList", friends);
