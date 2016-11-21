@@ -121,7 +121,7 @@ public class Repository implements RepositoryInterface {
         String SQL = "select * from \"scheduleItem\" where userid = ? and \"weekNo\" = ? and year=?;";
         List<ScheduleItem> items = jdbcTemplate.query(SQL, new Object[]{userId, weekNo, year}, new ItemMapper());
 
-        SQL="select * from Filters where itemId=?";
+        SQL="select name from Filters where itemId=?";
         for (ScheduleItem i : items) {
             List<String> filters = jdbcTemplate.queryForList(SQL, new Object[]{i.getId()}, String.class);
             for (String f : filters) {
@@ -179,9 +179,9 @@ public class Repository implements RepositoryInterface {
                 "values (?,?,?,?,?,?,?,?,?);";
         jdbcTemplate.update(SQL, title, userId, Timestamp.valueOf(startTime), Timestamp.valueOf(endTime), weekNo, year, location, color, description);
 
-        //SQL="select id from ScheduleItem where ";
-        //int itemid = jdbcTemplate.queryForObject(SQL, new Object[]{username}, Integer.class);
-        return 0;
+        SQL="select id from \"scheduleItem\" where  title = ? and userid= ? and \"startTime\" = ? and \"endTime\" = ? and \"weekNo\" = ? and year = ? and location = ? and color = ? and description = ?";
+        int itemid = jdbcTemplate.queryForObject(SQL, new Object[]{title, userId,  Timestamp.valueOf(startTime), Timestamp.valueOf(endTime),weekNo,year,location,color,description}, Integer.class);
+        return itemid;
     }
 
     public void deleteItem(int itemId){

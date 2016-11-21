@@ -54,9 +54,9 @@ public class ScheduleController {
         return "/";
     }
 
-    @RequestMapping(value = "/schedule/{filter}", method = RequestMethod.GET)
-    public String viewGetScheduleByFilters(Model model, @PathVariable("filter") String filters, int userId, int weekNo, int yearNo){
-        List<ScheduleItem> scheduleByFilters = scheduleService.scheduleItemsFilters(userId, weekNo, yearNo, filters);
+    @RequestMapping(value = "/scheduleByFilter", method = RequestMethod.GET)
+    public String viewGetScheduleByFilters(Model model, @PathVariable("selectedFilter") String filter, int userId, int weekNo, int yearNo){
+        List<ScheduleItem> scheduleByFilters = scheduleService.scheduleItemsFilters(userId, weekNo, yearNo, filter);
         model.addAttribute(scheduleByFilters);
 
         return "";
@@ -104,19 +104,24 @@ public class ScheduleController {
 
         int weekNo = scheduleService.findWeekNo(startdateTime);
 
-        ScheduleItem scheduleitem = scheduleService.createItem(scheduleItem.getTitle(), userid, startdateTime, enddateTime,
-                scheduleItem.getTaggedUsers(), weekNo, year, scheduleItem.getLocation(),
-                scheduleItem.getColor(),scheduleItem.getDescription(), scheduleItem.getFilters());
 
-        List <String> TimeSlots = scheduleService.getTimeslots();
+
+         scheduleService.createItem(scheduleItem.getTitle(), userid, startdateTime, enddateTime,
+                scheduleItem.getTaggedUsers(), weekNo, year, scheduleItem.getLocation(),
+                scheduleItem.getColor(),scheduleItem.getDescription(), scheduleItem.getFilter());
+
+        List <String> TimeSlots = scheduleService.getTimeSlots();
 
         //hreinsa breytur fyrir næsta item
-        scheduleitem = new ScheduleItem();
+        ScheduleItem scheduleitem = new ScheduleItem();
 
         int yearNow = LocalDateTime.now().getYear();
         int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
         System.out.println("post " +String.valueOf(weekNow));
 
+        List <String> Filters = scheduleService.createfilterList();
+
+        model.addAttribute("filters",Filters);
         model.addAttribute("timeSlots",TimeSlots);
         model.addAttribute("scheduleItem",scheduleitem);
         //System.out.println(scheduleService.scheduleItems(1,2,3).get(0));
@@ -138,7 +143,7 @@ public class ScheduleController {
         //String sTime = "";
         //String eTime = "";
 
-        List <String> TimeSlots = scheduleService.getTimeslots();
+        List <String> TimeSlots = scheduleService.getTimeSlots();
 
         int yearNow = LocalDateTime.now().getYear();
         int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
@@ -147,6 +152,10 @@ public class ScheduleController {
         int userid= user.getUserId();
         System.out.println(userid);
 
+        List <String> Filters = scheduleService.createfilterList();
+        System.out.println(Filters.get(0)+"næsti"+ Filters.get(1));
+
+        model.addAttribute("filters",Filters);
 
         model.addAttribute("timeSlots",TimeSlots);
         model.addAttribute("loggedInUser",LoggedInUser);
