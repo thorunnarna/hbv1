@@ -66,11 +66,14 @@ public class ScheduleController {
         List <String> Filters = scheduleService.createfilterList();
 
         List<ScheduleItem> scheduleByFilters = scheduleService.scheduleItemsFilters(userId, weekNow, yearNow, filter);
-        System.out.println("filter?: "+scheduleByFilters);
-        model.addAttribute("scheduleItems", scheduleByFilters);
         model.addAttribute("filters",Filters);
         model.addAttribute("timeSlots",TimeSlots);
         model.addAttribute("scheduleItem",new ScheduleItem());
+
+        if(filter.equals("1")) {
+            return "redirect:/home";
+        }
+        model.addAttribute("scheduleItems", scheduleByFilters);
 
         return "Home";
     }
@@ -144,7 +147,6 @@ public class ScheduleController {
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home(Model model) {
-        System.out.println("control: "+ SecurityContextHolder.getContext().getAuthentication().getName());
         boolean isLoggedIn;
         if (SecurityContextHolder.getContext().getAuthentication().getName() == null ) isLoggedIn = false;
         else isLoggedIn = true;
