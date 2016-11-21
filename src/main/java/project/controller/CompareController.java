@@ -11,6 +11,7 @@ import project.persistence.entities.ScheduleItem;
 import project.persistence.entities.User;
 import project.service.CompareService;
 import project.service.LoginService;
+import project.service.ScheduleService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,10 +25,12 @@ import java.util.List;
 public class CompareController {
 
     CompareService compareService;
+    ScheduleService scheduleService;
 
     @Autowired
-    public CompareController(CompareService compareService){
+    public CompareController(CompareService compareService, ScheduleService scheduleService){
         this.compareService = compareService;
+        this.scheduleService = scheduleService;
     }
 
     @RequestMapping(value="/compare", method = RequestMethod.GET)
@@ -37,15 +40,9 @@ public class CompareController {
         List<User> friends = loggedInUser.getFriends();
         List<Group> groups = loggedInUser.getGroups();
 
-        List <String> timeSlots = new ArrayList<>();
-        for (int i = 6; i<=20; i++){
-            for (int k = 0; k <= 5; k++ ){
-                if(i<10) {
-                    timeSlots.add("0"+i+":"+k+"0");
-                }
-                else timeSlots.add(""+i+":"+k+"0");
-            }
-        }
+
+        List <String> timeSlots = scheduleService.getTimeSlots();
+
         model.addAttribute("comparedSchedule", new ArrayList<ScheduleItem>());
         model.addAttribute("timeSlots", timeSlots);
         model.addAttribute("friendList", friends);
@@ -60,15 +57,7 @@ public class CompareController {
         List<User> friends = loggedInUser.getFriends();
         List<Group> groups = loggedInUser.getGroups();
 
-        List <String> timeSlots = new ArrayList<>();
-        for (int i = 6; i<=20; i++){
-            for (int k = 0; k <= 5; k++ ){
-                if(i<10) {
-                    timeSlots.add("0"+i+":"+k+"0");
-                }
-                else timeSlots.add(""+i+":"+k+"0");
-            }
-        }
+        List <String> timeSlots = scheduleService.getTimeSlots();
 
         int yearNow = LocalDateTime.now().getYear();
         int weekNow = compareService.findWeekNo(LocalDateTime.now());
@@ -90,16 +79,7 @@ public class CompareController {
         List<User> friends = loggedInUser.getFriends();
         List<Group> groups = loggedInUser.getGroups();
 
-        List <String> timeSlots = new ArrayList<>();
-        for (int i = 6; i<=20; i++){
-            for (int k = 0; k <= 5; k++ ){
-                if(i<10) {
-                    timeSlots.add("0"+i+":"+k+"0");
-                }
-                else timeSlots.add(""+i+":"+k+"0");
-            }
-        }
-
+        List <String> timeSlots = scheduleService.getTimeSlots();
         int yearNow = LocalDateTime.now().getYear();
         int weekNow = compareService.findWeekNo(LocalDateTime.now());
 

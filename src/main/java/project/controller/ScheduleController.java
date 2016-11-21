@@ -55,8 +55,8 @@ public class ScheduleController {
     }
 
     @RequestMapping(value = "/scheduleByFilter", method = RequestMethod.GET)
-    public String viewGetScheduleByFilters(Model model, @PathVariable("selectedFilter") String filters, int userId, int weekNo, int yearNo){
-        List<ScheduleItem> scheduleByFilters = scheduleService.scheduleItemsFilters(userId, weekNo, yearNo, filters);
+    public String viewGetScheduleByFilters(Model model, @PathVariable("selectedFilter") String filter, int userId, int weekNo, int yearNo){
+        List<ScheduleItem> scheduleByFilters = scheduleService.scheduleItemsFilters(userId, weekNo, yearNo, filter);
         model.addAttribute(scheduleByFilters);
 
         return "";
