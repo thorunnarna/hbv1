@@ -36,7 +36,9 @@
                         </c:when>
                         <c:otherwise>
                             <td>
-                                <button>Add Friend</button>
+                                <form action="/search/addFriend" method="POST" >
+                                    <button type="submit" name="userId" value=${user.user.userId}>Add Friend</button>
+                                </form>
                             </td>
                         </c:otherwise>
                     </c:choose>

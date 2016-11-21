@@ -12,14 +12,15 @@
     </head>
 
     <body>
-        <p>COmpare with friend</p>
-        <form method="POST" action="/compareFriends">
+        <p>Compare with friend</p>
+        <sf:form method="POST" action="/compareFriends">
             <sf:select path="selectedFriend">
                 <sf:option value="NONE" label="--Select friend--"/>
                 <sf:options items="${friendList}"/>
             </sf:select>
             <input type="submit" value="Compare!"/>
-        </form>
+        </sf:form>
+
         <sf:form method="POST" commandName="friendComp" action="/compareGroup">
             <sf:select path="selectedGroup">
                 <sf:option value="NONE" label="--Select group--"/>
