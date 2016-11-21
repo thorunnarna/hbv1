@@ -27,6 +27,8 @@
             </sf:select>
             <input type="submit" value="Compare!"/>
         </sf:form>
+
+        <%--Skoða f hvert slot hvort það sé item sem er með starttime/endtime utanum slotið => lita rautt, annars grænt--%>
         <table border="1" cellspacing="0">
             <tbody>
             <tr>
