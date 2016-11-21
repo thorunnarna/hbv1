@@ -7,7 +7,7 @@ import java.util.*;
 public class Group {
 
     private int grpId;
-    private List<User> members;
+    private List<User> members = new ArrayList<>();
     private String grpName;
 
     public int getGrpId(){return grpId;}

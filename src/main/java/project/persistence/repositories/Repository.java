@@ -54,19 +54,23 @@ public class Repository implements RepositoryInterface {
         String SQL = "select * from \"user\" where username=?;";
         List<User> users = jdbcTemplate.query(SQL, new Object[]{username}, new UserMapper());
 
-        SQL = "select * from User inner join Friendship on (Friendship.userId1=? or Friendship.userId2=?)";
+        SQL = "select * from \"user\" where id in (select userid1 from Friendship where userid2=?) or id in (select userid2 from Friendship where userid1=?)";
         for (User u : users) {
             List<User> friends = jdbcTemplate.query(SQL, new Object[]{u.getUserId(), u.getUserId()}, new UserMapper());
             for (User f : friends) {
-                u.addFriend(f);
+                if(f.getUsername()!=u.getUsername()) {
+                    u.addFriend(f);
+                }
             }
         }
 
-       /* SQL = "select id from Group where userid=?";
-        List<Integer> groupids = jdbcTemplate.queryForList(SQL, new Object[]{users.get(0).getUserId()}, Integer.class);
-        for (int grpid : groupids) {
-            users.get(0).addGroupId(grpid);
-        }*/
+        SQL = "select * from \"group\" where id in (select groupid from members where userid=?)";
+        List<Group> groups = jdbcTemplate.query(SQL, new Object[]{users.get(0).getUserId()}, new GroupMapper());
+        for (User u : users) {
+            for (Group grp : groups) {
+                u.addGroup(grp);
+            }
+        }
 
         if(users.size()==0) return new User();
         if(users.size()>=1) return users.get(0);
@@ -185,7 +189,7 @@ public class Repository implements RepositoryInterface {
         if(groups.size()==0) return null;
 
         Group group = groups.get(0);
-        SQL="select * from User inner join Members on User.id = Members.userId and members.grpId = ?";
+        SQL = "select * from \"user\" where id in (select userid from members where groupid=?)";
         List<User> members = jdbcTemplate.query(SQL, new Object[]{grpId}, new UserMapper());
         for (User u : members) {
             group.addMember(u);

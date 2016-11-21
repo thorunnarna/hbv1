@@ -13,21 +13,25 @@
 
     <body>
         <p>Compare with friend</p>
-        <sf:form method="POST" action="/compareFriends">
-            <sf:select path="selectedFriend">
-                <sf:option value="NONE" label="--Select friend--"/>
-                <sf:options items="${friendList}"/>
-            </sf:select>
+        <form action="/compareFriends">
+            <select name="selectedFriend">
+                <option value="68" label="--Select friend--"/>
+                <c:forEach var="friend" items="${friendList}">
+                    <option value="${friend.userId}" label="${friend.username}"></option>
+                </c:forEach>
+            </select>
             <input type="submit" value="Compare!"/>
-        </sf:form>
+        </form>
 
-        <sf:form method="POST" commandName="friendComp" action="/compareGroup">
-            <sf:select path="selectedGroup">
-                <sf:option value="NONE" label="--Select group--"/>
-                <sf:options items="${groupList}"/>
-            </sf:select>
+        <form method="POST" action="/compareGroup">
+            <select name="selectedGroup">
+                <option value="NONE" label="--Select group--"/>
+                <c:forEach var="group" items="${groupList}">
+                    <option value="${group.grpId}" label="${group.grpName}"></option>
+                </c:forEach>
+            </select>
             <input type="submit" value="Compare!"/>
-        </sf:form>
+        </form>
 
         <%--Skoða f hvert slot hvort það sé item sem er með starttime/endtime utanum slotið => lita rautt, annars grænt--%>
         <table border="1" cellspacing="0">
@@ -42,12 +46,14 @@
                 <th align="center" valign="middle" width="100">Saturday</th>
                 <th align="center" valign="middle" width="100">Sunday</th>
             </tr>
-            <c:forEach var="slot" items="${timeSlots]">
-                <td align="center" valign="middle" width="80" height="5">
-                </td>
-            </c:forEach>
+            <tr>
+                <c:forEach var="slot" items="${timeSlots}">
+                    <td align="center" valign="middle" width="80" height="5">
+                    </td>
+                </c:forEach>
+            </tr>
             </tbody>
-        <table/>
+        </table>
     </body>
 
 

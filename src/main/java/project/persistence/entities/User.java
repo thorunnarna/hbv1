@@ -1,13 +1,14 @@
 package project.persistence.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Þórunn on 11/2/2016.
  */
 public class User {
-    private List<User> friends;
-    private List<Integer> groupIds;
+    private List<User> friends = new ArrayList<>();
+    private List<Group> groups = new ArrayList<>();
     private String username;
     private int userId;
     private String photo;
@@ -19,9 +20,9 @@ public class User {
     public void addFriend(User user){friends.add(user);}
     public void removeFriend(User user){friends.remove(user);}
 
-    public List<Integer> getGroups() {return groupIds;}
-    public void addGroupId(int grpid) {groupIds.add(grpid);}
-    public void removeGroupId(int grpId) {groupIds.remove((Integer)grpId);}
+    public List<Group> getGroups() {return groups;}
+    public void addGroup(Group group) {groups.add(group);}
+    public void removeGroup(Group group) {groups.remove(group);}
 
     public String getUsername(){return username;}
     public void setUsername(String username){this.username = username;}

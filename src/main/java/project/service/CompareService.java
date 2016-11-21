@@ -5,7 +5,11 @@ import org.springframework.stereotype.Service;
 import project.persistence.entities.*;
 import project.persistence.repositories.Repository;
 
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by halld on 02-Nov-16.
@@ -50,5 +54,11 @@ public class CompareService {
         return user;
     }
 
+    public int findWeekNo(LocalDateTime LDT){
+        TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
+        int weekNumber = LDT.get(woy);
+        if (LDT.getDayOfWeek().getValue() == 7) weekNumber = weekNumber-1;
+        return weekNumber;
+    }
 
 }

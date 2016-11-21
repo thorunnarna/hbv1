@@ -6,7 +6,7 @@ import java.util.*;
  */
 public class Schedule {
     private User user;
-    private static List<ScheduleItem> items;
+    private static List<ScheduleItem> items = new ArrayList<>();
 
     public List<ScheduleItem> getItems(){return items;}
     public static void addItem(ScheduleItem item){items.add(item);}
