@@ -10,14 +10,14 @@ public class ScheduleItem {
     private int id;
     private int userId;
     private LocalDateTime startTime;
-    private List<User> taggedUsers;
+    private List<User> taggedUsers = new ArrayList<>();
     private LocalDateTime endTime;
     private int weekNo;
     private int year;
     private String location;
     private String color;
     private String description;
-    private List<String> filters;
+    private List<String> filters = new ArrayList<>();
     private String filter;
     private String date;
     private String startstring;
