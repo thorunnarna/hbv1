@@ -46,7 +46,7 @@ public class CompareController {
                 else timeSlots.add(""+i+":"+k+"0");
             }
         }
-        model.addAttribute("scheduleItems", new ArrayList<ScheduleItem>());
+        model.addAttribute("comparedSchedule", new ArrayList<ScheduleItem>());
         model.addAttribute("timeSlots", timeSlots);
         model.addAttribute("friendList", friends);
         model.addAttribute("groupList", groups);
@@ -54,28 +54,58 @@ public class CompareController {
     }
 
     @RequestMapping(value="/compareFriends")
-    public String compareSchedulePost(@ModelAttribute("comparedSchedule") Schedule comparedSchedule, Model model,
-                                      @RequestParam("selectedFriend") int friendId){
-
+    public String compareSchedulePost(Model model, @RequestParam("selectedFriend") int friendId){
         String loggedInUserName = SecurityContextHolder.getContext().getAuthentication().getName();
         User loggedInUser = compareService.findUserByName(loggedInUserName);
+        List<User> friends = loggedInUser.getFriends();
+        List<Group> groups = loggedInUser.getGroups();
+
+        List <String> timeSlots = new ArrayList<>();
+        for (int i = 6; i<=20; i++){
+            for (int k = 0; k <= 5; k++ ){
+                if(i<10) {
+                    timeSlots.add("0"+i+":"+k+"0");
+                }
+                else timeSlots.add(""+i+":"+k+"0");
+            }
+        }
 
         int yearNow = LocalDateTime.now().getYear();
         int weekNow = compareService.findWeekNo(LocalDateTime.now());
+
         Schedule schedule = compareService.compareSchedules(loggedInUser.getUserId(), friendId, weekNow, yearNow);
-        model.addAttribute("comparedSchedule", schedule);
+        model.addAttribute("comparedSchedule", schedule.getItems());
+        model.addAttribute("timeSlots", timeSlots);
+        model.addAttribute("friendList", friends);
+        model.addAttribute("groupList", groups);
         return "Compare";
     }
 
     @RequestMapping(value="/compareGroup", method = RequestMethod.POST)
-    public String compareGroupSchedulePost(@ModelAttribute("comparedGroupSchedule") Schedule comparedGroupSchedule,
-                                           Model model, @RequestParam("selectedGroup") int grpId){
+    public String compareGroupSchedulePost(Model model, @RequestParam("selectedGroup") int grpId){
+        String loggedInUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+        User loggedInUser = compareService.findUserByName(loggedInUserName);
+        List<User> friends = loggedInUser.getFriends();
+        List<Group> groups = loggedInUser.getGroups();
+
+        List <String> timeSlots = new ArrayList<>();
+        for (int i = 6; i<=20; i++){
+            for (int k = 0; k <= 5; k++ ){
+                if(i<10) {
+                    timeSlots.add("0"+i+":"+k+"0");
+                }
+                else timeSlots.add(""+i+":"+k+"0");
+            }
+        }
 
         int yearNow = LocalDateTime.now().getYear();
         int weekNow = compareService.findWeekNo(LocalDateTime.now());
 
         Schedule groupSchedule = compareService.compareScheduleGroup(grpId, weekNow, yearNow);
-        model.addAttribute("comparedGroupSchedule", groupSchedule);
+        model.addAttribute("comparedSchedule", groupSchedule.getItems());
+        model.addAttribute("timeSlots", timeSlots);
+        model.addAttribute("friendList", friends);
+        model.addAttribute("groupList", groups);
         return "Compare";
     }
 

@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html lang="">
 
@@ -53,7 +54,20 @@
                         <c:out value="${slot}"/>
                     </td>
                     <c:forEach begin="0" end="6" step="1">
-
+                        <td align="center" valign="middle" width="100">
+                            <c:forEach var="item" items="${comparedSchedule}">
+                                <fmt:formatDate value="${item.startTime}" pattern="HH" var="startHour"/>
+                                <fmt:formatDate value="${item.startTime}" pattern="mm" var="startMins"/>
+                                <fmt:formatDate value="${item.endTime}" pattern="HH" var="endHour"/>
+                                <fmt:formatDate value="${item.endTime}" pattern="mm" var="endMins"/>
+                                <fmt:parseDate value="${slot}" pattern="HH:mm" var="slotTime"/>
+                                <fmt:formatDate value="${slotTime}" pattern="HH" var="slotHour"/>
+                                <fmt:formatDate value="${slotTime}" pattern="mm" var="slotMins"/>
+                                <c:if test="${slotHour>=startHour && slotHour<=endHour && slotMins>=startMins && slotMins<=endMins}">
+                                    <c:out value="hæ"/>
+                                </c:if>
+                            </c:forEach>
+                        </td>
                     </c:forEach>
                 </tr>
             </c:forEach>
