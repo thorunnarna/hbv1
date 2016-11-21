@@ -8,6 +8,7 @@ import project.persistence.repositories.Repository;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -22,31 +23,27 @@ public class CompareService {
 
     public CompareService(){repository = new Repository();}
 
-    public Schedule compareScheduleGroup(int grpId, int weekNo, int year){
+    public List<ScheduleItem> compareScheduleGroup(int grpId, int weekNo, int year){
         Group group = repository.findGroup(grpId);
         List<User> members = group.getMembers();
-        Schedule schedule= new Schedule();
+        List<ScheduleItem> items = new ArrayList<>();
         for (User u:members) {
             List<ScheduleItem> item = repository.findItemsByUserWeek(u.getUserId(),weekNo,year);
             for (ScheduleItem s:item) {
-                schedule.addItem(s);
+                items.add(s);
             }
         }
-        return schedule;
+        return items;
     }
 
-    public Schedule compareSchedules(int user1, int user2, int weekNo, int year){
-        Schedule schedule = new Schedule();
+    public List<ScheduleItem> compareSchedules(int user1, int user2, int weekNo, int year){
         List<ScheduleItem> items1 = repository.findItemsByUserWeek(user1,weekNo, year);
-        for (ScheduleItem s:items1) {
-            Schedule.addItem(s);
-        }
         List<ScheduleItem> items2 = repository.findItemsByUserWeek(user2,weekNo, year);
         for (ScheduleItem s:items2) {
-            Schedule.addItem(s);
+            items1.add(s);
         }
 
-        return schedule;
+        return items1;
     }
 
     public User findUserByName(String username) {

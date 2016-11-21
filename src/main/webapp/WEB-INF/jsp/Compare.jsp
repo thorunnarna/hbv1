@@ -53,22 +53,174 @@
                     <td align="center" valign="middle" width="80" height="5">
                         <c:out value="${slot}"/>
                     </td>
-                    <c:forEach begin="0" end="6" step="1">
-                        <td align="center" valign="middle" width="100">
-                            <c:forEach var="item" items="${comparedSchedule}">
-                                <fmt:formatDate value="${item.startTime}" pattern="HH" var="startHour"/>
-                                <fmt:formatDate value="${item.startTime}" pattern="mm" var="startMins"/>
-                                <fmt:formatDate value="${item.endTime}" pattern="HH" var="endHour"/>
-                                <fmt:formatDate value="${item.endTime}" pattern="mm" var="endMins"/>
-                                <fmt:parseDate value="${slot}" pattern="HH:mm" var="slotTime"/>
-                                <fmt:formatDate value="${slotTime}" pattern="HH" var="slotHour"/>
-                                <fmt:formatDate value="${slotTime}" pattern="mm" var="slotMins"/>
-                                <c:if test="${slotHour>=startHour && slotHour<=endHour && slotMins>=startMins && slotMins<=endMins}">
-                                    <c:out value="hæ"/>
-                                </c:if>
-                            </c:forEach>
-                        </td>
+                    <c:forEach var="item" items="${comparedSchedule}">
+                            <fmt:parseDate value="${item.startstring}" pattern="HH:mm" var="startTime"/>
+                            <fmt:formatDate value="${startTime}" pattern="HH" var="startHour"/>
+                            <fmt:formatDate value="${startTime}" pattern="mm" var="startMins"/>
+                            <fmt:parseDate value="${item.endstring}" pattern="HH:mm" var="endTime"/>
+                            <fmt:formatDate value="${endTime}" pattern="HH" var="endHour"/>
+                            <fmt:formatDate value="${endTime}" pattern="mm" var="endMins"/>
+
+                            <fmt:parseDate value="${slot}" pattern="HH:mm" var="slotTime"/>
+                            <fmt:formatDate value="${slotTime}" pattern="HH" var="slotHour"/>
+                            <fmt:formatDate value="${slotTime}" pattern="mm" var="slotMins"/>
+
+                            <c:choose>
+                                <c:when test="${slotHour>=startHour && slotHour<=endHour && slotMins>=startMins && slotMins<=endMins && item.weekDay eq 0}">
+                                    <td align="center" valign="middle" width="100" bgcolor="red">
+                                        <c:out value="${item.startstring}"/>
+                                    </td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td align="center" valign="middle" width="100"></td>
+                                </c:otherwise>
+                            </c:choose>
                     </c:forEach>
+
+                    <c:forEach var="item" items="${comparedSchedule}">
+                    <fmt:parseDate value="${item.startstring}" pattern="HH:mm" var="startTime"/>
+                    <fmt:formatDate value="${startTime}" pattern="HH" var="startHour"/>
+                    <fmt:formatDate value="${startTime}" pattern="mm" var="startMins"/>
+                    <fmt:parseDate value="${item.endstring}" pattern="HH:mm" var="endTime"/>
+                    <fmt:formatDate value="${endTime}" pattern="HH" var="endHour"/>
+                    <fmt:formatDate value="${endTime}" pattern="mm" var="endMins"/>
+
+                    <fmt:parseDate value="${slot}" pattern="HH:mm" var="slotTime"/>
+                    <fmt:formatDate value="${slotTime}" pattern="HH" var="slotHour"/>
+                    <fmt:formatDate value="${slotTime}" pattern="mm" var="slotMins"/>
+
+                    <c:choose>
+                        <c:when test="${slotHour>=startHour && slotHour<=endHour && slotMins>=startMins && slotMins<=endMins && item.weekDay eq 1}">
+                            <td align="center" valign="middle" width="100" bgcolor="red">
+                                <c:out value="${item.startstring}"/>
+                            </td>
+                        </c:when>
+                        <c:otherwise>
+                            <td align="center" valign="middle" width="100"></td>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+
+                    <c:forEach var="item" items="${comparedSchedule}">
+                        <fmt:parseDate value="${item.startstring}" pattern="HH:mm" var="startTime"/>
+                        <fmt:formatDate value="${startTime}" pattern="HH" var="startHour"/>
+                        <fmt:formatDate value="${startTime}" pattern="mm" var="startMins"/>
+                        <fmt:parseDate value="${item.endstring}" pattern="HH:mm" var="endTime"/>
+                        <fmt:formatDate value="${endTime}" pattern="HH" var="endHour"/>
+                        <fmt:formatDate value="${endTime}" pattern="mm" var="endMins"/>
+
+                        <fmt:parseDate value="${slot}" pattern="HH:mm" var="slotTime"/>
+                        <fmt:formatDate value="${slotTime}" pattern="HH" var="slotHour"/>
+                        <fmt:formatDate value="${slotTime}" pattern="mm" var="slotMins"/>
+
+                        <c:choose>
+                            <c:when test="${slotHour>=startHour && slotHour<=endHour && slotMins>=startMins && slotMins<=endMins && item.weekDay eq 2}">
+                                <td align="center" valign="middle" width="100" bgcolor="red">
+                                    <c:out value="${item.startstring}"/>
+                                </td>
+                            </c:when>
+                            <c:otherwise>
+                                <td align="center" valign="middle" width="100"></td>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+
+                    <c:forEach var="item" items="${comparedSchedule}">
+                        <fmt:parseDate value="${item.startstring}" pattern="HH:mm" var="startTime"/>
+                        <fmt:formatDate value="${startTime}" pattern="HH" var="startHour"/>
+                        <fmt:formatDate value="${startTime}" pattern="mm" var="startMins"/>
+                        <fmt:parseDate value="${item.endstring}" pattern="HH:mm" var="endTime"/>
+                        <fmt:formatDate value="${endTime}" pattern="HH" var="endHour"/>
+                        <fmt:formatDate value="${endTime}" pattern="mm" var="endMins"/>
+
+                        <fmt:parseDate value="${slot}" pattern="HH:mm" var="slotTime"/>
+                        <fmt:formatDate value="${slotTime}" pattern="HH" var="slotHour"/>
+                        <fmt:formatDate value="${slotTime}" pattern="mm" var="slotMins"/>
+
+                        <c:choose>
+                            <c:when test="${slotHour>=startHour && slotHour<=endHour && slotMins>=startMins && slotMins<=endMins && item.weekDay eq 3}">
+                                <td align="center" valign="middle" width="100" bgcolor="red">
+                                    <c:out value="${item.startstring}"/>
+                                </td>
+                            </c:when>
+                            <c:otherwise>
+                                <td align="center" valign="middle" width="100"></td>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+
+                    <c:forEach var="item" items="${comparedSchedule}">
+                        <fmt:parseDate value="${item.startstring}" pattern="HH:mm" var="startTime"/>
+                        <fmt:formatDate value="${startTime}" pattern="HH" var="startHour"/>
+                        <fmt:formatDate value="${startTime}" pattern="mm" var="startMins"/>
+                        <fmt:parseDate value="${item.endstring}" pattern="HH:mm" var="endTime"/>
+                        <fmt:formatDate value="${endTime}" pattern="HH" var="endHour"/>
+                        <fmt:formatDate value="${endTime}" pattern="mm" var="endMins"/>
+
+                        <fmt:parseDate value="${slot}" pattern="HH:mm" var="slotTime"/>
+                        <fmt:formatDate value="${slotTime}" pattern="HH" var="slotHour"/>
+                        <fmt:formatDate value="${slotTime}" pattern="mm" var="slotMins"/>
+
+                        <c:choose>
+                            <c:when test="${slotHour>=startHour && slotHour<=endHour && slotMins>=startMins && slotMins<=endMins && item.weekDay eq 3}">
+                                <td align="center" valign="middle" width="100" bgcolor="red">
+                                    <c:out value="${item.startstring}"/>
+                                </td>
+                            </c:when>
+                            <c:otherwise>
+                                <td align="center" valign="middle" width="100"></td>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+
+                    <c:forEach var="item" items="${comparedSchedule}">
+                        <fmt:parseDate value="${item.startstring}" pattern="HH:mm" var="startTime"/>
+                        <fmt:formatDate value="${startTime}" pattern="HH" var="startHour"/>
+                        <fmt:formatDate value="${startTime}" pattern="mm" var="startMins"/>
+                        <fmt:parseDate value="${item.endstring}" pattern="HH:mm" var="endTime"/>
+                        <fmt:formatDate value="${endTime}" pattern="HH" var="endHour"/>
+                        <fmt:formatDate value="${endTime}" pattern="mm" var="endMins"/>
+
+                        <fmt:parseDate value="${slot}" pattern="HH:mm" var="slotTime"/>
+                        <fmt:formatDate value="${slotTime}" pattern="HH" var="slotHour"/>
+                        <fmt:formatDate value="${slotTime}" pattern="mm" var="slotMins"/>
+
+                        <c:choose>
+                            <c:when test="${slotHour>=startHour && slotHour<=endHour && slotMins>=startMins && slotMins<=endMins && item.weekDay eq 4}">
+                                <td align="center" valign="middle" width="100" bgcolor="red">
+                                    <c:out value="${item.startstring}"/>
+                                </td>
+                            </c:when>
+                            <c:otherwise>
+                                <td align="center" valign="middle" width="100"></td>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+
+                    <c:forEach var="item" items="${comparedSchedule}">
+                        <fmt:parseDate value="${item.startstring}" pattern="HH:mm" var="startTime"/>
+                        <fmt:formatDate value="${startTime}" pattern="HH" var="startHour"/>
+                        <fmt:formatDate value="${startTime}" pattern="mm" var="startMins"/>
+                        <fmt:parseDate value="${item.endstring}" pattern="HH:mm" var="endTime"/>
+                        <fmt:formatDate value="${endTime}" pattern="HH" var="endHour"/>
+                        <fmt:formatDate value="${endTime}" pattern="mm" var="endMins"/>
+
+                        <fmt:parseDate value="${slot}" pattern="HH:mm" var="slotTime"/>
+                        <fmt:formatDate value="${slotTime}" pattern="HH" var="slotHour"/>
+                        <fmt:formatDate value="${slotTime}" pattern="mm" var="slotMins"/>
+
+                        <c:choose>
+                            <c:when test="${slotHour>=startHour && slotHour<=endHour && slotMins>=startMins && slotMins<=endMins && item.weekDay eq 5}">
+                                <td align="center" valign="middle" width="100" bgcolor="red">
+                                    <c:out value="${item.startstring}"/>
+                                </td>
+                            </c:when>
+                            <c:otherwise>
+                                <td align="center" valign="middle" width="100"></td>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+
                 </tr>
             </c:forEach>
             </tbody>

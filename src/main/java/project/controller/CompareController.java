@@ -72,9 +72,11 @@ public class CompareController {
 
         int yearNow = LocalDateTime.now().getYear();
         int weekNow = compareService.findWeekNo(LocalDateTime.now());
+        List<ScheduleItem> schedule = compareService.compareSchedules(loggedInUser.getUserId(), friendId, weekNow, yearNow);
 
-        Schedule schedule = compareService.compareSchedules(loggedInUser.getUserId(), friendId, weekNow, yearNow);
-        model.addAttribute("comparedSchedule", schedule.getItems());
+        System.out.println("fjöldi item: "+schedule.size());
+
+        model.addAttribute("comparedSchedule", schedule);
         model.addAttribute("timeSlots", timeSlots);
         model.addAttribute("friendList", friends);
         model.addAttribute("groupList", groups);
@@ -101,8 +103,8 @@ public class CompareController {
         int yearNow = LocalDateTime.now().getYear();
         int weekNow = compareService.findWeekNo(LocalDateTime.now());
 
-        Schedule groupSchedule = compareService.compareScheduleGroup(grpId, weekNow, yearNow);
-        model.addAttribute("comparedSchedule", groupSchedule.getItems());
+        List<ScheduleItem> groupSchedule = compareService.compareScheduleGroup(grpId, weekNow, yearNow);
+        model.addAttribute("comparedSchedule", groupSchedule);
         model.addAttribute("timeSlots", timeSlots);
         model.addAttribute("friendList", friends);
         model.addAttribute("groupList", groups);
