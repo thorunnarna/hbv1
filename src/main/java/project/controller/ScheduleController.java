@@ -54,8 +54,8 @@ public class ScheduleController {
         return "/";
     }
 
-    @RequestMapping(value = "/schedule/{filter}", method = RequestMethod.GET)
-    public String viewGetScheduleByFilters(Model model, @PathVariable("filter") String filters, int userId, int weekNo, int yearNo){
+    @RequestMapping(value = "/scheduleByFilter", method = RequestMethod.GET)
+    public String viewGetScheduleByFilters(Model model, @PathVariable("selectedFilter") String filters, int userId, int weekNo, int yearNo){
         List<ScheduleItem> scheduleByFilters = scheduleService.scheduleItemsFilters(userId, weekNo, yearNo, filters);
         model.addAttribute(scheduleByFilters);
 
@@ -119,6 +119,9 @@ public class ScheduleController {
         int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
         System.out.println("post " +String.valueOf(weekNow));
 
+        List <String> Filters = scheduleService.createfilterList();
+
+        model.addAttribute("filters",Filters);
         model.addAttribute("timeSlots",TimeSlots);
         model.addAttribute("scheduleItem",scheduleitem);
         //System.out.println(scheduleService.scheduleItems(1,2,3).get(0));
@@ -149,6 +152,10 @@ public class ScheduleController {
         int userid= user.getUserId();
         System.out.println(userid);
 
+        List <String> Filters = scheduleService.createfilterList();
+        System.out.println(Filters.get(0)+"næsti"+ Filters.get(1));
+
+        model.addAttribute("filters",Filters);
 
         model.addAttribute("timeSlots",TimeSlots);
         model.addAttribute("loggedInUser",LoggedInUser);

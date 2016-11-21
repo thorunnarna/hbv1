@@ -96,6 +96,17 @@
                 <input type="submit" value="Create scheduleItem!">
             </sf:form>
 
+        <p>Choose filter you want to view</p>
+        <form action="/viewByFilter">
+            <select name="selectedFilter">
+                <option value="1" label="--Select filter--"/>
+                <c:forEach var="filters" items="${Filters}">
+                    <option value="${filters}" label="${filters)}"></option>
+                </c:forEach>
+            </select>
+            <input type="submit" value="Submit"/>
+        </form>
+
         <table border="1" cellspacing="0">
             <tbody>
             <tr>

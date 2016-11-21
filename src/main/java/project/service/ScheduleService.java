@@ -132,6 +132,16 @@ public class ScheduleService {
         return TimeSlots;
     }
 
+    public List<String> createfilterList(){
+        List <String> Filters = new ArrayList<String>();
+        Filters.add("work");
+        Filters.add("school");
+        Filters.add("appointment");
+        Filters.add("others");
+
+        return Filters;
+    }
+
 
 
 }
