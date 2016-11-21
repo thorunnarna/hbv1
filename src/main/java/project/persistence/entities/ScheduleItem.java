@@ -75,6 +75,8 @@ public class ScheduleItem {
     public int getWeekDay(){return weekDay;}
     public void setWeekDay(int weekDay){this.weekDay = weekDay;}
 
+    public String getFilter(){return filter;}
+    public void setFilter(String filter ){this.filter= filter;}
 
 
     public void setFilters(List<String> filters){this.filters = filters;}

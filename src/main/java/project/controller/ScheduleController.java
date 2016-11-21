@@ -108,15 +108,8 @@ public class ScheduleController {
                 scheduleItem.getTaggedUsers(), weekNo, year, scheduleItem.getLocation(),
                 scheduleItem.getColor(),scheduleItem.getDescription(), scheduleItem.getFilters());
 
-        List <String> TimeSlots = new ArrayList<String>();
-        for (int i = 6; i<=20; i++){
-            for (int k = 0; k <= 5; k++ ){
-                if(i<10) {
-                    TimeSlots.add("0"+i+":"+k+"0");
-                }
-                else TimeSlots.add(""+i+":"+k+"0");
-            }
-        }
+        List <String> TimeSlots = scheduleService.getTimeslots();
+
         //hreinsa breytur fyrir næsta item
         scheduleitem = new ScheduleItem();
 
@@ -145,15 +138,7 @@ public class ScheduleController {
         //String sTime = "";
         //String eTime = "";
 
-        List <String> TimeSlots = new ArrayList<String>();
-        for (int i = 6; i<=20; i++){
-            for (int k = 0; k <= 5; k++ ){
-                if(i<10) {
-                    TimeSlots.add("0"+i+":"+k+"0");
-                }
-                else TimeSlots.add(""+i+":"+k+"0");
-            }
-        }
+        List <String> TimeSlots = scheduleService.getTimeslots();
 
         int yearNow = LocalDateTime.now().getYear();
         int weekNow = scheduleService.findWeekNo(LocalDateTime.now());

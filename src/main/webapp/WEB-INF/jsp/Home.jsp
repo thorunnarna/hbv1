@@ -57,18 +57,40 @@
                         <td><sf:input path="date" type="text" placeholder="Choose date" id="datepicker"/></td>
                     </tr>
                     <tr>
-                        <td> start time:</td>
-                        <td><sf:input path="startstring" type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td>
-
+                        <td> Start time:</td>
+                        <%--<td><sf:input path="startstrin" type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td>--%>
+                        <td><sf:select path="startstring">
+                            <sf:options items="${timeSlots}"/>
+                        </sf:select></td>
                     </tr>
                     <tr>
                         <td> End time:</td>
-                        <td><sf:input path="endstring" type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td>
-
+                        <%--td><sf:input path="endstring" type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td--%>
+                        <td><sf:select path="endstring">
+                            <sf:options items="${timeSlots}"/>
+                        </sf:select></td>
                     </tr>
                     <tr>
                         <td> Color:</td>
-                        <td><sf:input path="color" type="text" placeholder="Choose color"/></td>
+                        <td>
+                            <sf:select path="color">
+                                <sf:option value="Red"/>
+                                <sf:option value="Blue"/>
+                                <sf:option value="Green"/>
+                                <sf:option value="Yellow"/>
+                            </sf:select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> Filter:</td>
+                        <td>
+                            <sf:select path="filter">
+                                <sf:option value="School"/>
+                                <sf:option value="Work"/>
+                                <sf:option value="Appointment"/>
+                                <sf:option value="Other"/>
+                            </sf:select>
+                        </td>
                     </tr>
                 </table>
                 <input type="submit" value="Create scheduleItem!">
@@ -123,7 +145,7 @@
                     <c:set var="foundItem2" value="false"/>
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 1}">
-                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}">
+                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="{$item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <c:set var="timespan2" value="${item.timeSpan+1}"/>
                             </td>
@@ -138,7 +160,7 @@
                     <c:set var="foundItem3" value="false"/>
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 2}">
-                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}">
+                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="{$item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <c:set var="timespan3" value="${item.timeSpan+1}"/>
                             </td>
@@ -153,7 +175,7 @@
                     <c:set var="foundItem4" value="false"/>
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 3}">
-                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}">
+                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="{$item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <c:set var="timespan4" value="${item.timeSpan+1}"/>
                             </td>
@@ -168,7 +190,7 @@
                     <c:set var="foundItem5" value="false"/>
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 4}">
-                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}">
+                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="{$item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <c:set var="timespan5" value="${item.timeSpan+1}"/>
                             </td>
@@ -183,7 +205,7 @@
                     <c:set var="foundItem6" value="false"/>
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 5}">
-                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}">
+                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="{$item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <c:set var="timespan6" value="${item.timeSpan+1}"/>
                             </td>
@@ -198,7 +220,7 @@
                     <c:set var="foundItem7" value="false"/>
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 6}">
-                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}">
+                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="{$item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <c:set var="timespan7" value="${item.timeSpan+1}"/>
                             </td>
