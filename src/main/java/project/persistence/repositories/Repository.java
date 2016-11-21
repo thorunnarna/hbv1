@@ -40,13 +40,24 @@ public class Repository implements RepositoryInterface {
         String SQL = "select * from \"user\";";
         List<User> users = jdbcTemplate.query(SQL, new UserMapper());
 
-        SQL="select * from user inner join Friendship on (Friendship.userId1=? or Friendship.userId2=?)";
+        SQL = "select * from \"user\" where id in (select userid1 from Friendship where userid2=?) or id in (select userid2 from Friendship where userid1=?)";
         for (User u : users) {
-            List<User> friends = jdbcTemplate.query(SQL, new Object[]{u.getUserId(),u.getUserId()}, new UserMapper());
+            List<User> friends = jdbcTemplate.query(SQL, new Object[]{u.getUserId(), u.getUserId()}, new UserMapper());
             for (User f : friends) {
-                u.addFriend(f);
+                if(f.getUsername()!=u.getUsername()) {
+                    u.addFriend(f);
+                }
             }
         }
+
+        SQL = "select * from \"group\" where id in (select groupid from members where userid=?)";
+        List<Group> groups = jdbcTemplate.query(SQL, new Object[]{users.get(0).getUserId()}, new GroupMapper());
+        for (User u : users) {
+            for (Group grp : groups) {
+                u.addGroup(grp);
+            }
+        }
+
         return users;
     }
 
@@ -84,11 +95,25 @@ public class Repository implements RepositoryInterface {
         if(users.size()==0) return null;
 
         User user = users.get(0);
-        SQL = "select * from User inner join Friendship on (Friendship.userId1=? or Friendship.userId2=?)";
-        List<User> friends = jdbcTemplate.query(SQL, new Object[]{userId, userId}, new UserMapper());
-        for (User f : friends) {
-            user.addFriend(f);
+        SQL = "select * from \"user\" where id in (select userid1 from Friendship where userid2=?) or id in (select userid2 from Friendship where userid1=?)";
+
+        for (User u : users) {
+            List<User> friends = jdbcTemplate.query(SQL, new Object[]{u.getUserId(), u.getUserId()}, new UserMapper());
+            for (User f : friends) {
+                if(f.getUsername()!=u.getUsername()) {
+                    u.addFriend(f);
+                }
+            }
         }
+
+        SQL = "select * from \"group\" where id in (select groupid from members where userid=?)";
+        List<Group> groups = jdbcTemplate.query(SQL, new Object[]{users.get(0).getUserId()}, new GroupMapper());
+        for (User u : users) {
+            for (Group grp : groups) {
+                u.addGroup(grp);
+            }
+        }
+
         return user;
     }
 

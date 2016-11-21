@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html lang="">
 
@@ -12,7 +13,7 @@
     </head>
 
     <body>
-        <p>Compare with friend</p>
+        <p>Compare with friend!</p>
         <form action="/compareFriends">
             <select name="selectedFriend">
                 <option value="68" label="--Select friend--"/>
@@ -22,7 +23,7 @@
             </select>
             <input type="submit" value="Compare!"/>
         </form>
-
+        <p>Compare with groups!</p>
         <form method="POST" action="/compareGroup">
             <select name="selectedGroup">
                 <option value="NONE" label="--Select group--"/>
@@ -46,12 +47,16 @@
                 <th align="center" valign="middle" width="100">Saturday</th>
                 <th align="center" valign="middle" width="100">Sunday</th>
             </tr>
-            <tr>
-                <c:forEach var="slot" items="${timeSlots}">
+            <c:forEach var="slot" items="${timeSlots}">
+                <tr>
                     <td align="center" valign="middle" width="80" height="5">
+                        <c:out value="${slot}"/>
                     </td>
-                </c:forEach>
-            </tr>
+                    <c:forEach begin="0" end="6" step="1">
+
+                    </c:forEach>
+                </tr>
+            </c:forEach>
             </tbody>
         </table>
     </body>
