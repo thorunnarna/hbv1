@@ -134,10 +134,10 @@ public class ScheduleService {
 
     public List<String> createfilterList(){
         List <String> Filters = new ArrayList<String>();
-        Filters.add("work");
-        Filters.add("school");
-        Filters.add("appointment");
-        Filters.add("others");
+        Filters.add("Work");
+        Filters.add("School");
+        Filters.add("Appointment");
+        Filters.add("Others");
 
         return Filters;
     }

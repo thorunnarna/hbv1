@@ -132,11 +132,10 @@ public class Repository implements RepositoryInterface {
     }
 
     public List<ScheduleItem> findItemsByUserWeekFilter(int userId, int weekNo, int year, String filter) {
-        String SQL = "select * from \"scheduleitem\" where userid = ? and weekNo = ? and year=? inner join " +
-                "Filters on Filters.itemId=ScheduleItem.id where Filters.name=?";
+        String SQL = "select * from \"scheduleItem\" where userid = ? and \"weekNo\" = ? and year=? and id in (select itemid from filters where name=?)";
         List<ScheduleItem> items = jdbcTemplate.query(SQL, new Object[]{userId, weekNo, year, filter}, new ItemMapper());
 
-        SQL="select * from Filters where itemId=?";
+        SQL="select name from Filters where itemId=?";
         for (ScheduleItem i : items) {
             List<String> filters = jdbcTemplate.queryForList(SQL, new Object[]{i.getId()}, String.class);
             for (String f : filters) {

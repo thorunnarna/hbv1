@@ -54,12 +54,25 @@ public class ScheduleController {
         return "/";
     }
 
-    @RequestMapping(value = "/scheduleByFilter", method = RequestMethod.GET)
-    public String viewGetScheduleByFilters(Model model, @PathVariable("selectedFilter") String filter, int userId, int weekNo, int yearNo){
-        List<ScheduleItem> scheduleByFilters = scheduleService.scheduleItemsFilters(userId, weekNo, yearNo, filter);
-        model.addAttribute(scheduleByFilters);
+    @RequestMapping(value = "/scheduleByFilter")
+    public String viewGetScheduleByFilters(Model model, @RequestParam("selectedFilter") String filter){
+        String tmpUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        User tmpUser = searchService.findByName(tmpUsername);
+        int userId = tmpUser.getUserId();
 
-        return "";
+        int yearNow = LocalDateTime.now().getYear();
+        int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
+        List <String> TimeSlots = scheduleService.getTimeSlots();
+        List <String> Filters = scheduleService.createfilterList();
+
+        List<ScheduleItem> scheduleByFilters = scheduleService.scheduleItemsFilters(userId, weekNow, yearNow, filter);
+        System.out.println("filter?: "+scheduleByFilters);
+        model.addAttribute("scheduleItems", scheduleByFilters);
+        model.addAttribute("filters",Filters);
+        model.addAttribute("timeSlots",TimeSlots);
+        model.addAttribute("scheduleItem",new ScheduleItem());
+
+        return "Home";
     }
 
     @RequestMapping(value = "/schedule/edit/{itemId}", method = RequestMethod.POST)
