@@ -61,6 +61,9 @@ public class SearchController {
         User loggedInUser = searchService.findByName(loggedInUsername);
         System.out.println(username);
         User user = searchService.findByName(username);
+        if(user.getUsername() == null) {
+            return "Search";
+        }
         boolean friendship = searchService.checkIfFriend(user, loggedInUser);
         System.out.println("í controller: "+user.getUsername());
         List<UserHolder> users = new ArrayList<>();

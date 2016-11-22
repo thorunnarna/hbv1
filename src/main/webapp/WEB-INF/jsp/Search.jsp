@@ -16,35 +16,42 @@
         <form action="/search/q">
             Search: <input type="text" name="username" placeholder="Type username.."/>
         </form>
-        <table border="1px gray">
-            <thead>
-                <tr>
-                    <td>Name: </td>
-                    <td>School: </td>
-                </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${users}" var="user">
-                <tr>
-                    <td>${user.user.username}</td>
-                    <td>${user.user.school}</td>
-                    <c:choose>
-                        <c:when test="${user.friendship}">
-                            <td>
-                                <button type="submit" name="grpName">Add to Group</button>
-                            </td>
-                        </c:when>
-                        <c:otherwise>
-                            <td>
-                                <form action="/search/addFriend" method="POST">
-                                    <button type="submit" name="userId" value=${user.user.userId}>Add Friend</button>
-                                </form>
-                            </td>
-                        </c:otherwise>
-                    </c:choose>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+        <c:choose>
+            <c:when test="${users==null}">
+                This user does not exist, try again.
+            </c:when>
+            <c:otherwise>
+                <table border="1px gray">
+                    <thead>
+                    <tr>
+                        <td>Name: </td>
+                        <td>School: </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${users}" var="user">
+                        <tr>
+                            <td>${user.user.username}</td>
+                            <td>${user.user.school}</td>
+                            <c:choose>
+                                <c:when test="${user.friendship}">
+                                    <td>
+                                        <button type="submit" name="grpName">Add to Group</button>
+                                    </td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td>
+                                        <form action="/search/addFriend" method="POST">
+                                            <button type="submit" name="userId" value=${user.user.userId}>Add Friend</button>
+                                        </form>
+                                    </td>
+                                </c:otherwise>
+                            </c:choose>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </c:otherwise>
+        </c:choose>
     </body>
 </html>
