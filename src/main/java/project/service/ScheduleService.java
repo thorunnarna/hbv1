@@ -119,6 +119,12 @@ public class ScheduleService {
         return newTime;
     }
 
+    public boolean createGroup(String name, List<User> members) {
+        if (repository.findGroupByName(name)!=-1) return false;
+        repository.createGroup(name, members);
+        return true;
+    }
+
     public List <String> getTimeSlots(){
         List <String> TimeSlots = new ArrayList<String>();
         for (int i = 6; i<=20; i++){

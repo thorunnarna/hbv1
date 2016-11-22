@@ -100,6 +100,30 @@ public class ScheduleController {
         return "redirect:/home";
     }
 
+    @RequestMapping(value="/createGroup")
+    public String createGroup(@RequestParam("grpName") String grpName, Model model) {
+        String LoggedInUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = scheduleService.findUserByUsername(LoggedInUser);
+        List<User> members = new ArrayList<>();
+        members.add(user);
+
+        int yearNow = LocalDateTime.now().getYear();
+        int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
+        List <String> Filters = scheduleService.createfilterList();
+        List <String> TimeSlots = scheduleService.getTimeSlots();
+
+        model.addAttribute("filters",Filters);
+        model.addAttribute("timeSlots",TimeSlots);
+        model.addAttribute("scheduleItem",new ScheduleItem());
+        model.addAttribute("scheduleItems",scheduleService.scheduleItems(user.getUserId(),weekNow,yearNow));
+        if(scheduleService.createGroup(grpName, members)) {
+            model.addAttribute("groupFail", false);
+            return "Home";
+        }
+
+        model.addAttribute("groupFail", true);
+        return "Home";
+    }
 
 
     @RequestMapping(value = "/home", method = RequestMethod.POST)
@@ -184,6 +208,7 @@ public class ScheduleController {
         model.addAttribute("loggedInStatus",isLoggedIn);
         model.addAttribute("scheduleItem", new ScheduleItem());
         model.addAttribute("scheduleItems",scheduleService.scheduleItems(userid,weekNow,yearNow));
+        model.addAttribute("groupFail", false);
         //model.addAttribute("date",date);
         //model.addAttribute("sTime",sTime);
         //model.addAttribute("eTime",eTime);

@@ -140,7 +140,7 @@
                     <c:set var="foundItem" value="false"/>
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 0}">
-                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan} class="{$item.color}">
+                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="{$item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <a href="/deleteItem?itemId=${item.id}">x</a>
                                 <c:set var="timespan" value="${item.timeSpan+1}"/>
@@ -254,6 +254,22 @@
             </c:forEach>
             </tbody>
         </table>
+
+        <form action="/createGroup">
+           <table>
+               <tr>
+                   <td colspan="3">Create a group here. Then go to <a href="/search/all">search</a> to add members to your group.</td>
+               </tr>
+               <tr>
+                   <td>Group name:</td>
+                   <td><input type="text" name="grpName" placeholder="Enter group name"/></td>
+                   <c:if test="${groupFail}">
+                       <td>Hópur með þessu nafni er nú þegar til! Vinsamlegast veldu annað.</td>
+                   </c:if>
+               </tr>
+           </table>
+            <input type="submit" value="Create Group!">
+        </form>
 
         </body>
     </head>

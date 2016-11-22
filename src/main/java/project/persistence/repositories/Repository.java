@@ -220,11 +220,21 @@ public class Repository implements RepositoryInterface {
         }
         return group;
     }
-    public int createGroup(String grpName, List<User> members){
-        String SQL="insert into \"group\" (name) output inserted.id values (?)";
-        int grpId = jdbcTemplate.update(SQL, grpName);
 
-        SQL="insert into Members (grpId, userId) values (?,?)";
+    public int findGroupByName(String grpName) {
+        String SQL = "select id from \"group\" where \"name\" = ?";
+        List<Integer> grpId = jdbcTemplate.queryForList(SQL, new Object[]{grpName}, Integer.class);
+        if(grpId.size()==0) return -1;
+        else return grpId.get(0);
+    }
+
+    public int createGroup(String grpName, List<User> members){
+        String SQL="insert into \"group\" (name) values (?)";
+        jdbcTemplate.update(SQL, grpName);
+
+        int grpId = findGroupByName(grpName);
+
+        SQL="insert into Members (groupid, userid) values (?,?)";
         for (User u : members) {
             jdbcTemplate.update(SQL, new Object[]{grpId, u.getUserId()});
         }
