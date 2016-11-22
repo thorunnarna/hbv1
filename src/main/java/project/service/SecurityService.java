@@ -12,6 +12,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -26,6 +28,10 @@ public class SecurityService {
             return null;
         }
     };
+
+    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+    PasswordEncoder pwEncoder = new BCryptPasswordEncoder();
 
     private UserDetailsService userDetailsService = new UserDetailsServiceImpl();
 
@@ -45,7 +51,7 @@ public class SecurityService {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
 
         authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-        if (userDetails.getPassword().equals(password)) {
+        if (pwEncoder.matches(password, userDetails.getPassword())) {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             return true;
         }
