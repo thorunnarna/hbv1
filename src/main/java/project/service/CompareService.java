@@ -38,15 +38,8 @@ public class CompareService {
             }
         }
 
-        List <String> timeSlots = new ArrayList<>();
-        for (int i = 6; i<=20; i++){
-            for (int k = 0; k <= 5; k++ ){
-                if(i<10) {
-                    timeSlots.add("0"+i+":"+k+"0");
-                }
-                else timeSlots.add(""+i+":"+k+"0");
-            }
-        }
+        List <String> timeSlots = createTimeSlots();
+
         List<String> nonFreeSlots = new ArrayList<>();
         for (String slot : timeSlots) {
             for (ScheduleItem item : items) {
@@ -67,15 +60,8 @@ public class CompareService {
             items1.add(s);
         }
 
-        List <String> timeSlots = new ArrayList<>();
-        for (int i = 6; i<=20; i++){
-            for (int k = 0; k <= 5; k++ ){
-                if(i<10) {
-                    timeSlots.add("0"+i+":"+k+"0");
-                }
-                else timeSlots.add(""+i+":"+k+"0");
-            }
-        }
+        List <String> timeSlots = createTimeSlots();
+
         List<String> nonFreeSlots = new ArrayList<>();
         for (String slot : timeSlots) {
             for (ScheduleItem item : items1) {
@@ -100,4 +86,16 @@ public class CompareService {
         return weekNumber;
     }
 
+    public List<String> createTimeSlots() {
+        List<String> timeSlots = new ArrayList<>();
+        for (int i = 6; i<=20; i++){
+            for (int k = 0; k <= 5; k++ ){
+                if(i<10) {
+                    timeSlots.add("0"+i+":"+k+"0");
+                }
+                else timeSlots.add(""+i+":"+k+"0");
+            }
+        }
+        return timeSlots;
+    }
 }

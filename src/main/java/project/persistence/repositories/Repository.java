@@ -184,7 +184,7 @@ public class Repository implements RepositoryInterface {
     }
 
     public void deleteItem(int itemId){
-        String SQL="delete from \"scheduleitem\" where id = ?";
+        String SQL="delete from \"scheduleItem\" where id = ?";
         jdbcTemplate.update(SQL, itemId);
     }
 

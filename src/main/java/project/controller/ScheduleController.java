@@ -94,6 +94,12 @@ public class ScheduleController {
         return "";
     }
 
+    @RequestMapping(value="/deleteItem")
+    public String deleteItemPost(@RequestParam("itemId") int itemId, Model model) {
+        scheduleService.removeItem(itemId);
+        return "redirect:/home";
+    }
+
 
 
     @RequestMapping(value = "/home", method = RequestMethod.POST)
