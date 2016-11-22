@@ -65,6 +65,8 @@ public class Repository implements RepositoryInterface {
         String SQL = "select * from \"user\" where username=?;";
         List<User> users = jdbcTemplate.query(SQL, new Object[]{username}, new UserMapper());
 
+        if(users.size()==0) return new User();
+
         SQL = "select * from \"user\" where id in (select userid1 from Friendship where userid2=?) or id in (select userid2 from Friendship where userid1=?)";
         for (User u : users) {
             List<User> friends = jdbcTemplate.query(SQL, new Object[]{u.getUserId(), u.getUserId()}, new UserMapper());
