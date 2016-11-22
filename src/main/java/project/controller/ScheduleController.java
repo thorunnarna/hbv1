@@ -56,6 +56,11 @@ public class ScheduleController {
 
     @RequestMapping(value = "/scheduleByFilter")
     public String viewGetScheduleByFilters(Model model, @RequestParam("selectedFilter") String filter){
+
+        if (SecurityContextHolder.getContext().getAuthentication() == null ) {
+            return "redirect:/";
+        }
+
         String tmpUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         User tmpUser = searchService.findByName(tmpUsername);
         int userId = tmpUser.getUserId();
@@ -148,15 +153,11 @@ public class ScheduleController {
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home(Model model) {
         boolean isLoggedIn;
-        if (SecurityContextHolder.getContext().getAuthentication().getName() == null ) isLoggedIn = false;
+        if (SecurityContextHolder.getContext().getAuthentication() == null ) {
+            return "redirect:/";
+        }
         else isLoggedIn = true;
         String LoggedInUser = SecurityContextHolder.getContext().getAuthentication().getName();
-        //LocalDate date = LocalDate.now();
-        //LocalDateTime sTime = LocalDateTime.now();
-        //LocalDateTime eTime = LocalDateTime.now();
-        //String date = "";
-        //String sTime = "";
-        //String eTime = "";
 
         List <String> TimeSlots = scheduleService.getTimeSlots();
 

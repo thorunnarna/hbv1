@@ -7,17 +7,16 @@ Virkni
  - Validate-a scheduleItem
  - edit/delete scheduleItem ?
  - Búa til group, eyða group
- - Skoða groups og vini
+ - Skoða groups og vini á /home?
  - Add friend og bæta við í group
  - Fletta milli vikna í schedule
- - Láta auth.manager vera autowired grrgrg
+ - Bæta við logout sem tæmir securitycontext
 
 View
  - Compare meira fínt
  - Index meira fínt
- - User
  - Útlit almennt meira?
- - Group page?
+ - Group page? neh
 
 
 

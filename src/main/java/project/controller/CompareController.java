@@ -32,6 +32,9 @@ public class CompareController {
 
     @RequestMapping(value="/compare", method = RequestMethod.GET)
     public String viewGetComparison(Model model){
+        if (SecurityContextHolder.getContext().getAuthentication() == null ) {
+            return "redirect:/";
+        }
         String loggedInUserName = SecurityContextHolder.getContext().getAuthentication().getName();
         User loggedInUser = compareService.findUserByName(loggedInUserName);
         List<User> friends = loggedInUser.getFriends();
@@ -55,6 +58,10 @@ public class CompareController {
 
     @RequestMapping(value="/compareFriends")
     public String compareSchedulePost(Model model, @RequestParam("selectedFriend") int friendId){
+        if (SecurityContextHolder.getContext().getAuthentication() == null ) {
+            return "redirect:/";
+        }
+
         String loggedInUserName = SecurityContextHolder.getContext().getAuthentication().getName();
         User loggedInUser = compareService.findUserByName(loggedInUserName);
         List<User> friends = loggedInUser.getFriends();
@@ -85,6 +92,10 @@ public class CompareController {
 
     @RequestMapping(value="/compareGroup", method = RequestMethod.POST)
     public String compareGroupSchedulePost(Model model, @RequestParam("selectedGroup") int grpId){
+        if (SecurityContextHolder.getContext().getAuthentication() == null ) {
+            return "redirect:/";
+        }
+        
         String loggedInUserName = SecurityContextHolder.getContext().getAuthentication().getName();
         User loggedInUser = compareService.findUserByName(loggedInUserName);
         List<User> friends = loggedInUser.getFriends();
