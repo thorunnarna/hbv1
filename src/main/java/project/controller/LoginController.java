@@ -62,7 +62,7 @@ public class LoginController {
             return "signUp";
         }
         User user = loginService.createUser(SignUp.getUsername(),SignUp.getPassword(), SignUp.getPhoto(), SignUp.getSchool());
-        securityService.autologin(user.getUsername(), user.getPasswordConfirm());
+        securityService.autologin(user.getUsername(), SignUp.getPassword());
         return "redirect:/home";
     }
 
