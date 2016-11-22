@@ -46,6 +46,7 @@ public class CompareController {
         model.addAttribute("timeSlots", timeSlots);
         model.addAttribute("friendList", friends);
         model.addAttribute("groupList", groups);
+        model.addAttribute("comparing", false);
         return "Compare";
     }
 
@@ -72,6 +73,7 @@ public class CompareController {
         model.addAttribute("timeSlots", timeSlots);
         model.addAttribute("friendList", friends);
         model.addAttribute("groupList", groups);
+        model.addAttribute("comparing", true);
         return "Compare";
     }
 
@@ -86,15 +88,7 @@ public class CompareController {
         List<User> friends = loggedInUser.getFriends();
         List<Group> groups = loggedInUser.getGroups();
 
-        List <String> timeSlots = new ArrayList<>();
-        for (int i = 6; i<=20; i++){
-            for (int k = 0; k <= 5; k++ ){
-                if(i<10) {
-                    timeSlots.add("0"+i+":"+k+"0");
-                }
-                else timeSlots.add(""+i+":"+k+"0");
-            }
-        }
+        List <String> timeSlots = compareService.createTimeSlots();
 
         int yearNow = LocalDateTime.now().getYear();
         int weekNow = compareService.findWeekNo(LocalDateTime.now());
@@ -104,6 +98,7 @@ public class CompareController {
         model.addAttribute("timeSlots", timeSlots);
         model.addAttribute("friendList", friends);
         model.addAttribute("groupList", groups);
+        model.addAttribute("comparing", true);
         return "Compare";
     }
 

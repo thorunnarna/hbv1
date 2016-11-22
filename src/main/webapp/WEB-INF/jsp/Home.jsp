@@ -30,7 +30,7 @@
                 } );
             </script>
     </head>
-
+    <jsp:include page="Header.jsp"/>
     <body>
 
         <a href="/logout">Log out!</a>
