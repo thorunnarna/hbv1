@@ -45,15 +45,6 @@ public class ScheduleController {
         //this.repository = repository;
     }
 
-    @RequestMapping(value="/schedule/{userId}", method = RequestMethod.GET)
-    public String viewGetScheduleForUser(@PathVariable("userId") int userId, int weekNo, int yearNo, Model model){
-
-        List<ScheduleItem> schedule = scheduleService.scheduleItems(userId, weekNo, yearNo);
-        model.addAttribute(schedule);
-
-        return "/";
-    }
-
     @RequestMapping(value = "/scheduleByFilter")
     public String viewGetScheduleByFilters(Model model, @RequestParam("selectedFilter") String filter){
 
@@ -69,11 +60,15 @@ public class ScheduleController {
         int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
         List <String> TimeSlots = scheduleService.getTimeSlots();
         List <String> Filters = scheduleService.createfilterList();
+        List<User> friendList = tmpUser.getFriends();
+        List<Group> groupList = tmpUser.getGroups();
 
         List<ScheduleItem> scheduleByFilters = scheduleService.scheduleItemsFilters(userId, weekNow, yearNow, filter);
         model.addAttribute("filters",Filters);
         model.addAttribute("timeSlots",TimeSlots);
         model.addAttribute("scheduleItem",new ScheduleItem());
+        model.addAttribute("friends", friendList);
+        model.addAttribute("groups", groupList);
 
         if(filter.equals("1")) {
             return "redirect:/home";
@@ -83,7 +78,7 @@ public class ScheduleController {
         return "Home";
     }
 
-    @RequestMapping(value = "/schedule/edit/{itemId}", method = RequestMethod.POST)
+    /*@RequestMapping(value = "/schedule/edit/{itemId}", method = RequestMethod.POST)
     public String editSchedulePost(@ModelAttribute("scheduleItemEdit") ScheduleItem scheduleItem, Model model,
                                    @PathVariable("itemId") int itemId, String title, int userId, LocalDateTime startTime,
                                    LocalDateTime endTime, int weekNo, int yearNo, String location, String color,
@@ -92,7 +87,7 @@ public class ScheduleController {
         model.addAttribute("scheduleItemEdit", scheduleService.editScheduleItem(itemId, title, userId, startTime,
                 endTime, weekNo, yearNo, location, color, description, taggedUsers, filters));
         return "";
-    }
+    }*/
 
     @RequestMapping(value="/deleteItem")
     public String deleteItemPost(@RequestParam("itemId") int itemId, Model model) {
@@ -111,7 +106,11 @@ public class ScheduleController {
         int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
         List <String> Filters = scheduleService.createfilterList();
         List <String> TimeSlots = scheduleService.getTimeSlots();
+        List<User> friendList = user.getFriends();
+        List<Group> groupList = user.getGroups();
 
+        model.addAttribute("friends", friendList);
+        model.addAttribute("groups", groupList);
         model.addAttribute("filters",Filters);
         model.addAttribute("timeSlots",TimeSlots);
         model.addAttribute("scheduleItem",new ScheduleItem());
@@ -123,6 +122,12 @@ public class ScheduleController {
 
         model.addAttribute("groupFail", true);
         return "Home";
+    }
+
+    @RequestMapping(value="/deleteGroup")
+    public String deleteGroup(@RequestParam("grpId") int grpId, Model model) {
+        scheduleService.deleteGroup(grpId);
+        return "redirect:/home";
     }
 
 
@@ -140,6 +145,9 @@ public class ScheduleController {
         User tmpUser = searchService.findByName(tmpUsername);
         int userid = tmpUser.getUserId();
 
+        List<User> friendList = tmpUser.getFriends();
+        List<Group> groupList = tmpUser.getGroups();
+
         String newDate = scheduleService.changeStringDateToRigthDate(scheduleItem.getdate());
         String newSTime = scheduleService.changeformatOfTime(scheduleItem.getStartstring());
         String newETime = scheduleService.changeformatOfTime(scheduleItem.getEndstring());
@@ -152,7 +160,6 @@ public class ScheduleController {
         LocalDateTime enddateTime = LocalDateTime.parse(endTimeforItem,formatter);
 
         int year = scheduleService.findYear(scheduleItem.getdate());
-
         int weekNo = scheduleService.findWeekNo(startdateTime);
 
 
@@ -172,10 +179,11 @@ public class ScheduleController {
 
         List <String> Filters = scheduleService.createfilterList();
 
+        model.addAttribute("friends", friendList);
+        model.addAttribute("groups", groupList);
         model.addAttribute("filters",Filters);
         model.addAttribute("timeSlots",TimeSlots);
         model.addAttribute("scheduleItem",scheduleitem);
-        //System.out.println(scheduleService.scheduleItems(1,2,3).get(0));
         model.addAttribute("scheduleItems",scheduleService.scheduleItems(userid,weekNow,yearNow));
         return "Home";
     }
@@ -199,10 +207,13 @@ public class ScheduleController {
         System.out.println(userid);
 
         List <String> Filters = scheduleService.createfilterList();
-        System.out.println(Filters.get(0)+"næsti"+ Filters.get(1));
+        List<User> friendList = user.getFriends();
+        List<Group> groupList = user.getGroups();
 
         model.addAttribute("filters",Filters);
 
+        model.addAttribute("friends", friendList);
+        model.addAttribute("groups", groupList);
         model.addAttribute("timeSlots",TimeSlots);
         model.addAttribute("loggedInUser",LoggedInUser);
         model.addAttribute("loggedInStatus",isLoggedIn);

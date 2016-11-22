@@ -29,12 +29,33 @@
                     $( "#datepicker" ).datepicker();
                 } );
             </script>
+    </head>
 
-        <body>
+    <body>
 
-
+        <a href="/logout">Log out!</a>
+        <table border="1">
+            <tr><td>Your friends:</td></tr>
+            <c:forEach var="friend" items="${friends}">
+                <tr>
+                    <td><c:out value="${friend.username}"/></td>
+                </tr>
+            </c:forEach>
+        </table>
+        <table border="1">
+            <tr><td>Your groups:</td></tr>
+            <c:forEach var="group" items="${groups}">
+                <tr>
+                    <td>
+                        <c:out value="${group.grpName} "/>
+                        <a href="/deleteGroup?grpId=${group.grpId}">x</a>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
+        <a href="/compare">Compare your schedule with others!</a>
         <sf:form method="POST" commandName="scheduleItem" action ="/home">
-            <a href="/logout">Log out!</a>
+
                 <c:if test="${loggedInStatus}">
                     <p>welcome ${loggedInUser}!</p>
                 </c:if>
@@ -44,7 +65,7 @@
                         <td> Title:</td>
                         <td><sf:input path ="title" type="text" placeholder="Enter title"/></td>
                     </tr>
-                    
+
                     <tr>
                         <td> Location:</td>
                         <td><sf:input path="location" type="text" placeholder="Choose location"/></td>
@@ -273,6 +294,5 @@
         </form>
 
         </body>
-    </head>
 
 </html>

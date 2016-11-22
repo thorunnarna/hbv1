@@ -184,7 +184,10 @@ public class Repository implements RepositoryInterface {
     }
 
     public void deleteItem(int itemId){
-        String SQL="delete from \"scheduleItem\" where id = ?";
+        String SQL = "delete from filters where itemid=?";
+        jdbcTemplate.update(SQL, itemId);
+
+        SQL="delete from \"scheduleItem\" where id = ?";
         jdbcTemplate.update(SQL, itemId);
     }
 
@@ -242,7 +245,10 @@ public class Repository implements RepositoryInterface {
     }
 
     public void deleteGroup(int grpId){
-        String SQL = "delete from \"group\" where grpId=?";
+        String SQL = "delete from members where groupid=?";
+        jdbcTemplate.update(SQL, new Object[]{grpId});
+
+        SQL = "delete from \"group\" where id=?";
         jdbcTemplate.update(SQL, grpId);
     }
 

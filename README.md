@@ -5,16 +5,15 @@ TO DO
 =====
 Virkni
  - Validate-a scheduleItem
- - Eyða group
- - Skoða groups og vini á /home?
- - Add friend og bæta við í group
+ - Add friend og bæta við í group á /search
  - Fletta milli vikna í schedule
- - Bæta við logout sem tæmir securitycontext
 
 View
  - Compare meira fínt
+ - Gera vina/group listana flottari
  - Index meira fínt
  - Útlit almennt meira?
+ - setja logout á fleiri síður, mögulega í banner
  - Group page? neh
 
 

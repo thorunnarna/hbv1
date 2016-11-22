@@ -125,6 +125,10 @@ public class ScheduleService {
         return true;
     }
 
+    public void deleteGroup(int grpId) {
+        repository.deleteGroup(grpId);
+    }
+
     public List <String> getTimeSlots(){
         List <String> TimeSlots = new ArrayList<String>();
         for (int i = 6; i<=20; i++){
