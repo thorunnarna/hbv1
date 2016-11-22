@@ -10,6 +10,7 @@
     <http auto-config="true">
         <intercept-url pattern="/"/>
         <intercept-url pattern="/home"/>
+        <intercept-url pattern="favicon.ico" access="permitAll"/>
         <form-login login-page="/login" default-target-url="/home" authentication-failure-url="/login?error" username-parameter="username" password-parameter="password"/>
         <logout logout-success-url="/login?logout" />
     </http>
