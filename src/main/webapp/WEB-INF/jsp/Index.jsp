@@ -19,8 +19,11 @@
     <body>
 
     <main>
-        <section class="col-md-8">
+        <section class="col-md-3">
             <img src="../images/planguin_380.png">
+        </section>
+        
+        <section class="col-md-5">
             <ul>
                 <li>
                     <span class="glyphicon glyphicon-calendar"/>  Your own personal planner </span>
