@@ -280,13 +280,13 @@
         <form action="/createGroup">
            <table>
                <tr>
-                   <td colspan="3">Create a group here. Then go to <a href="/search/all">search</a> to add members to your group.</td>
+                   <td colspan="3">Create a group here. Then go to <a href="/search">search</a> to add members to your group.</td>
                </tr>
                <tr>
                    <td>Group name:</td>
                    <td><input type="text" name="grpName" placeholder="Enter group name"/></td>
                    <c:if test="${groupFail}">
-                       <td>Hópur með þessu nafni er nú þegar til! Vinsamlegast veldu annað.</td>
+                       <td>A group with this name already exists. Please choose another!</td>
                    </c:if>
                </tr>
            </table>
