@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 import project.persistence.entities.*;
 import project.persistence.repositories.Repository;
 
@@ -39,9 +40,5 @@ public class LoginService {
         int id = repository.getUserByUsername(username);
         if (id == -1) return false;
         else return true;
-    }
-
-    public void logInUser(String username, String password){
-        System.out.println("login tjékk");
     }
 }

@@ -79,4 +79,10 @@ public class LoginController {
         return "redirect:/home";
     }
 
+    @RequestMapping(value="/logout")
+    public String LogOut(Model model) {
+        SecurityContextHolder.getContext().setAuthentication(null);
+        return "redirect:/";
+    }
+
 }

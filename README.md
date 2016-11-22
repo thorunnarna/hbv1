@@ -5,7 +5,7 @@ TO DO
 =====
 Virkni
  - Validate-a scheduleItem
- - Búa til group, eyða group
+ - Eyða group
  - Skoða groups og vini á /home?
  - Add friend og bæta við í group
  - Fletta milli vikna í schedule

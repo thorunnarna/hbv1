@@ -34,6 +34,7 @@
 
 
         <sf:form method="POST" commandName="scheduleItem" action ="/home">
+            <a href="/logout">Log out!</a>
                 <c:if test="${loggedInStatus}">
                     <p>welcome ${loggedInUser}!</p>
                 </c:if>
