@@ -21,7 +21,7 @@ header{
     background-repeat: repeat;
     /*position: fixed;*/
     z-index: 100;
-    padding: 2% 0% 1% 8% ;
+    padding: 2% 0 1% 8% ;
     margin: 0;
     width: 100%;
     display: flex;
@@ -29,7 +29,7 @@ header{
 }
 
 .btn {
-    margin-top: 2px;
+    margin: 5px 5px 10px 5px;
 }
 
 h1, .link{
@@ -89,4 +89,14 @@ li{
 
 .Blue {
     color: blue;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.dropdown{
+    margin-top: 20px;
+    margin-bottom: 30px;
 }

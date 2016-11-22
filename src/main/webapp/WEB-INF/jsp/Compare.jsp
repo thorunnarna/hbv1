@@ -11,32 +11,44 @@
 
     <head>
         <%@ page contentType="text/html; charset=UTF-8"%>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+
+              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link href="../css/stylesheet.css" rel="stylesheet" type="text/css">
         <title>Compare Page</title>
     </head>
 
-    <body>
-        <p>Compare with friend!</p>
-        <form action="/compareFriends">
-            <select name="selectedFriend">
-                <option value="68" label="--Select friend--"/>
-                <c:forEach var="friend" items="${friendList}">
-                    <option value="${friend.userId}" label="${friend.username}"></option>
-                </c:forEach>
-            </select>
-            <input type="submit" value="Compare!"/>
-        </form>
-        <p>Compare with groups!</p>
-        <form method="POST" action="/compareGroup">
-            <select name="selectedGroup">
-                <option value="NONE" label="--Select group--"/>
-                <c:forEach var="group" items="${groupList}">
-                    <option value="${group.grpId}" label="${group.grpName}"></option>
-                </c:forEach>
-            </select>
-            <input type="submit" value="Compare!"/>
-        </form>
+    <jsp:include page="Header.jsp"/>
 
-        <table border="1" cellspacing="0">
+    <body>
+
+        <div class="col-md-3 col-md-offset-3 dropdown">
+            <form method="POST" action="/compareFriends">
+                <select name="selectedFriend" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <option class="dropdown-menu" aria-labelledby="dropdownMenu1" value="68" label="Compare with a friend!"/>
+                    <c:forEach var="friend" items="${friendList}">
+                        <option value="${friend.userId}" label="${friend.username}"></option>
+                    </c:forEach>
+                </select>
+                <button type="submit" class="btn btn-primary" value="Compare!">Compare!</button>
+            </form>
+        </div>
+
+        <div class="col-md-3 dropdown">
+            <form method="POST" action="/compareGroup">
+                <select name="selectedGroup" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <option class="dropdown-menu" aria-labelledby="dropdownMenu1" value="NONE" label="Compare with a group!"/>
+                    <c:forEach var="group" items="${groupList}">
+                        <option value="${group.grpId}" label="${group.grpName}"></option>
+                    </c:forEach>
+                </select>
+                <button type="submit" class="btn btn-primary" value="Compare!">Compare!</button>
+            </form>
+    </div>
+
+    <div class="tafla">
+
+        <table class="col-md-8 col-centered" border="1" cellspacing="0">
             <tbody>
             <tr>
                 <th align="center" valign="middle" width="80"></th>
@@ -180,6 +192,7 @@
             </c:forEach>
             </tbody>
         </table>
+    </div>
     </body>
 
 
