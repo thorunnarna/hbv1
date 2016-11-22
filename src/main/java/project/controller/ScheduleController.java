@@ -117,7 +117,7 @@ public class ScheduleController {
         model.addAttribute("scheduleItems",scheduleService.scheduleItems(user.getUserId(),weekNow,yearNow));
         if(scheduleService.createGroup(grpName, members)) {
             model.addAttribute("groupFail", false);
-            return "Home";
+            return "redirect:/home";
         }
 
         model.addAttribute("groupFail", true);
