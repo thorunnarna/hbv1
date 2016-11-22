@@ -152,6 +152,32 @@ public class ScheduleService {
         return Filters;
     }
 
+    public boolean checkTime(String starts, String ends){
+        System.out.println(starts);
+        System.out.println(ends);
 
+        int hss =Integer.parseInt(checkifZero(starts.substring(0,2)));
+        int hes =Integer.parseInt(checkifZero(ends.substring(0,2)));
+        int mss =Integer.parseInt(starts.substring(3,5));
+        int mes =Integer.parseInt(ends.substring(3,5));
+
+        System.out.println("hss"+hss+"hes"+hes+"mss"+mss+"mes"+mes);
+
+        boolean retval = true;
+
+        if (hes < hss)retval = false;
+        if (hes == hss) {
+            if (mes < mss) retval = false;
+        }
+        return retval;
+    }
+
+    public String checkifZero(String check) {
+
+        if (check.substring(0) == "0");
+
+        return check.substring(1);
+
+    }
 
 }

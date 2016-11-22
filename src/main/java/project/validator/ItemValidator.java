@@ -27,12 +27,11 @@ public class ItemValidator implements Validator {
             errors.rejectValue("title", "Title length should be less than 32 characters");
         }
 
-        if (item.getEndTime().isBefore(item.getStartTime())) {
+        boolean retval = scheduleService.checkTime(item.getStartstring(), item.getEndstring());
+
+        if (retval = false) {
             errors.rejectValue("endTime", "End Time should be after Start Time");
         }
 
-        if (item.getEndTime().getDayOfYear() != item.getStartTime().getDayOfYear()) {
-            errors.rejectValue("endTime", "End Time and STart Time should be on the same day");
-        }
     }
 }

@@ -34,7 +34,7 @@ public class ScheduleController {
 
     ScheduleService scheduleService;
     SearchService searchService;
-    //ItemValidator itemValidator = new ItemValidator();
+    ItemValidator itemValidator = new ItemValidator();
     //Repository repository
 
 
@@ -133,13 +133,13 @@ public class ScheduleController {
 
     @RequestMapping(value = "/home", method = RequestMethod.POST)
     //@PostMapping(value = "/home")
-    public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, Model model) {
-        //itemValidator.validate(scheduleItem, bindingResult);
+    public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, BindingResult bindingResult,Model model) {
+        itemValidator.validate(scheduleItem, bindingResult);
 
-        //if (bindingResult.hasErrors()) {
-          //  System.out.println(bindingResult.getAllErrors());
-            //return "Home";
-        //}
+        if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult.getAllErrors());
+            return "Home";
+        }
 
         String tmpUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         User tmpUser = searchService.findByName(tmpUsername);
@@ -154,6 +154,9 @@ public class ScheduleController {
 
         String startTimeforItem = newDate +" "+ newSTime;
         String endTimeforItem = newDate +" "+newETime;
+
+        boolean retval =scheduleService.checkTime(startTimeforItem, endTimeforItem);
+        System.out.println("retval: "+retval);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime startdateTime = LocalDateTime.parse(startTimeforItem,formatter);
@@ -175,7 +178,7 @@ public class ScheduleController {
 
         int yearNow = LocalDateTime.now().getYear();
         int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
-        System.out.println("post " +String.valueOf(weekNow));
+        //System.out.println("post " +String.valueOf(weekNow));
 
         List <String> Filters = scheduleService.createfilterList();
 
@@ -201,10 +204,10 @@ public class ScheduleController {
 
         int yearNow = LocalDateTime.now().getYear();
         int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
-        System.out.println("get "+String.valueOf(weekNow));
+        //System.out.println("get "+String.valueOf(weekNow));
         User user = scheduleService.findUserByUsername(LoggedInUser);
         int userid= user.getUserId();
-        System.out.println(userid);
+        //System.out.println(userid);
 
         List <String> Filters = scheduleService.createfilterList();
         List<User> friendList = user.getFriends();
