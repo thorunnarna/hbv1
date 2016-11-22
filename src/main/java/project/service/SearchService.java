@@ -28,6 +28,8 @@ public class SearchService {
         return repository.findUsersByName(username);
     }
 
+    public User findByUserId(int userId) { return repository.findUserById((userId)); }
+
     public boolean createFriendship(int userId1, int userId2){
         repository.createFriendship(userId1,userId2);
 
@@ -41,6 +43,16 @@ public class SearchService {
     }
 
     public boolean checkIfFriend(User user1, User user2) {
-        return user1.getFriends() != null && user1.getFriends().contains(user2);
+        for (User u : user1.getFriends()) {
+            if (u.getUserId() == user2.getUserId()) {
+                return true;
+            }
+        }
+        for (User u : user2.getFriends()) {
+            if (u.getUserId() == user1.getUserId()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

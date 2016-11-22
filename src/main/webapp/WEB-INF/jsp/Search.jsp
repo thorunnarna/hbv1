@@ -13,7 +13,7 @@
         <title>Search Page</title>
     </head>
     <body>
-        <form action="/search">
+        <form action="/search/q">
             Search: <input type="text" name="username" placeholder="Type username.."/>
         </form>
         <table border="1px gray">
@@ -31,12 +31,12 @@
                     <c:choose>
                         <c:when test="${user.friendship}">
                             <td>
-                                <button>Add to Group</button>
+                                <button type="submit" name="grpName">Add to Group</button>
                             </td>
                         </c:when>
                         <c:otherwise>
                             <td>
-                                <form action="/search/addFriend" method="POST" >
+                                <form action="/search/addFriend" method="POST">
                                     <button type="submit" name="userId" value=${user.user.userId}>Add Friend</button>
                                 </form>
                             </td>

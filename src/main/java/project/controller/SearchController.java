@@ -37,7 +37,7 @@ public class SearchController {
         this.searchService = searchService;
     }
 
-    @RequestMapping(value="/search/all")
+    @RequestMapping(value="/search")
     public String viewGetListOfUsers(Model model){
         String loggedInUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         User loggedInUser = searchService.findByName(loggedInUsername);
@@ -55,7 +55,7 @@ public class SearchController {
         return "Search";
     }
 
-    @RequestMapping(value="/search")
+    @RequestMapping(value="/search/q")
     public String getSearchByName(@RequestParam("username") String username, Model model){
         String loggedInUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         User loggedInUser = searchService.findByName(loggedInUsername);
@@ -77,7 +77,10 @@ public class SearchController {
     public String addFriendPost(@RequestParam("userId") int userId) {
         String loggedInUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         User loggedInUser = searchService.findByName(loggedInUsername);
-        searchService.createFriendship(loggedInUser.getUserId(), userId);
+        User user2 = searchService.findByUserId(userId);
+        if(!searchService.checkIfFriend(loggedInUser, user2)) {
+            searchService.createFriendship(loggedInUser.getUserId(), userId);
+        }
         return "redirect:/search";
     }
 }
