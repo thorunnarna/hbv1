@@ -4,18 +4,20 @@
 TO DO
 =====
 Virkni
- - Compare dótið
- - Senda á fólk invite
- - Búa til group
- - ??
+ - Validate-a scheduleItem
+ - edit/delete scheduleItem ?
+ - Búa til group, eyða group
+ - Skoða groups og vini
+ - Add friend og bæta við í group
+ - Fletta milli vikna í schedule
+ - Láta auth.manager vera autowired grrgrg
 
 View
- - Compare
+ - Compare meira fínt
  - Index meira fínt
  - User
  - Útlit almennt meira?
  - Group page?
- - Invite? How look?
 
 
 

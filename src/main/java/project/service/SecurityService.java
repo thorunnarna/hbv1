@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.authentication.AuthenticationManagerBeanDefinitionParser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,17 +37,21 @@ public class SecurityService {
         return null;
     }
 
-    public void autologin(String username, String password) {
+    public boolean autologin(String username, String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if(userDetails.getUsername().equals("NotFound")) {
-            return;
+            return false;
         }
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
 
         authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-
-        if (usernamePasswordAuthenticationToken.isAuthenticated()) {
+        if (userDetails.getPassword().equals(password)) {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            return true;
         }
+        //if (usernamePasswordAuthenticationToken.isAuthenticated()) {
+        //    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+        //}
+        return false;
     }
 }
