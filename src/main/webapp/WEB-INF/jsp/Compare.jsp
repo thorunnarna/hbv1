@@ -22,7 +22,11 @@
 
     <body>
 
-        <div class="col-md-3 col-md-offset-3 dropdown">
+    <h2 class="title">Compare</h2>
+
+    <a class="btn btn-info col-md-2" role="button" href="/home">Go back to your schedule</a>
+
+        <div class="col-md-4 col-md-offset-1 dropdown">
             <form method="POST" action="/compareFriends">
                 <select name="selectedFriend" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <option class="dropdown-menu" aria-labelledby="dropdownMenu1" value="NONE" label="Compare with a friend!"/>
@@ -34,7 +38,7 @@
             </form>
         </div>
 
-        <div class="col-md-3 dropdown">
+        <div class="col-md-4 dropdown">
             <form method="POST" action="/compareGroup">
                 <select name="selectedGroup" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                     <option class="dropdown-menu" aria-labelledby="dropdownMenu1" value="NONE" label="Compare with a group!"/>
@@ -192,7 +196,6 @@
             </c:forEach>
             </tbody>
         </table>
-        <p>Click <a href="/home">here</a> to go back to your home page</p>
     </div>
     </body>
 
