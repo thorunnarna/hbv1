@@ -101,7 +101,10 @@ li{
 .col-md-7{
     padding-left: 50px;
 }
+.lol ul{
+    margin-top: 30px;
+}
 
-.createGroup{
-    margin-top: 15px;
+.lol a{
+    margin-bottom: 30px;
 }

@@ -42,7 +42,7 @@
         </div>
 
         <div class="col-md-2">
-            <a class="btn btn-danger href="/logout">Log out!</a>
+            <a class="btn btn-danger"    href="/logout">Log out!</a>
         </div>
 
         </div>
@@ -103,7 +103,7 @@
             <p class="alert alert-danger">${error.getCode()}
                 </c:forEach>
                 </c:if>
-                
+
             </sf:form>
         </div>
     </div>
@@ -270,11 +270,10 @@
         </table>
     </div>
 
-    <div class="col-md-2">
+    <div class="lol col-md-2">
 
         <a class="btn btn-info" href="/compare">Compare your schedule with others!</a>
 
-        <div class="createGroup">
             <form class="form-group" action="/createGroup">
                 <label colspan="3">Create a group here. Then go to <a href="/search">search</a> to add members to your group.</label>
 
@@ -285,7 +284,6 @@
                 </c:if>
                 <button class="btn btn-primary" type="submit" value="Create Group!">Create group!</button>
             </form>
-        </div>
 
             <ul class="list-group">
                 <li class="list-group-item list-group-item-info">Your friends:</li>
