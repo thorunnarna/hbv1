@@ -16,6 +16,7 @@
 
 <body>
     <header>
+        <img class="logo" src="../images/planguin_380.png" width="50px" height="90px">
         <a href="/" class="link btn">Planguin</a>
     </header>
 </body>
