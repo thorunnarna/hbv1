@@ -13,9 +13,11 @@
         <title>Planguin</title>
     </head>
 
-        <jsp:include page="Header.jsp"/>
-
     <body>
+
+    <header>
+        <a href="/" class="link btn">Planguin</a>
+    </header>
 
     <main>
         <section class="col-md-3">
