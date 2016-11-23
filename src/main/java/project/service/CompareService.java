@@ -45,7 +45,9 @@ public class CompareService {
             for (ScheduleItem item : items) {
                 LocalTime slotTime = LocalTime.parse(slot);
                 if(slotTime.compareTo(item.getStartTime().toLocalTime())>=0 && slotTime.compareTo(item.getEndTime().toLocalTime())<=0) {
-                    nonFreeSlots.add(LocalDateTime.of(item.getStartTime().toLocalDate(),slotTime).toString());
+                    if(!nonFreeSlots.contains(LocalDateTime.of(item.getStartTime().toLocalDate(), slotTime).toString())) {
+                        nonFreeSlots.add(LocalDateTime.of(item.getStartTime().toLocalDate(), slotTime).toString());
+                    }
                 }
             }
         }
@@ -67,7 +69,9 @@ public class CompareService {
             for (ScheduleItem item : items1) {
                 LocalTime slotTime = LocalTime.parse(slot);
                 if(slotTime.compareTo(item.getStartTime().toLocalTime())>=0 && slotTime.compareTo(item.getEndTime().toLocalTime())<=0) {
-                    nonFreeSlots.add(LocalDateTime.of(item.getStartTime().toLocalDate(),slotTime).toString());
+                    if(!nonFreeSlots.contains(LocalDateTime.of(item.getStartTime().toLocalDate(), slotTime).toString())) {
+                        nonFreeSlots.add(LocalDateTime.of(item.getStartTime().toLocalDate(), slotTime).toString());
+                    }
                 }
             }
         }
