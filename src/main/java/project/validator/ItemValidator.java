@@ -24,12 +24,17 @@ public class ItemValidator implements Validator {
 
         //ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "NotEmpty");
         if (item.getTitle().length() == 0 || item.getTitle().length() > 32) {
-            errors.rejectValue("title", "Title length should bemore than 0 and less than 32 characters");
+            errors.rejectValue("title", "Title can not be empty and length should be less than 32 characters");
+        }
+
+       
+        if (item.getdate() == ""){
+            errors.rejectValue("date","You must choose a date");
         }
 
         boolean retval = scheduleService.checkTime(item.getStartstring(), item.getEndstring());
 
-        if (retval == false) {
+        if (!retval) {
             errors.rejectValue("endTime", "End Time should be after Start Time");
         }
 
