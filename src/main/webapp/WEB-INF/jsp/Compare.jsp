@@ -48,7 +48,7 @@
 
     <div class="tafla">
 
-        <table class="col-md-8 col-centered" border="1" cellspacing="0">
+        <table class="col-md-8 col-centered table-bordered" cellspacing="0">
             <tbody>
             <tr>
                 <th align="center" valign="middle" width="80"></th>
