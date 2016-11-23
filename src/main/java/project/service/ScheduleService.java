@@ -197,4 +197,8 @@ public class ScheduleService {
         return returnvalue;
     }
 
+    public void deleteFriendship(int userid1, int userid2) {
+        repository.deleteFriendship(userid1, userid2);
+    }
+
 }

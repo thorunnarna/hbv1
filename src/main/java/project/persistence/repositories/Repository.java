@@ -274,9 +274,9 @@ public class Repository implements RepositoryInterface {
         jdbcTemplate.update(SQL, userId1, userId2);
     }
 
-    public void deleteFriendship(int friendshipId){
-        String SQL="delete from \"friendship\" where id=?";
-        jdbcTemplate.update(SQL,friendshipId);
+    public void deleteFriendship(int userid1, int userid2){
+        String SQL="delete from \"friendship\" where ( userid1=? and userid2=? ) or (userid2=? and userid1=?)";
+        jdbcTemplate.update(SQL,userid1,userid2,userid1, userid2);
     }
 
     public void createFilter(String filterName, int userId, int itemId){

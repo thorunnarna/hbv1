@@ -130,6 +130,14 @@ public class ScheduleController {
         return "redirect:/home";
     }
 
+    @RequestMapping(value="/deleteFriendship")
+    public String deleteFriendship(@RequestParam("friendId") int friendId, Model model) {
+        String LoggedInUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = scheduleService.findUserByUsername(LoggedInUser);
+        scheduleService.deleteFriendship(user.getUserId(), friendId);
+        return "redirect:/home";
+    }
+
 
     @RequestMapping(value = "/home", method = RequestMethod.POST)
     //@PostMapping(value = "/home")
