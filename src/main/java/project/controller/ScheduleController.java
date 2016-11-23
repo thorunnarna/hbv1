@@ -136,11 +136,8 @@ public class ScheduleController {
     public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, BindingResult bindingResult,Model model) {
         itemValidator.validate(scheduleItem, bindingResult);
 
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("hasErrors", true);
-            model.addAttribute("errors", bindingResult.getAllErrors());
-            return "Home";
-        }
+        List <String> TimeSlots = scheduleService.getTimeSlots();
+        model.addAttribute("timeSlots",TimeSlots);
 
         String tmpUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         User tmpUser = searchService.findByName(tmpUsername);
@@ -149,15 +146,29 @@ public class ScheduleController {
         List<User> friendList = tmpUser.getFriends();
         List<Group> groupList = tmpUser.getGroups();
 
+        model.addAttribute("friends", friendList);
+        model.addAttribute("groups", groupList);
+
+        List <String> Filters = scheduleService.createfilterList();
+        model.addAttribute("filters",Filters);
+
+        int yearNow = LocalDateTime.now().getYear();
+        int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
+
+        model.addAttribute("scheduleItems",scheduleService.scheduleItems(userid,weekNow,yearNow));
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("hasErrors", true);
+            model.addAttribute("errors", bindingResult.getAllErrors());
+            return "Home";
+        }
+
         String newDate = scheduleService.changeStringDateToRigthDate(scheduleItem.getdate());
         String newSTime = scheduleService.changeformatOfTime(scheduleItem.getStartstring());
         String newETime = scheduleService.changeformatOfTime(scheduleItem.getEndstring());
 
         String startTimeforItem = newDate +" "+ newSTime;
         String endTimeforItem = newDate +" "+newETime;
-
-        //boolean retval =scheduleService.checkTime(startTimeforItem, endTimeforItem);
-        //System.out.println("retval: "+retval);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime startdateTime = LocalDateTime.parse(startTimeforItem,formatter);
@@ -166,29 +177,15 @@ public class ScheduleController {
         int year = scheduleService.findYear(scheduleItem.getdate());
         int weekNo = scheduleService.findWeekNo(startdateTime);
 
-
-
          scheduleService.createItem(scheduleItem.getTitle(), userid, startdateTime, enddateTime,
                 scheduleItem.getTaggedUsers(), weekNo, year, scheduleItem.getLocation(),
                 scheduleItem.getColor(),scheduleItem.getDescription(), scheduleItem.getFilter());
 
-        List <String> TimeSlots = scheduleService.getTimeSlots();
-
         //hreinsa breytur fyrir næsta item
         ScheduleItem scheduleitem = new ScheduleItem();
 
-        int yearNow = LocalDateTime.now().getYear();
-        int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
-        //System.out.println("post " +String.valueOf(weekNow));
-
-        List <String> Filters = scheduleService.createfilterList();
-
-        model.addAttribute("friends", friendList);
-        model.addAttribute("groups", groupList);
-        model.addAttribute("filters",Filters);
-        model.addAttribute("timeSlots",TimeSlots);
         model.addAttribute("scheduleItem",scheduleitem);
-        model.addAttribute("scheduleItems",scheduleService.scheduleItems(userid,weekNow,yearNow));
+
         return "Home";
     }
 
