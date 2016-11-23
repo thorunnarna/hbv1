@@ -4,7 +4,7 @@
 TO DO
 =====
 Virkni
- - Validate-a scheduleItem
+ - KOMIÐ - Validate-a scheduleItem -
  - Add friend og bæta við í group á /search
  - Fletta milli vikna í schedule
 
@@ -15,6 +15,9 @@ View
  - Útlit almennt meira?
  - setja logout á fleiri síður, mögulega í banner
  - Group page? neh
+
+- er einhverstaðar hægt að sjá hverjir eru í einhverju group?
+
 
 
 
