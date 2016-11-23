@@ -54,88 +54,84 @@
             </c:forEach>
         </table>
         <a href="/compare">Compare your schedule with others!</a>
-        <sf:form method="POST" commandName="scheduleItem" action ="/home">
 
+        <div class="form-group col-md-3">
+
+        <sf:form method="POST" commandName="scheduleItem" action ="/home">
                 <c:if test="${loggedInStatus}">
                     <p>welcome ${loggedInUser}!</p>
                 </c:if>
-                <table>
 
-                    <tr>
-                        <td> Title:</td>
-                        <td><sf:input path ="title" type="text" placeholder="Enter title"/></td>
-                    </tr>
+                        <label> Title:</label>
+                        <sf:input class="form-control" path ="title" type="text" placeholder="Enter title"/>
 
-                    <tr>
-                        <td> Location:</td>
-                        <td><sf:input path="location" type="text" placeholder="Choose location"/></td>
-                    </tr>
-                    <tr>
-                        <td> Description:</td>
-                        <td><sf:input path="description" type="text" placeholder="Enter description"/></td>
-                    </tr>
-                    <tr>
-                        <td> Day:</td>
-                        <td><sf:input path="date" type="text" placeholder="Choose date" id="datepicker"/></td>
-                    </tr>
-                    <tr>
-                        <td> Start time:</td>
-                        <%--<td><sf:input path="startstrin" type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td>--%>
-                        <td><sf:select path="startstring">
-                            <sf:options items="${timeSlots}"/>
-                        </sf:select></td>
-                    </tr>
-                    <tr>
-                        <td> End time:</td>
-                        <%--td><sf:input path="endstring" type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td--%>
-                        <td><sf:select path="endstring">
-                            <sf:options items="${timeSlots}"/>
-                        </sf:select></td>
-                    </tr>
-                    <tr>
-                        <td> Color:</td>
-                        <td>
-                            <sf:select path="color">
+                        <label> Location:</label>
+                        <sf:input class="form-control" path="location" type="text" placeholder="Choose location"/>
+
+                        <label> Description:</label>
+                        <sf:input class="form-control" path="description" type="text" placeholder="Enter description"/></td>
+
+                        <div class="col-md-6">
+                            <label> Day:</label>
+                            <sf:input class="form-control" path="date" type="text" placeholder="Choose date" id="datepicker"/></td>
+
+                            <label> Start time:</label>
+                            <%--<td><sf:input path="startstrin" type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td>--%>
+                            <sf:select class="btn btn-default dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" path="startstring">
+                                <sf:options items="${timeSlots}"/>
+                            </sf:select>
+
+                            <label> End time:</label>
+                            <%--td><sf:input path="endstring" type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td--%>
+                            <sf:select class="btn btn-default dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" path="endstring">
+                                <sf:options items="${timeSlots}"/>
+                            </sf:select>
+
+                            <label> Color:</label>
+                            <sf:select class="btn btn-default dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" path="color">
                                 <sf:option value="Red"/>
                                 <sf:option value="Blue"/>
                                 <sf:option value="Green"/>
                                 <sf:option value="Yellow"/>
                             </sf:select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> Filter:</td>
-                        <td>
-                            <sf:select path="filter">
+
+                            <label> Filter:</label>
+                            <sf:select class="btn btn-default dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" path="filter">
                                 <sf:option value="School"/>
                                 <sf:option value="Work"/>
                                 <sf:option value="Appointment"/>
                                 <sf:option value="Other"/>
                             </sf:select>
-                        </td>
-                    </tr>
-                </table>
+
+                        </div>
+
+
+                    <c:if test = "${hasErrors}">
+                    <c:forEach var="error" items="${errors}">
+                    <p class="alert alert-danger">${error.getCode()}
+
+                        </c:forEach>
+                        </c:if>
                 <input type="submit" value="Create scheduleItem!">
             </sf:form>
-        <c:if test = "${hasErrors}">
-            <c:forEach var="error" items="${errors}">
-                 <p class="alert alert-danger">${error.getCode()}
+        </div>
 
-            </c:forEach>
-            </c:if>
+        <div col-md-3>
 
-        <p>Choose filter you want to view</p>
+        <label>Choose filter you want to view</label>
         <form action="/scheduleByFilter">
-            <select name="selectedFilter">
-                <option value="1" label="--Select filter--"/>
+            <select name="selectedFilter" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <option class="dropdown-menu" aria-labelledby="dropdownMenu1" value="1" label="--Select filter--"/>
                 <c:forEach var="filters" items="${filters}">
                     <option value="${filters}" label="${filters}"></option>
                 </c:forEach>
 
             </select>
-            <input type="submit" value="Submit"/>
+            <button class="btn btn-primary" type="submit" value="Submit">Submit!</button>
         </form>
+        </div>
 
+        <div class="col-md-9">
         <table border="1" cellspacing="0">
             <tbody>
             <tr>
@@ -282,22 +278,20 @@
             </c:forEach>
             </tbody>
         </table>
+        </div>
 
-        <form action="/createGroup">
-           <table>
-               <tr>
-                   <td colspan="3">Create a group here. Then go to <a href="/search">search</a> to add members to your group.</td>
-               </tr>
-               <tr>
-                   <td>Group name:</td>
-                   <td><input type="text" name="grpName" placeholder="Enter group name"/></td>
+        <div class="col-md-3">
+        <form class="form-group" action="/createGroup">
+                   <label colspan="3">Create a group here. Then go to <a href="/search">search</a> to add members to your group.</label>
+
+                   <label>Group name:</label>
+                   <input class="form-control" type="text" name="grpName" placeholder="Enter group name"/></td>
                    <c:if test="${groupFail}">
-                       <td>A group with this name already exists. Please choose another!</td>
+                       <p class="alert alert-danger">A group with this name already exists. Please choose another!</p>
                    </c:if>
-               </tr>
-           </table>
-            <input type="submit" value="Create Group!">
+            <button class="btn btn-primary" type="submit" value="Create Group!">
         </form>
+        </div>
 
         </body>
 
