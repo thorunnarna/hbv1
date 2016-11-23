@@ -164,7 +164,8 @@
                     <c:set var="foundItem" value="false"/>
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 0}">
-                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="{$item.color}">
+                            <td title="From: ${item.startstring}&#013;To: ${item.endstring}&#013;${item.description}"
+                                align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="{$item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <a href="/deleteItem?itemId=${item.id}">x</a>
                                 <c:set var="timespan" value="${item.timeSpan+1}"/>
