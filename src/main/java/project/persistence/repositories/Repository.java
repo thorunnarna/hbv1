@@ -260,7 +260,7 @@ public class Repository implements RepositoryInterface {
     }
 
     public void addGroupMember(int groupId, int userId){
-        String SQL="insert into \"members\" (grpId, userId) values (?,?)";
+        String SQL="insert into \"members\" (groupid, userid) values (?,?)";
         jdbcTemplate.update(SQL, groupId, userId);
     }
 

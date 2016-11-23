@@ -55,4 +55,12 @@ public class SearchService {
         }
         return false;
     }
+
+    public Group findGroup(int grpId) {
+        return repository.findGroup(grpId);
+    }
+
+    public void addGroupMemeber(int groupId, int userId) {
+        repository.addGroupMember(groupId, userId);
+    }
 }

@@ -36,7 +36,15 @@
                             <c:choose>
                                 <c:when test="${user.friendship}">
                                     <td>
-                                        <button type="submit" name="grpName">Add to Group</button>
+                                        <form method="POST" action="/search/addToGroup?addMember=${user.user.userId}">
+                                            <select name="addToGroup">
+                                                <option label="--Select group--"/>
+                                                <c:forEach var="groups" items="${groupList}">
+                                                    <option value="${groups.grpId}" label="${groups.grpName}"></option>
+                                                </c:forEach>
+                                            </select>
+                                            <button type="submit"> Add to Group! </button>
+                                        </form>
                                     </td>
                                 </c:when>
                                 <c:otherwise>
