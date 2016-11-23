@@ -6,10 +6,6 @@ body {
     color: red;
 }
 
-main{
-    padding: 4% 2% 0% 7%;
-}
-
 body {
 
 }
@@ -98,6 +94,26 @@ li{
 
 .Yellow{
     background-color: #f5f68b;
+}
+
+.Purple{
+    background-color: #cfadf6;
+}
+
+.Pink{
+    background-color: #f6b1ea;
+}
+
+.Orange{
+    background-color: #f6ae92;
+}
+
+.White{
+    background-color: white;
+}
+
+.Gray{
+    background-color: #c5c3c0;
 }
 
 .col-centered{
