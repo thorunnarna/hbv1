@@ -85,7 +85,19 @@ li{
 }
 
 .Blue {
-    color: blue;
+    background-color: lightblue;
+}
+
+.Red{
+    background-color: lightcoral;
+}
+
+.Green{
+    background-color: lightgreen;
+}
+
+.Yellow{
+    background-color: #f5f68b;
 }
 
 .col-centered{

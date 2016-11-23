@@ -45,13 +45,21 @@
             <a class="btn btn-danger"    href="/logout">Log out!</a>
         </div>
 
-        </div>
+    </div>
 
     <div class="col-md-2">
 
         <div class="form-group">
 
         <sf:form method="POST" commandName="scheduleItem" action ="/home">
+
+               <div>
+                   <c:if test = "${hasErrors}">
+                    <c:forEach var="error" items="${errors}">
+                        <p class="alert alert-danger">${error.getCode()}
+                    </c:forEach>
+                </c:if>
+               </div>
 
                         <label> Title:</label>
                         <sf:input class="form-control" path ="title" type="text" placeholder="Enter title"/>
@@ -62,13 +70,12 @@
                         <label> Description:</label>
                         <sf:input class="form-control" path="description" type="text" placeholder="Enter description"/></td>
 
-                        <div class="col-md-8">
                             <label> Day:</label>
                             <sf:input class="form-control" path="date" type="text" placeholder="Choose date" id="datepicker"/></td>
 
                             <label> Start time:</label>
                             <%--<td><sf:input path="startstrin" type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td>--%>
-                            <sf:select class="btn btn-default dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" path="startstring">
+                            <sf:select class="btn btn-default dropdown-toggle form-control " type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" path="startstring">
                                 <sf:options items="${timeSlots}"/>
                             </sf:select>
 
@@ -94,15 +101,7 @@
                                 <sf:option value="Other"/>
                             </sf:select>
 
-                        </div>
-
                 <button class="btn btn-primary" type="submit" value="Create scheduleItem!">Insert scheduleitem!</button>
-
-            <c:if test = "${hasErrors}">
-            <c:forEach var="error" items="${errors}">
-            <p class="alert alert-danger">${error.getCode()}
-                </c:forEach>
-                </c:if>
 
             </sf:form>
         </div>
@@ -154,7 +153,7 @@
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 0}">
                             <td title="From: ${item.startstring}&#013;To: ${item.endstring}&#013;${item.description}"
-                                align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="{$item.color}">
+                                align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="${item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <a href="/deleteItem?itemId=${item.id}">x</a>
                                 <c:set var="timespan" value="${item.timeSpan+1}"/>
@@ -172,7 +171,7 @@
                     <c:set var="foundItem2" value="false"/>
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 1}">
-                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="{$item.color}">
+                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="${item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <a href="/deleteItem?itemId=${item.id}">x</a>
                                 <c:set var="timespan2" value="${item.timeSpan+1}"/>
@@ -188,7 +187,7 @@
                     <c:set var="foundItem3" value="false"/>
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 2}">
-                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="{$item.color}">
+                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="${item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <a href="/deleteItem?itemId=${item.id}">x</a>
                                 <c:set var="timespan3" value="${item.timeSpan+1}"/>
@@ -204,7 +203,7 @@
                     <c:set var="foundItem4" value="false"/>
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 3}">
-                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="{$item.color}">
+                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="${item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <a href="/deleteItem?itemId=${item.id}">x</a>
                                 <c:set var="timespan4" value="${item.timeSpan+1}"/>
@@ -220,7 +219,7 @@
                     <c:set var="foundItem5" value="false"/>
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 4}">
-                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="{$item.color}">
+                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="${item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <a href="/deleteItem?itemId=${item.id}">x</a>
                                 <c:set var="timespan5" value="${item.timeSpan+1}"/>
@@ -236,7 +235,7 @@
                     <c:set var="foundItem6" value="false"/>
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 5}">
-                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="{$item.color}">
+                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="${item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <a href="/deleteItem?itemId=${item.id}">x</a>
                                 <c:set var="timespan6" value="${item.timeSpan+1}"/>
@@ -252,7 +251,7 @@
                     <c:set var="foundItem7" value="false"/>
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 6}">
-                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="{$item.color}">
+                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="${item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <a href="/deleteItem?itemId=${item.id}">x</a>
                                 <c:set var="timespan7" value="${item.timeSpan+1}"/>
@@ -288,7 +287,7 @@
             <ul class="list-group">
                 <li class="list-group-item list-group-item-info">Your friends:</li>
                 <c:forEach var="friend" items="${friends}">
-                    <li class="list-group-item"><c:out value="${friend.username}"/></li>
+                    <li class="list-group-item"><c:out value="${friend.username}"/><a href="/deleteFriendship?friendId=${friend.userId}"> x</a></li>
                 </c:forEach>
             </ul>
 
