@@ -76,6 +76,9 @@ public class SearchController {
         }
         boolean friendship = searchService.checkIfFriend(user, loggedInUser);
         System.out.println("í controller: "+user.getUsername());
+        List<Group> groups = loggedInUser.getGroups();
+        System.out.println(groups.get(0).getGrpName());
+        model.addAttribute("groupList", groups);
         List<UserHolder> users = new ArrayList<>();
         UserHolder userHolderItem  = new UserHolder();
         userHolderItem.user = user;
