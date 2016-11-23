@@ -124,3 +124,11 @@ li{
 .title{
     text-align: center;
 }
+
+.search{
+    padding: 0 280px 0 370px;
+}
+
+.table{
+    margin-top: 10px;
+}
