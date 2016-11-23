@@ -29,12 +29,11 @@ public class ItemValidator implements Validator {
         if (item.getTitle().length() == 0 || item.getTitle().length() > 32) {
             errors.rejectValue("title", "Title can not be empty and length should be less than 32 characters");
         }
+        //System.out.println("date: "+item.getdate());
+        //if (item.getdate() == ""){
 
-
-       
-        if (item.getdate() == ""){
-            errors.rejectValue("date","You must choose a date");
-        }
+         //   errors.rejectValue("date","You must choose a date");
+        //}
 
         boolean retval = scheduleService.checkTime(item.getStartstring(), item.getEndstring());
 
