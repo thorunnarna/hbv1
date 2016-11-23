@@ -66,38 +66,43 @@
                         <sf:input class="form-control" path="location" type="text" placeholder="Choose location"/>
 
                         <label> Description:</label>
-                        <sf:input class="form-control" path="description" type="text" placeholder="Enter description"/></td>
+                        <sf:input class="form-control" path="description" type="text" placeholder="Enter description"/>
 
-                            <label> Day:</label>
-                            <sf:input class="form-control" path="date" type="text" placeholder="Choose date" id="datepicker"/></td>
+                        <label> Day:</label>
+                        <sf:input class="form-control" path="date" type="text" placeholder="Choose date" id="datepicker"/>
 
-                            <label> Start time:</label>
-                            <%--<td><sf:input path="startstrin" type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td>--%>
-                            <sf:select class="btn btn-default dropdown-toggle form-control " type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" path="startstring">
-                                <sf:options items="${timeSlots}"/>
-                            </sf:select>
+                        <label> Start time:</label>
+                        <%--<td><sf:input path="startstrin" type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td>--%>
+                        <sf:select class="btn btn-default dropdown-toggle form-control " type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" path="startstring">
+                            <sf:options items="${timeSlots}"/>
+                        </sf:select>
 
-                            <label> End time:</label>
-                            <%--td><sf:input path="endstring" type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td--%>
-                            <sf:select class="btn btn-default dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" path="endstring">
-                                <sf:options items="${timeSlots}"/>
-                            </sf:select>
+                        <label> End time:</label>
+                        <%--td><sf:input path="endstring" type="text" placeholder="HH:MM - please pick a time on the 10 min interval" /></td--%>
+                        <sf:select class="btn btn-default dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" path="endstring">
+                            <sf:options items="${timeSlots}"/>
+                        </sf:select>
 
-                            <label> Color:</label>
-                            <sf:select class="btn btn-default dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" path="color">
-                                <sf:option value="Red"/>
-                                <sf:option value="Blue"/>
-                                <sf:option value="Green"/>
-                                <sf:option value="Yellow"/>
-                            </sf:select>
+                        <label> Color:</label>
+                        <sf:select class="btn btn-default dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" path="color">
+                            <sf:option value="Red"/>
+                            <sf:option value="Orange"/>
+                            <sf:option value="Yellow"/>
+                            <sf:option value="Green"/>
+                            <sf:option value="Blue"/>
+                            <sf:option value="Purple"/>
+                            <sf:option value="Pink"/>
+                            <sf:option value="White"/>
+                            <sf:option value="Gray"/>
+                        </sf:select>
 
-                            <label> Filter:</label>
-                            <sf:select class="btn btn-default dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" path="filter">
-                                <sf:option value="School"/>
-                                <sf:option value="Work"/>
-                                <sf:option value="Appointment"/>
-                                <sf:option value="Other"/>
-                            </sf:select>
+                        <label> Filter:</label>
+                        <sf:select class="btn btn-default dropdown-toggle form-control" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" path="filter">
+                            <sf:option value="School"/>
+                            <sf:option value="Work"/>
+                            <sf:option value="Appointment"/>
+                            <sf:option value="Other"/>
+                        </sf:select>
 
                 <button class="btn btn-primary" type="submit" value="Create scheduleItem!">Insert scheduleitem!</button>
 
