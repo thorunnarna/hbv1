@@ -187,7 +187,6 @@ public class ScheduleController {
         scheduleItem.setStartTime(startdateTime);
         scheduleItem.setEndTime(enddateTime);
 
-        //itemValidator.validate(scheduleItem, bindingResult);
 
 
 

@@ -8,19 +8,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import project.service.StringManipulationService;
+    
 
 @Controller
 public class HomeController {
 
     // Instance Variables
-    StringManipulationService stringService;
+    //StringManipulationService stringService;
 
     // Dependency Injection
     @Autowired
-    public HomeController(StringManipulationService stringService) {
-        this.stringService = stringService;
-    }
+
 
     // Request mapping is the path that you want to map this method to
     // In this case, the mapping is the root "/", so when the project
@@ -55,6 +53,7 @@ public class HomeController {
 
         // Let's assume that the name, job and description always have
         // the first character in upper case
+        /*
         name = stringService.convertsFirstCharInStringToUpperCase(name);
         job = stringService.convertsFirstCharInStringToUpperCase(job);
         description = stringService.convertsFirstCharInStringToUpperCase(description);
@@ -68,6 +67,7 @@ public class HomeController {
         model.addAttribute("job",job);
         model.addAttribute("email",email);
         model.addAttribute("description",description);
+        */
 
         // By adding attributes to the model, we can pass information from the controller
         // to the view (the .jsp file).

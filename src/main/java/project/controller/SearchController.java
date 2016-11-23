@@ -53,7 +53,6 @@ public class SearchController {
         for(User user:users ) {
             UserHolder uh = new UserHolder();
             uh.user = user;
-            System.out.println(user);
             uh.friendship = searchService.checkIfFriend(user, loggedInUser);
             userHolders.add(uh);
         }
@@ -69,15 +68,12 @@ public class SearchController {
         }
         String loggedInUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         User loggedInUser = searchService.findByName(loggedInUsername);
-        System.out.println(username);
         User user = searchService.findByName(username);
         if(user.getUsername() == null) {
             return "Search";
         }
         boolean friendship = searchService.checkIfFriend(user, loggedInUser);
-        System.out.println("í controller: "+user.getUsername());
         List<Group> groups = loggedInUser.getGroups();
-        System.out.println(groups.get(0).getGrpName());
         model.addAttribute("groupList", groups);
         model.addAttribute("loggedInId",loggedInUser.getUserId());
         List<UserHolder> users = new ArrayList<>();
@@ -113,7 +109,6 @@ public class SearchController {
         User user = searchService.findByUserId(userId);
         searchService.addGroupMemeber(grpId, userId);
         group.addMember(user);
-        System.out.println("id:" + group.getGrpId());
         return "redirect:/search";
     }
 }

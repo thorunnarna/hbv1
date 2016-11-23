@@ -68,10 +68,8 @@ public class LoginController {
 
     @PostMapping(value="/login")
     public String LogInPost(@ModelAttribute("LogIn") User LogIn, Model model) {
-        System.out.println("controller: "+LogIn.getPassword());
         boolean isLoggedIn = securityService.autologin(LogIn.getUsername(), LogIn.getPassword());
 
-        System.out.println(SecurityContextHolder.getContext().getAuthentication());
         if (SecurityContextHolder.getContext().getAuthentication() == null && !isLoggedIn) {
             model.addAttribute("loginfail", true);
             return "LogIn";

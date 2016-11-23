@@ -51,9 +51,6 @@ public class SecurityService {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
 
         authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-        System.out.println("slegið inn plain: "+password);
-        System.out.println("slegið inn "+pwEncoder.encode(password));
-        System.out.println("náð í "+ userDetails.getPassword());
         if (pwEncoder.matches(password, userDetails.getPassword())) {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             return true;

@@ -157,13 +157,10 @@ public class ScheduleService {
     }
 
     public boolean checkTime(String starts, String ends){
-        System.out.println("starts: "+starts);
-        System.out.println("ends: "+ ends);
         int hss =Integer.parseInt(checkifZero(starts.substring(0,2)));
         int hes =Integer.parseInt(checkifZero(ends.substring(0,2)));
         int mss =Integer.parseInt(starts.substring(3,5));
         int mes =Integer.parseInt(ends.substring(3,5));
-        System.out.println("hss"+hss+"hes"+hes+"mss"+mss+"mes"+mes);
         boolean retval = true;
         if (hes < hss)retval = false;
         if (hes == hss) {
@@ -188,8 +185,6 @@ public class ScheduleService {
 
         List<ScheduleItem> scheduleItemList = scheduleItems(userid,weekNow,yearNow);
         for (ScheduleItem scheduleitem: scheduleItemList) {
-            System.out.println(scheduleitem.getStartTime());
-            System.out.println(start);
             if (scheduleitem.getStartTime().isBefore(start) &&  scheduleitem.getEndTime().isAfter(start)) returnvalue = false;
             if (scheduleitem.getStartTime().isBefore(end) &&  scheduleitem.getEndTime().isAfter(end)) returnvalue = false;
             if(scheduleitem.getStartTime().isAfter((start))&& scheduleitem.getEndTime().isBefore(end)) returnvalue = false;

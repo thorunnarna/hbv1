@@ -67,8 +67,6 @@ public class CompareController {
         int weekNow = compareService.findWeekNo(LocalDateTime.now());
         List<String> schedule = compareService.compareSchedules(loggedInUser.getUserId(), friendId, weekNow, yearNow);
 
-        System.out.println("fjöldi item: "+schedule.size());
-
         model.addAttribute("comparedSchedule", schedule);
         model.addAttribute("timeSlots", timeSlots);
         model.addAttribute("friendList", friends);
