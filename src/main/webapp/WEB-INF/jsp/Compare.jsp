@@ -192,6 +192,7 @@
             </c:forEach>
             </tbody>
         </table>
+        <p>Click <a href="/home">here</a> to go back to your home page</p>
     </div>
     </body>
 
