@@ -96,14 +96,14 @@
 
                         </div>
 
-
-                    <c:if test = "${hasErrors}">
-                    <c:forEach var="error" items="${errors}">
-                    <p class="alert alert-danger">${error.getCode()}
-
-                        </c:forEach>
-                        </c:if>
                 <button class="btn btn-primary" type="submit" value="Create scheduleItem!">Insert scheduleitem!</button>
+
+            <c:if test = "${hasErrors}">
+            <c:forEach var="error" items="${errors}">
+            <p class="alert alert-danger">${error.getCode()}
+                </c:forEach>
+                </c:if>
+                
             </sf:form>
         </div>
     </div>
