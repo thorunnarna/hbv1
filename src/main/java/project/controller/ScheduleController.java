@@ -134,6 +134,21 @@ public class ScheduleController {
     @RequestMapping(value = "/home", method = RequestMethod.POST)
     //@PostMapping(value = "/home")
     public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, BindingResult bindingResult,Model model) {
+        String newDate = scheduleService.changeStringDateToRigthDate(scheduleItem.getdate());
+        String newSTime = scheduleService.changeformatOfTime(scheduleItem.getStartstring());
+        String newETime = scheduleService.changeformatOfTime(scheduleItem.getEndstring());
+
+        String startTimeforItem = newDate +" "+ newSTime;
+        String endTimeforItem = newDate +" "+newETime;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime startdateTime = LocalDateTime.parse(startTimeforItem,formatter);
+        LocalDateTime enddateTime = LocalDateTime.parse(endTimeforItem,formatter);
+
+        scheduleItem.setStartTime(startdateTime);
+        scheduleItem.setEndTime(enddateTime);
+
+
         itemValidator.validate(scheduleItem, bindingResult);
 
         List <String> TimeSlots = scheduleService.getTimeSlots();
@@ -153,8 +168,6 @@ public class ScheduleController {
         int yearNow = LocalDateTime.now().getYear();
         int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
 
-
-
         if (bindingResult.hasErrors()) {
             model.addAttribute("scheduleItems",scheduleService.scheduleItems(userid,weekNow,yearNow));
             model.addAttribute("hasErrors", true);
@@ -162,16 +175,7 @@ public class ScheduleController {
             return "Home";
         }
 
-        String newDate = scheduleService.changeStringDateToRigthDate(scheduleItem.getdate());
-        String newSTime = scheduleService.changeformatOfTime(scheduleItem.getStartstring());
-        String newETime = scheduleService.changeformatOfTime(scheduleItem.getEndstring());
 
-        String startTimeforItem = newDate +" "+ newSTime;
-        String endTimeforItem = newDate +" "+newETime;
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime startdateTime = LocalDateTime.parse(startTimeforItem,formatter);
-        LocalDateTime enddateTime = LocalDateTime.parse(endTimeforItem,formatter);
 
         int year = scheduleService.findYear(scheduleItem.getdate());
         int weekNo = scheduleService.findWeekNo(startdateTime);
@@ -209,7 +213,6 @@ public class ScheduleController {
         List<Group> groupList = user.getGroups();
 
         model.addAttribute("filters",Filters);
-
         model.addAttribute("friends", friendList);
         model.addAttribute("groups", groupList);
         model.addAttribute("timeSlots",TimeSlots);

@@ -2,6 +2,7 @@ package project.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.test.annotation.IfProfileValue;
 import project.persistence.entities.Schedule;
@@ -26,10 +27,13 @@ import java.util.Locale;
 public class ScheduleService {
 
     Repository  repository;
+    SearchService searchService;
 
 
     public ScheduleService(){
+
         this.repository = new Repository();
+        this.searchService = new SearchService();
     }
 
     //public void addItem(int itemId, int  ){}
@@ -147,7 +151,7 @@ public class ScheduleService {
         Filters.add("Work");
         Filters.add("School");
         Filters.add("Appointment");
-        Filters.add("Others");
+        Filters.add("Other");
 
         return Filters;
     }
@@ -171,6 +175,26 @@ public class ScheduleService {
     public String checkifZero(String check) {
         if (check.substring(0,1) == "0") return check.substring(1);
         else return check;
+    }
+
+    public boolean compareTime(LocalDateTime start, LocalDateTime end){
+        String tmpUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        User tmpUser = searchService.findByName(tmpUsername);
+        int userid = tmpUser.getUserId();
+        int yearNow = LocalDateTime.now().getYear();
+        int weekNow = findWeekNo(LocalDateTime.now());
+
+        boolean returnvalue = true;
+
+        List<ScheduleItem> scheduleItemList = scheduleItems(userid,weekNow,yearNow);
+        for (ScheduleItem scheduleitem: scheduleItemList) {
+            System.out.println(scheduleitem.getStartTime());
+            System.out.println(start);
+            if (scheduleitem.getStartTime().isBefore(start) &&  scheduleitem.getEndTime().isAfter(start)) returnvalue = false;
+            if (scheduleitem.getStartTime().isBefore(end) &&  scheduleitem.getEndTime().isAfter(end)) returnvalue = false;
+            if(scheduleitem.getStartTime().isAfter((start))&& scheduleitem.getEndTime().isBefore(end)) returnvalue = false;
+        }
+        return returnvalue;
     }
 
 }

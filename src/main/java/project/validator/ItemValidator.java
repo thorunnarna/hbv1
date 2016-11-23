@@ -1,10 +1,13 @@
 package project.validator;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import project.persistence.entities.ScheduleItem;
+import project.persistence.entities.User;
 import project.service.ScheduleService;
+import project.service.SearchService;
 
 /**
  * Created by Svava on 19.11.16.
@@ -27,6 +30,7 @@ public class ItemValidator implements Validator {
             errors.rejectValue("title", "Title can not be empty and length should be less than 32 characters");
         }
 
+
        
         if (item.getdate() == ""){
             errors.rejectValue("date","You must choose a date");
@@ -36,6 +40,10 @@ public class ItemValidator implements Validator {
 
         if (!retval) {
             errors.rejectValue("endTime", "End Time should be after Start Time");
+        }
+        boolean returnvalue = scheduleService.compareTime(item.getStartTime(),item.getEndTime());
+        if(!returnvalue){
+            errors.rejectValue("startTime","overlaps with another item");
         }
 
     }
