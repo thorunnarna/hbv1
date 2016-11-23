@@ -48,7 +48,6 @@ public class SearchController {
         List<User> users = searchService.findAll();
         List<UserHolder> userHolders = new ArrayList<>();
         List<Group> groups = loggedInUser.getGroups();
-        System.out.println(groups.get(0).getGrpName());
         model.addAttribute("groupList", groups);
         for(User user:users ) {
             UserHolder uh = new UserHolder();
