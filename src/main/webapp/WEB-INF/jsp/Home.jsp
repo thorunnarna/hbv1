@@ -171,7 +171,8 @@
                     <c:set var="foundItem2" value="false"/>
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 1}">
-                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="${item.color}">
+                            <td title="From: ${item.startstring}&#013;To: ${item.endstring}&#013;${item.description}"
+                                align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="${item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <a href="/deleteItem?itemId=${item.id}">x</a>
                                 <c:set var="timespan2" value="${item.timeSpan+1}"/>
@@ -187,7 +188,8 @@
                     <c:set var="foundItem3" value="false"/>
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 2}">
-                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="${item.color}">
+                            <td title="From: ${item.startstring}&#013;To: ${item.endstring}&#013;${item.description}"
+                                align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="${item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <a href="/deleteItem?itemId=${item.id}">x</a>
                                 <c:set var="timespan3" value="${item.timeSpan+1}"/>
@@ -203,7 +205,8 @@
                     <c:set var="foundItem4" value="false"/>
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 3}">
-                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="${item.color}">
+                            <td title="From: ${item.startstring}&#013;To: ${item.endstring}&#013;${item.description}"
+                                align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="${item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <a href="/deleteItem?itemId=${item.id}">x</a>
                                 <c:set var="timespan4" value="${item.timeSpan+1}"/>
@@ -219,7 +222,8 @@
                     <c:set var="foundItem5" value="false"/>
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 4}">
-                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="${item.color}">
+                            <td title="From: ${item.startstring}&#013;To: ${item.endstring}&#013;${item.description}"
+                                align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="${item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <a href="/deleteItem?itemId=${item.id}">x</a>
                                 <c:set var="timespan5" value="${item.timeSpan+1}"/>
@@ -235,7 +239,8 @@
                     <c:set var="foundItem6" value="false"/>
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 5}">
-                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="${item.color}">
+                            <td title="From: ${item.startstring}&#013;To: ${item.endstring}&#013;${item.description}"
+                                align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="${item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <a href="/deleteItem?itemId=${item.id}">x</a>
                                 <c:set var="timespan6" value="${item.timeSpan+1}"/>
@@ -251,7 +256,8 @@
                     <c:set var="foundItem7" value="false"/>
                     <c:forEach var="item" items="${scheduleItems}">
                         <c:if test="${item.startstring eq slot && item.weekDay eq 6}">
-                            <td align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="${item.color}">
+                            <td title="From: ${item.startstring}&#013;To: ${item.endstring}&#013;${item.description}"
+                                align="center" valign="middle" width="100" rowspan="${item.timeSpan}" class="${item.color}">
                                 <c:out value="${item.title} ${item.location}"/>
                                 <a href="/deleteItem?itemId=${item.id}">x</a>
                                 <c:set var="timespan7" value="${item.timeSpan+1}"/>
