@@ -48,7 +48,7 @@ public interface RepositoryInterface {
 
     void createFriendship(int userId1, int userId2);
 
-    void deleteFriendship(int friendshipId);
+    void deleteFriendship(int userid1, int userid2);
 
     void createFilter(String filterName, int userId, int itemId);
 
