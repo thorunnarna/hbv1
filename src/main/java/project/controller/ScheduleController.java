@@ -152,9 +152,11 @@ public class ScheduleController {
 
         int yearNow = LocalDateTime.now().getYear();
         int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
-        model.addAttribute("scheduleItems",scheduleService.scheduleItems(userid,weekNow,yearNow));
+
+
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("scheduleItems",scheduleService.scheduleItems(userid,weekNow,yearNow));
             model.addAttribute("hasErrors", true);
             model.addAttribute("errors", bindingResult.getAllErrors());
             return "Home";
@@ -180,8 +182,8 @@ public class ScheduleController {
 
         //hreinsa breytur fyrir næsta item
         ScheduleItem scheduleitem = new ScheduleItem();
-
         model.addAttribute("scheduleItem",scheduleitem);
+        model.addAttribute("scheduleItems",scheduleService.scheduleItems(userid,weekNow,yearNow));
 
         return "Home";
     }
