@@ -25,7 +25,7 @@
         <div class="col-md-3 col-md-offset-3 dropdown">
             <form method="POST" action="/compareFriends">
                 <select name="selectedFriend" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <option class="dropdown-menu" aria-labelledby="dropdownMenu1" value="68" label="Compare with a friend!"/>
+                    <option class="dropdown-menu" aria-labelledby="dropdownMenu1" value="NONE" label="Compare with a friend!"/>
                     <c:forEach var="friend" items="${friendList}">
                         <option value="${friend.userId}" label="${friend.username}"></option>
                     </c:forEach>
