@@ -28,34 +28,35 @@
                         <td>School: </td>
                     </tr>
                     </thead>
-                    <tbody>
                     <c:forEach items="${users}" var="user">
-                        <tr>
-                            <td>${user.user.username}</td>
-                            <td>${user.user.school}</td>
-                            <c:choose>
-                                <c:when test="${user.friendship}">
-                                    <td>
-                                        <form method="POST" action="/search/addToGroup?addMember=${user.user.userId}">
-                                            <select name="addToGroup">
-                                                <option label="--Select group--"/>
-                                                <c:forEach var="groups" items="${groupList}">
-                                                    <option value="${groups.grpId}" label="${groups.grpName}"></option>
-                                                </c:forEach>
-                                            </select>
-                                            <button type="submit"> Add to Group! </button>
-                                        </form>
-                                    </td>
-                                </c:when>
-                                <c:otherwise>
-                                    <td>
-                                        <form action="/search/addFriend" method="POST">
-                                            <button type="submit" name="userId" value=${user.user.userId}>Add Friend</button>
-                                        </form>
-                                    </td>
-                                </c:otherwise>
-                            </c:choose>
-                        </tr>
+                        <c:if test="${loggedInId ne user.user.userId}">
+                            <tr>
+                                <td>${user.user.username}</td>
+                                <td>${user.user.school}</td>
+                                <c:choose>
+                                    <c:when test="${user.friendship}">
+                                        <td>
+                                            <form method="POST" action="/search/addToGroup?addMember=${user.user.userId}">
+                                                <select name="addToGroup">
+                                                    <option label="--Select group--"/>
+                                                    <c:forEach var="groups" items="${groupList}">
+                                                        <option value="${groups.grpId}" label="${groups.grpName}"></option>
+                                                    </c:forEach>
+                                                </select>
+                                                <button type="submit"> Add to Group! </button>
+                                            </form>
+                                        </td>
+                                    </c:when>
+                                    <c:when test="${loggedInId ne user.user.userId}">
+                                        <td>
+                                            <form action="/search/addFriend" method="POST">
+                                                <button type="submit" name="userId" value=${user.user.userId}>Add Friend</button>
+                                            </form>
+                                        </td>
+                                    </c:when>
+                                </c:choose>
+                            </tr>
+                        </c:if>
                     </c:forEach>
                     </tbody>
                 </table>
