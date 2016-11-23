@@ -117,6 +117,12 @@
                 </table>
                 <input type="submit" value="Create scheduleItem!">
             </sf:form>
+        <c:if test = "${hasErrors}">
+            <c:forEach var="error" items="${errors}">
+                 <p class="alert alert-danger">${error.getCode()}
+
+            </c:forEach>
+            </c:if>
 
         <p>Choose filter you want to view</p>
         <form action="/scheduleByFilter">

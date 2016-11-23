@@ -137,7 +137,8 @@ public class ScheduleController {
         itemValidator.validate(scheduleItem, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult.getAllErrors());
+            model.addAttribute("hasErrors", true);
+            model.addAttribute("errors", bindingResult.getAllErrors());
             return "Home";
         }
 
@@ -155,8 +156,8 @@ public class ScheduleController {
         String startTimeforItem = newDate +" "+ newSTime;
         String endTimeforItem = newDate +" "+newETime;
 
-        boolean retval =scheduleService.checkTime(startTimeforItem, endTimeforItem);
-        System.out.println("retval: "+retval);
+        //boolean retval =scheduleService.checkTime(startTimeforItem, endTimeforItem);
+        //System.out.println("retval: "+retval);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime startdateTime = LocalDateTime.parse(startTimeforItem,formatter);

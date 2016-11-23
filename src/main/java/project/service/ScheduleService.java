@@ -153,8 +153,8 @@ public class ScheduleService {
     }
 
     public boolean checkTime(String starts, String ends){
-        System.out.println(starts);
-        System.out.println(ends);
+        System.out.println("starts: "+starts);
+        System.out.println("ends: "+ ends);
 
         int hss =Integer.parseInt(checkifZero(starts.substring(0,2)));
         int hes =Integer.parseInt(checkifZero(ends.substring(0,2)));
