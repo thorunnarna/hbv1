@@ -40,10 +40,14 @@ public class ItemValidator implements Validator {
         if (!retval) {
             errors.rejectValue("endTime", "End Time should be after Start Time");
         }
-        boolean returnvalue = scheduleService.compareTime(item.getStartTime(),item.getEndTime());
-        if(!returnvalue){
-            errors.rejectValue("startTime","overlaps with another item");
+        if (item.getdate() != ""){
+
+            boolean returnvalue = scheduleService.compareTime(item.getStartTime(),item.getEndTime());
+            if(!returnvalue){
+                errors.rejectValue("startTime","overlaps with another item");
+            }
         }
+
 
     }
 }
