@@ -22,14 +22,14 @@ public class ItemValidator implements Validator {
     public void validate(Object o, Errors errors) {
         ScheduleItem item = (ScheduleItem) o;
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "NotEmpty");
+        //ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "NotEmpty");
         if (item.getTitle().length() == 0 || item.getTitle().length() > 32) {
-            errors.rejectValue("title", "Title length should be less than 32 characters");
+            errors.rejectValue("title", "Title length should bemore than 0 and less than 32 characters");
         }
 
         boolean retval = scheduleService.checkTime(item.getStartstring(), item.getEndstring());
 
-        if (retval = false) {
+        if (retval == false) {
             errors.rejectValue("endTime", "End Time should be after Start Time");
         }
 
