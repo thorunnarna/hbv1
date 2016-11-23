@@ -22,7 +22,7 @@ header{
     /*position: fixed;*/
     z-index: 100;
     padding: 2% 0 1% 8% ;
-    margin: 0;
+    margin-bottom: 20px;
     width: 100%;
     display: flex;
     border-bottom: 2px solid #f1f1f1;
@@ -43,10 +43,7 @@ h1, .link{
 h2{
     font-size: 30px;
     font-family: "Perpetua Titling MT";
-}
-
-h3{
-    margin-bottom: 5px;
+    margin-left: 20px;
 }
 
 .link:hover {
@@ -99,4 +96,12 @@ li{
 .dropdown{
     margin-top: 20px;
     margin-bottom: 30px;
+}
+
+.col-md-7{
+    padding-left: 50px;
+}
+
+.createGroup{
+    margin-top: 15px;
 }

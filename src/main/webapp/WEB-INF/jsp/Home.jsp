@@ -33,34 +33,25 @@
     <jsp:include page="Header.jsp"/>
     <body>
 
-        <a href="/logout">Log out!</a>
-        <table border="1">
-            <tr><td>Your friends:</td></tr>
-            <c:forEach var="friend" items="${friends}">
-                <tr>
-                    <td><c:out value="${friend.username}"/></td>
-                </tr>
-            </c:forEach>
-        </table>
-        <table border="1">
-            <tr><td>Your groups:</td></tr>
-            <c:forEach var="group" items="${groups}">
-                <tr>
-                    <td>
-                        <c:out value="${group.grpName} "/>
-                        <a href="/deleteGroup?grpId=${group.grpId}">x</a>
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
-        <a href="/compare">Compare your schedule with others!</a>
+    <div class="row">
 
-        <div class="form-group col-md-3">
+        <div class="col-md-10">
+            <c:if test="${loggedInStatus}">
+                <h2>Welcome ${loggedInUser}!</h2>
+            </c:if>
+        </div>
+
+        <div class="col-md-2">
+            <a class="btn btn-danger href="/logout">Log out!</a>
+        </div>
+
+        </div>
+
+    <div class="col-md-2">
+
+        <div class="form-group">
 
         <sf:form method="POST" commandName="scheduleItem" action ="/home">
-                <c:if test="${loggedInStatus}">
-                    <p>welcome ${loggedInUser}!</p>
-                </c:if>
 
                         <label> Title:</label>
                         <sf:input class="form-control" path ="title" type="text" placeholder="Enter title"/>
@@ -71,7 +62,7 @@
                         <label> Description:</label>
                         <sf:input class="form-control" path="description" type="text" placeholder="Enter description"/></td>
 
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <label> Day:</label>
                             <sf:input class="form-control" path="date" type="text" placeholder="Choose date" id="datepicker"/></td>
 
@@ -112,12 +103,12 @@
 
                         </c:forEach>
                         </c:if>
-                <input type="submit" value="Create scheduleItem!">
+                <button class="btn btn-primary" type="submit" value="Create scheduleItem!">Insert scheduleitem!</button>
             </sf:form>
         </div>
+    </div>
 
-        <div col-md-3>
-
+        <div class="col-md-7">
         <label>Choose filter you want to view</label>
         <form action="/scheduleByFilter">
             <select name="selectedFilter" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -129,10 +120,8 @@
             </select>
             <button class="btn btn-primary" type="submit" value="Submit">Submit!</button>
         </form>
-        </div>
 
-        <div class="col-md-9">
-        <table border="1" cellspacing="0">
+        <table class="table-bordered" cellspacing="0">
             <tbody>
             <tr>
                 <th align="center" valign="middle" width="80"></th>
@@ -279,20 +268,40 @@
             </c:forEach>
             </tbody>
         </table>
+    </div>
+
+    <div class="col-md-2">
+
+        <a class="btn btn-info" href="/compare">Compare your schedule with others!</a>
+
+        <div class="createGroup">
+            <form class="form-group" action="/createGroup">
+                <label colspan="3">Create a group here. Then go to <a href="/search">search</a> to add members to your group.</label>
+
+                <label>Group name:</label>
+                <input class="form-control" type="text" name="grpName" placeholder="Enter group name"/></td>
+                <c:if test="${groupFail}">
+                    <p class="alert alert-danger">A group with this name already exists. Please choose another!</p>
+                </c:if>
+                <button class="btn btn-primary" type="submit" value="Create Group!">Create group!</button>
+            </form>
         </div>
 
-        <div class="col-md-3">
-        <form class="form-group" action="/createGroup">
-                   <label colspan="3">Create a group here. Then go to <a href="/search">search</a> to add members to your group.</label>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-info">Your friends:</li>
+                <c:forEach var="friend" items="${friends}">
+                    <li class="list-group-item"><c:out value="${friend.username}"/></li>
+                </c:forEach>
+            </ul>
 
-                   <label>Group name:</label>
-                   <input class="form-control" type="text" name="grpName" placeholder="Enter group name"/></td>
-                   <c:if test="${groupFail}">
-                       <p class="alert alert-danger">A group with this name already exists. Please choose another!</p>
-                   </c:if>
-            <button class="btn btn-primary" type="submit" value="Create Group!">
-        </form>
-        </div>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-info">Your groups:</li>
+                <c:forEach var="group" items="${groups}">
+                    <li class="list-group-item"><c:out value="${group.grpName}"/><a href="/deleteGroup?grpId=${group.grpId}"> x</a></li>
+                </c:forEach>
+            </ul>
+
+    </div>
 
         </body>
 
