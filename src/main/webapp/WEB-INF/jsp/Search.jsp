@@ -29,7 +29,6 @@
                     </tr>
                     </thead>
                     <c:forEach items="${users}" var="user">
-                        <c:if test="${loggedInId ne user.user.userId}">
                             <tr>
                                 <td>${user.user.username}</td>
                                 <td>${user.user.school}</td>
@@ -56,7 +55,6 @@
                                     </c:when>
                                 </c:choose>
                             </tr>
-                        </c:if>
                     </c:forEach>
                     </tbody>
                 </table>
