@@ -185,9 +185,21 @@ public class ScheduleService {
 
         List<ScheduleItem> scheduleItemList = scheduleItems(userid,weekNow,yearNow);
         for (ScheduleItem scheduleitem: scheduleItemList) {
+            //2+4
             if (scheduleitem.getStartTime().isBefore(start) &&  scheduleitem.getEndTime().isAfter(start)) returnvalue = false;
+            //1
             if (scheduleitem.getStartTime().isBefore(end) &&  scheduleitem.getEndTime().isAfter(end)) returnvalue = false;
-            if(scheduleitem.getStartTime().isAfter((start))&& scheduleitem.getEndTime().isBefore(end)) returnvalue = false;
+            //5
+            if (scheduleitem.getStartTime().isAfter((start))&& scheduleitem.getEndTime().isBefore(end)) returnvalue = false;
+            //3+6+7
+            if (scheduleitem.getStartTime().isEqual(start) || scheduleitem.getEndTime().isEqual(end)) returnvalue= false;
+            //4
+           // if(scheduleitem.getStartTime().isBefore(start) &&scheduleitem.getEndTime().isAfter(end)) returnvalue = false;
+
+
+
+            //þetta má
+            if (scheduleitem.getStartTime().isEqual(end) || scheduleitem.getEndTime().isEqual(start)) returnvalue = true;
         }
         return returnvalue;
     }
