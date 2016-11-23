@@ -142,7 +142,38 @@ public class ScheduleController {
     @RequestMapping(value = "/home", method = RequestMethod.POST)
     //@PostMapping(value = "/home")
     public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, BindingResult bindingResult,Model model) {
-        String newDate = scheduleService.changeStringDateToRigthDate(scheduleItem.getdate());
+        String newDate="";
+        int yearNow = LocalDateTime.now().getYear();
+        int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
+        String tmpUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        User tmpUser = searchService.findByName(tmpUsername);
+        int userid = tmpUser.getUserId();
+
+
+        List <String> TimeSlots = scheduleService.getTimeSlots();
+        model.addAttribute("timeSlots",TimeSlots);
+
+        List<User> friendList = tmpUser.getFriends();
+        List<Group> groupList = tmpUser.getGroups();
+        model.addAttribute("friends", friendList);
+        model.addAttribute("groups", groupList);
+
+        List <String> Filters = scheduleService.createfilterList();
+        model.addAttribute("filters",Filters);
+
+
+        if (scheduleItem.getdate() == ""){
+            bindingResult.rejectValue("date","You must choose a date");
+            itemValidator.validate(scheduleItem, bindingResult);
+            if (bindingResult.hasErrors()) {
+                model.addAttribute("scheduleItems",scheduleService.scheduleItems(userid,weekNow,yearNow));
+                model.addAttribute("hasErrors", true);
+                model.addAttribute("errors", bindingResult.getAllErrors());
+                return "Home";
+            }
+        }
+        else {newDate = scheduleService.changeStringDateToRigthDate(scheduleItem.getdate());}
+
         String newSTime = scheduleService.changeformatOfTime(scheduleItem.getStartstring());
         String newETime = scheduleService.changeformatOfTime(scheduleItem.getEndstring());
 
@@ -156,25 +187,12 @@ public class ScheduleController {
         scheduleItem.setStartTime(startdateTime);
         scheduleItem.setEndTime(enddateTime);
 
+        //itemValidator.validate(scheduleItem, bindingResult);
+
+
+
 
         itemValidator.validate(scheduleItem, bindingResult);
-
-        List <String> TimeSlots = scheduleService.getTimeSlots();
-        model.addAttribute("timeSlots",TimeSlots);
-
-        String tmpUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-        User tmpUser = searchService.findByName(tmpUsername);
-        int userid = tmpUser.getUserId();
-        List<User> friendList = tmpUser.getFriends();
-        List<Group> groupList = tmpUser.getGroups();
-        model.addAttribute("friends", friendList);
-        model.addAttribute("groups", groupList);
-
-        List <String> Filters = scheduleService.createfilterList();
-        model.addAttribute("filters",Filters);
-
-        int yearNow = LocalDateTime.now().getYear();
-        int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("scheduleItems",scheduleService.scheduleItems(userid,weekNow,yearNow));
@@ -182,8 +200,6 @@ public class ScheduleController {
             model.addAttribute("errors", bindingResult.getAllErrors());
             return "Home";
         }
-
-
 
         int year = scheduleService.findYear(scheduleItem.getdate());
         int weekNo = scheduleService.findWeekNo(startdateTime);
