@@ -142,10 +142,8 @@ public class ScheduleController {
         String tmpUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         User tmpUser = searchService.findByName(tmpUsername);
         int userid = tmpUser.getUserId();
-
         List<User> friendList = tmpUser.getFriends();
         List<Group> groupList = tmpUser.getGroups();
-
         model.addAttribute("friends", friendList);
         model.addAttribute("groups", groupList);
 
@@ -154,7 +152,6 @@ public class ScheduleController {
 
         int yearNow = LocalDateTime.now().getYear();
         int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
-
         model.addAttribute("scheduleItems",scheduleService.scheduleItems(userid,weekNow,yearNow));
 
         if (bindingResult.hasErrors()) {
@@ -202,10 +199,8 @@ public class ScheduleController {
 
         int yearNow = LocalDateTime.now().getYear();
         int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
-        //System.out.println("get "+String.valueOf(weekNow));
         User user = scheduleService.findUserByUsername(LoggedInUser);
         int userid= user.getUserId();
-        //System.out.println(userid);
 
         List <String> Filters = scheduleService.createfilterList();
         List<User> friendList = user.getFriends();
