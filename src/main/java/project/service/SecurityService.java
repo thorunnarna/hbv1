@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecurityService {
 
+    // Should be autowired, but never managed to make it work.
     private AuthenticationManager authenticationManager = new AuthenticationManager() {
         @Override
         public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -29,12 +30,12 @@ public class SecurityService {
         }
     };
 
-    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-
+    // Used for checking password
     PasswordEncoder pwEncoder = new BCryptPasswordEncoder();
 
     private UserDetailsService userDetailsService = new UserDetailsServiceImpl();
 
+    // Find user logged in (never used)
     public String findLoggedInUsername() {
         Object userDetails = SecurityContextHolder.getContext();
         if (userDetails instanceof UserDetails) {
@@ -43,21 +44,24 @@ public class SecurityService {
         return null;
     }
 
+    // Log in user
     public boolean autologin(String username, String password) {
+        // Check if username already exists
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if(userDetails.getUsername().equals("NotFound")) {
             return false;
         }
+
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
 
+        // Authenticate user (does not work in this version)
         authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+
+        // Check manually whether password is correct
         if (pwEncoder.matches(password, userDetails.getPassword())) {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             return true;
         }
-        //if (usernamePasswordAuthenticationToken.isAuthenticated()) {
-        //    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-        //}
         return false;
     }
 }
