@@ -25,16 +25,19 @@ public class ItemValidator implements Validator {
     public void validate(Object o, Errors errors) {
         ScheduleItem item = (ScheduleItem) o;
 
-        //ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "NotEmpty");
+        // Check length of item title
         if (item.getTitle().length() == 0 || item.getTitle().length() > 32) {
             errors.rejectValue("title", "Title can not be empty and length should be less than 32 characters");
         }
 
+        // Check if end time is after start time or not
         boolean retval = scheduleService.checkTime(item.getStartstring(), item.getEndstring());
 
         if (!retval) {
             errors.rejectValue("endTime", "End Time should be after Start Time");
         }
+
+        // Check whether item overlaps with another item (only if date is empty)
         if (item.getdate() != ""){
 
             boolean returnvalue = scheduleService.compareTime(item.getStartTime(),item.getEndTime());

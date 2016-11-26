@@ -25,6 +25,7 @@ public class Application extends SpringBootServletInitializer{
     }
 
     public static void main(String[] args) {
+        // Should not be used, but was only way we found to make sure user was logged in after redirection
         SecurityContextHolder.setStrategyName("MODE_GLOBAL");
         SpringApplication.run(Application.class,args);
     }
