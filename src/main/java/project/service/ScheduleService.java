@@ -1,17 +1,10 @@
 package project.service;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.test.annotation.IfProfileValue;
-import project.persistence.entities.Schedule;
 import project.persistence.entities.ScheduleItem;
 import project.persistence.entities.User;
 import project.persistence.repositories.Repository;
 
-//import java.time.LocalDate;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
@@ -190,10 +183,9 @@ public class ScheduleService {
     }
 
     // Used to check whether a new item collides with another item, before insertion of new item
-    public boolean compareTime(LocalDateTime start, LocalDateTime end){
+    public boolean compareTime(LocalDateTime start, LocalDateTime end, String username){
         // Get all info needed about logged in user
-        String tmpUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-        User tmpUser = searchService.findByName(tmpUsername);
+        User tmpUser = searchService.findByName(username);
         int userid = tmpUser.getUserId();
         int yearNow = LocalDateTime.now().getYear();
         int weekNow = findWeekNo(LocalDateTime.now());

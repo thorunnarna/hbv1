@@ -1,7 +1,6 @@
 package project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +8,7 @@ import project.persistence.entities.Group;
 import project.persistence.entities.User;
 import project.service.SearchService;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -44,14 +44,14 @@ public class SearchController {
 
     // Get base list of all users
     @RequestMapping(value="/search")
-    public String viewGetListOfUsers(Model model){
+    public String viewGetListOfUsers(Model model, HttpSession session){
         // CHeck if user is logged in
-        if (SecurityContextHolder.getContext().getAuthentication() == null ) {
+        if (session.getAttribute("loggedInUser") == null ) {
             return "redirect:/";
         }
 
         // Get logged in user and info
-        String loggedInUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        String loggedInUsername = session.getAttribute("loggedInUser").toString();
         User loggedInUser = searchService.findByName(loggedInUsername);
         List<User> users = searchService.findAll();
         List<UserHolder> userHolders = new ArrayList<>();
@@ -74,14 +74,14 @@ public class SearchController {
 
     // Method for searching for a certain username
     @RequestMapping(value="/search/q")
-    public String getSearchByName(@RequestParam("username") String username, Model model){
+    public String getSearchByName(@RequestParam("username") String username, Model model, HttpSession session){
         // Check if user is logged in
-        if (SecurityContextHolder.getContext().getAuthentication() == null ) {
+        if (session.getAttribute("loggedInUser") == null ) {
             return "redirect:/";
         }
 
         // Get logged in user and info
-        String loggedInUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        String loggedInUsername = session.getAttribute("loggedInUser").toString();
         User loggedInUser = searchService.findByName(loggedInUsername);
 
         //Find user searched for
@@ -107,13 +107,13 @@ public class SearchController {
 
     // Post method for adding a user as the logged in user's friend
     @RequestMapping(value="/search/addFriend", method = RequestMethod.POST)
-    public String addFriendPost(@RequestParam("userId") int userId) {
+    public String addFriendPost(@RequestParam("userId") int userId, HttpSession session) {
         // Check if user is logged in
-        if (SecurityContextHolder.getContext().getAuthentication() == null ) {
+        if (session.getAttribute("loggedInUser") == null ) {
             return "redirect:/";
         }
         // Find logged in user and info
-        String loggedInUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        String loggedInUsername = session.getAttribute("loggedInUser").toString();
         User loggedInUser = searchService.findByName(loggedInUsername);
 
         // Find user selected for adding as friend
@@ -128,9 +128,9 @@ public class SearchController {
 
     // Add a user to a certain group
     @RequestMapping(value="/search/addToGroup", method = RequestMethod.POST)
-    public String addToGroup(@RequestParam("addToGroup") int grpId, @RequestParam("addMember") int userId) {
+    public String addToGroup(@RequestParam("addToGroup") int grpId, @RequestParam("addMember") int userId, HttpSession session) {
         // Check if user is logged in
-        if (SecurityContextHolder.getContext().getAuthentication() == null ) {
+        if (session.getAttribute("loggedInUser") == null ) {
             return "redirect:/";
         }
 

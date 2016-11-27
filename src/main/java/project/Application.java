@@ -7,7 +7,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * The main class of the project.
@@ -25,8 +24,6 @@ public class Application extends SpringBootServletInitializer{
     }
 
     public static void main(String[] args) {
-        // Should not be used, but was only way we found to make sure user was logged in after redirection
-        SecurityContextHolder.setStrategyName("MODE_GLOBAL");
         SpringApplication.run(Application.class,args);
     }
 

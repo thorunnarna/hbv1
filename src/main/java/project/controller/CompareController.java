@@ -1,17 +1,14 @@
 package project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import project.persistence.entities.Group;
-import project.persistence.entities.Schedule;
-import project.persistence.entities.ScheduleItem;
 import project.persistence.entities.User;
 import project.service.CompareService;
-import project.service.LoginService;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,14 +29,14 @@ public class CompareController {
 
     // GET main Compare page
     @RequestMapping(value="/compare", method = RequestMethod.GET)
-    public String viewGetComparison(Model model){
+    public String viewGetComparison(Model model, HttpSession session){
         // Check if user is logged in
-        if (SecurityContextHolder.getContext().getAuthentication() == null ) {
+        if (session.getAttribute("loggedInUser") == null ) {
             return "redirect:/";
         }
 
         // Get logged in user and necessary info
-        String loggedInUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+        String loggedInUserName = session.getAttribute("loggedInUser").toString();
         User loggedInUser = compareService.findUserByName(loggedInUserName);
         List<User> friends = loggedInUser.getFriends();
         List<Group> groups = loggedInUser.getGroups();
@@ -58,14 +55,14 @@ public class CompareController {
 
     // Show comparison of schedules between logged in user and selected friend
     @RequestMapping(value="/compareFriends")
-    public String compareSchedulePost(Model model, @RequestParam("selectedFriend") int friendId){
+    public String compareSchedulePost(Model model, @RequestParam("selectedFriend") int friendId, HttpSession session){
         // CHeck if user is logged in
-        if (SecurityContextHolder.getContext().getAuthentication() == null ) {
+        if (session.getAttribute("loggedInUser") == null ) {
             return "redirect:/";
         }
 
         // Get logged in user and necessary info
-        String loggedInUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+        String loggedInUserName = session.getAttribute("loggedInUser").toString();
         User loggedInUser = compareService.findUserByName(loggedInUserName);
         List<User> friends = loggedInUser.getFriends();
         List<Group> groups = loggedInUser.getGroups();
@@ -91,14 +88,14 @@ public class CompareController {
 
     // Get comparison of schedules in group
     @RequestMapping(value="/compareGroup", method = RequestMethod.POST)
-    public String compareGroupSchedulePost(Model model, @RequestParam("selectedGroup") int grpId){
+    public String compareGroupSchedulePost(Model model, @RequestParam("selectedGroup") int grpId, HttpSession session){
         // CHeck if user is logged in
-        if (SecurityContextHolder.getContext().getAuthentication() == null ) {
+        if (session.getAttribute("loggedInUser") == null ) {
             return "redirect:/";
         }
 
         // Get logged in user and info
-        String loggedInUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+        String loggedInUserName = session.getAttribute("loggedInUser").toString();
         User loggedInUser = compareService.findUserByName(loggedInUserName);
         List<User> friends = loggedInUser.getFriends();
         List<Group> groups = loggedInUser.getGroups();

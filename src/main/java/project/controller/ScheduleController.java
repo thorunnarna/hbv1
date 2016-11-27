@@ -1,25 +1,16 @@
 package project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.servlet.support.RequestContext;
 import project.persistence.entities.*;
-import project.persistence.repositories.Repository;
 import project.service.ScheduleService;
 import project.service.SearchService;
 import project.validator.ItemValidator;
 
-//import javax.annotation.security.PermitAll;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -46,14 +37,14 @@ public class ScheduleController {
 
     // Get schedule filtered by selectedFilter
     @RequestMapping(value = "/scheduleByFilter")
-    public String viewGetScheduleByFilters(Model model, @RequestParam("selectedFilter") String filter){
+    public String viewGetScheduleByFilters(Model model, @RequestParam("selectedFilter") String filter, HttpSession session){
         // Check if user is logged in
-        if (SecurityContextHolder.getContext().getAuthentication() == null ) {
+        if (session.getAttribute("loggedInUser") == null ) {
             return "redirect:/";
         }
 
         // Find logged in user info
-        String tmpUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        String tmpUsername = session.getAttribute("loggedInUser").toString();
         User tmpUser = searchService.findByName(tmpUsername);
         int userId = tmpUser.getUserId();
         List<User> friendList = tmpUser.getFriends();
@@ -107,9 +98,9 @@ public class ScheduleController {
 
     // Method for creating a group
     @RequestMapping(value="/createGroup")
-    public String createGroup(@RequestParam("grpName") String grpName, Model model) {
+    public String createGroup(@RequestParam("grpName") String grpName, Model model, HttpSession session) {
         // Get logged in user and info
-        String LoggedInUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        String LoggedInUser = session.getAttribute("loggedInUser").toString();
         User user = scheduleService.findUserByUsername(LoggedInUser);
         List<User> members = new ArrayList<>();
         members.add(user);
@@ -153,9 +144,9 @@ public class ScheduleController {
 
     // Method for removing a user from the logged in user's friend list
     @RequestMapping(value="/deleteFriendship")
-    public String deleteFriendship(@RequestParam("friendId") int friendId, Model model) {
+    public String deleteFriendship(@RequestParam("friendId") int friendId, Model model, HttpSession session) {
         // Get logged in user
-        String LoggedInUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        String LoggedInUser = session.getAttribute("loggedInUser").toString();
         User user = scheduleService.findUserByUsername(LoggedInUser);
 
         // Delete the friendship
@@ -166,7 +157,8 @@ public class ScheduleController {
     // Post method for inserting an item into the logged in user's schedule
     @RequestMapping(value = "/home", method = RequestMethod.POST)
     //@PostMapping(value = "/home")
-    public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem, BindingResult bindingResult,Model model) {
+    public String insertItemPost(@ModelAttribute("scheduleItem") ScheduleItem scheduleItem,
+                                 BindingResult bindingResult,Model model, HttpSession session) {
         String newDate="";
 
         // Find current week no and year
@@ -174,7 +166,7 @@ public class ScheduleController {
         int weekNow = scheduleService.findWeekNo(LocalDateTime.now());
 
         // Get logged in user and info
-        String tmpUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        String tmpUsername = session.getAttribute("loggedInUser").toString();
         User tmpUser = searchService.findByName(tmpUsername);
         int userid = tmpUser.getUserId();
         List<User> friendList = tmpUser.getFriends();
@@ -194,7 +186,7 @@ public class ScheduleController {
         // Validate user input if the date is empty
         if (scheduleItem.getdate() == ""){
             bindingResult.rejectValue("date","You must choose a date");
-            itemValidator.validate(scheduleItem, bindingResult);
+            itemValidator.validateItem(scheduleItem, bindingResult, tmpUsername);
 
             if (bindingResult.hasErrors()) {
                 model.addAttribute("scheduleItems",scheduleService.scheduleItems(userid,weekNow,yearNow));
@@ -222,7 +214,7 @@ public class ScheduleController {
         scheduleItem.setEndTime(enddateTime);
 
         // Validate the rest of the input
-        itemValidator.validate(scheduleItem, bindingResult);
+        itemValidator.validateItem(scheduleItem, bindingResult, tmpUsername);
 
         // If there are errors, reload page with errors
         if (bindingResult.hasErrors()) {
@@ -253,16 +245,16 @@ public class ScheduleController {
 
     // Get base home page
     @RequestMapping(value = "/home", method = RequestMethod.GET)
-    public String home(Model model) {
+    public String home(Model model, HttpSession session) {
         // Check if user is logged in
         boolean isLoggedIn;
-        if (SecurityContextHolder.getContext().getAuthentication() == null ) {
+        if (session.getAttribute("loggedInUser") == null ) {
             return "redirect:/";
         }
         else isLoggedIn = true;
 
         // Get logged in user and info
-        String LoggedInUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        String LoggedInUser = session.getAttribute("loggedInUser").toString();
         User user = scheduleService.findUserByUsername(LoggedInUser);
         int userid= user.getUserId();
         List<User> friendList = user.getFriends();

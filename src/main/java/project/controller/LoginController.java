@@ -1,18 +1,16 @@
 package project.controller;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
 import project.persistence.entities.User;
 import project.service.LoginService;
 import project.service.SecurityService;
 import project.validator.UserValidator;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -56,7 +54,7 @@ public class LoginController {
 
     // Post method for signing up user
     @PostMapping(value="/signup")
-    public String signUpPost(@ModelAttribute("SignUp") User SignUp, BindingResult bindingResult, Model model) {
+    public String signUpPost(@ModelAttribute("SignUp") User SignUp, BindingResult bindingResult, Model model, HttpSession session) {
         // Validate input
         userValidator.validate(SignUp, bindingResult);
 
@@ -72,18 +70,21 @@ public class LoginController {
 
         // Log in user automatically
         securityService.autologin(user.getUsername(), SignUp.getPassword());
+        session.setAttribute("loggedInUser",SignUp.getUsername());
 
         return "redirect:/home";
     }
 
     // Post method for logging in user
     @PostMapping(value="/login")
-    public String LogInPost(@ModelAttribute("LogIn") User LogIn, Model model) {
+    public String LogInPost(@ModelAttribute("LogIn") User LogIn, Model model, HttpSession session) {
         // Log in user
         boolean isLoggedIn = securityService.autologin(LogIn.getUsername(), LogIn.getPassword());
-
+        if (isLoggedIn) {
+            session.setAttribute("loggedInUser",LogIn.getUsername());
+        }
         // If login failed, reload page with error
-        if (SecurityContextHolder.getContext().getAuthentication() == null && !isLoggedIn) {
+        else {
             model.addAttribute("loginfail", true);
             return "LogIn";
         }
@@ -94,9 +95,9 @@ public class LoginController {
 
     // Method for logging a user out
     @RequestMapping(value="/logout")
-    public String LogOut(Model model) {
-        // Empty the authentication in the security context
-        SecurityContextHolder.getContext().setAuthentication(null);
+    public String LogOut(Model model, HttpSession session) {
+        // Empty the session attribute
+        session.removeAttribute("loggedInUser");
         //Redirect to index page
         return "redirect:/";
     }

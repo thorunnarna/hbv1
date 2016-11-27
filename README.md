@@ -1,5 +1,20 @@
 # hbv1
 
+=================
+Að keyra forritið
+=================
+-Opna í IntelliJ
+-Installa Maven dependecies (ætti að koma upp gluggi)
+-Nota jdk8 sem project sdk
+-Þarf kannski: Fara í settings, java compiler og breyta project target bytecode version í 1.8
+-Kannski líka: Fara í project structure, modules, breyta language level í 8
+-Breyta gagnagrunnstenginu í Repository.class, í smiðnum
+-Setja Application.class sem það sem keyrir
+-Keyra úr IntelliJ!
+
+
+Líka hægt að fara á http://planguin.herokuapp.com og sjá þar nýjustu útgáfuna af vefnum
+
 ===================
 SQL DATABASE SCRIPT
 ===================
