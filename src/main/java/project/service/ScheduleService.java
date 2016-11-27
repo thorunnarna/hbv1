@@ -203,13 +203,13 @@ public class ScheduleService {
         List<ScheduleItem> scheduleItemList = scheduleItems(userid,weekNow,yearNow);
 
         for (ScheduleItem scheduleitem: scheduleItemList) {
-            //2+4
+            //2+4 (if new item starts in middle og of old item or new item all inside an old item)
             if (scheduleitem.getStartTime().isBefore(start) &&  scheduleitem.getEndTime().isAfter(start)) returnvalue = false;
-            //1
+            //1 (if new item ends in te middle og old item)
             if (scheduleitem.getStartTime().isBefore(end) &&  scheduleitem.getEndTime().isAfter(end)) returnvalue = false;
-            //5
+            //5 ( if new item overlaps old item entirely, starts before old item an ends after old item.
             if (scheduleitem.getStartTime().isAfter((start))&& scheduleitem.getEndTime().isBefore(end)) returnvalue = false;
-            //3+6+7
+            //3+6+7 ( if new item is either excactly like other item or  new item overlaps whole item
             if (scheduleitem.getStartTime().isEqual(start) || scheduleitem.getEndTime().isEqual(end)) returnvalue= false;
 
             //Item starts at same time another ends, or vice versa (which is okay)
